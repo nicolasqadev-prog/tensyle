@@ -1,0 +1,208 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TENSYLE | Resilience by Design</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;700&display=swap" rel="stylesheet">
+    <style>
+        /* PALETA DE COLORES TENSYLE */
+        :root {
+            --matte-carbon: #121212;
+            --slate-engineer: #4A4A4A;
+            --kinetic-cyan: #00E5FF; /* Ajusta este Hex según tu marca */
+            --glass: rgba(255, 255, 255, 0.05);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Inter', sans-serif;
+        }
+
+        body {
+            background-color: var(--matte-carbon);
+            color: white;
+            overflow-x: hidden;
+        }
+
+        /* NAVEGACIÓN PREMIUM */
+        nav {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            padding: 30px 10%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background: linear-gradient(to bottom, rgba(0,0,0,0.8), transparent);
+            z-index: 1000;
+            backdrop-filter: blur(10px);
+        }
+
+        .logo {
+            font-weight: 700;
+            letter-spacing: 5px;
+            font-size: 1.5rem;
+            color: white;
+            text-transform: uppercase;
+        }
+
+        .logo span { color: var(--kinetic-cyan); }
+
+        .nav-links a {
+            color: white;
+            text-decoration: none;
+            margin-left: 40px;
+            font-size: 0.8rem;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            transition: 0.3s;
+            opacity: 0.7;
+        }
+
+        .nav-links a:hover { opacity: 1; color: var(--kinetic-cyan); }
+
+        /* HERO SECTION - EFECTO MERCEDES */
+        .hero {
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            background: radial-gradient(circle at center, #1a1a1a 0%, var(--matte-carbon) 100%);
+            /* ESPACIO PARA TU IMAGEN DE FONDO (COLECTOR O AUTO) */
+            background-image: url('TU_IMAGEN_HERO.jpg'); 
+            background-size: cover;
+            background-position: center;
+        }
+
+        .hero h1 {
+            font-size: 5rem;
+            font-weight: 300;
+            letter-spacing: 15px;
+            margin-bottom: 10px;
+            animation: fadeInDown 1.5s ease;
+        }
+
+        .hero p {
+            color: var(--slate-engineer);
+            letter-spacing: 5px;
+            text-transform: uppercase;
+            margin-bottom: 30px;
+        }
+
+        /* SECCIÓN TENSYLE MOTION - ACCESO A LA OTRA PÁGINA */
+        .motion-gate {
+            padding: 100px 10%;
+            background-color: #080808;
+            display: flex;
+            align-items: center;
+            gap: 50px;
+        }
+
+        .motion-card {
+            flex: 1;
+            height: 500px;
+            background: var(--glass);
+            border: 1px solid rgba(0, 229, 255, 0.1);
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            padding: 60px;
+            transition: 0.5s;
+            cursor: pointer;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .motion-card:hover {
+            border-color: var(--kinetic-cyan);
+            transform: translateY(-10px);
+        }
+
+        /* ESPACIO PARA IMAGEN DE PRODUCTO (JUGUETES) */
+        .product-placeholder {
+            width: 100%;
+            height: 300px;
+            background: #1a1a1a;
+            margin-top: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--slate-engineer);
+            font-size: 0.7rem;
+            border: 1px dashed var(--slate-engineer);
+        }
+
+        .btn-motion {
+            margin-top: 30px;
+            padding: 15px 40px;
+            border: 1px solid var(--kinetic-cyan);
+            color: var(--kinetic-cyan);
+            text-decoration: none;
+            text-align: center;
+            text-transform: uppercase;
+            letter-spacing: 3px;
+            font-size: 0.8rem;
+            transition: 0.4s;
+        }
+
+        .btn-motion:hover {
+            background: var(--kinetic-cyan);
+            color: black;
+        }
+
+        /* ANIMACIONES */
+        @keyframes fadeInDown {
+            from { opacity: 0; transform: translateY(-30px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+    </style>
+</head>
+<body>
+
+    <nav>
+        <div class="logo">TENSYLE<span>E</span></div>
+        <div class="nav-links">
+            <a href="#automotive">Automotriz</a>
+            <a href="#industrial">Industrial</a>
+            <a href="LINK_DE_TU_PAGINA_MOTION.html" style="color: var(--kinetic-cyan);">Tensyle Motion</a>
+            <a href="#contact">Contacto</a>
+        </div>
+    </nav>
+
+    <section class="hero">
+        <h1>TENSYLE</h1>
+        <p>Resilience by Design</p>
+        <div class="product-placeholder" style="border:none; width: 60%; height: 400px; background: rgba(255,255,255,0.02);">
+            [INSERTAR AQUÍ IMAGEN DE PIEZA AUTOMOTRIZ PREMIUM]
+        </div>
+    </section>
+
+    <section class="motion-gate" id="motion">
+        <div class="motion-card">
+            <h2>TENSILE MOTION</h2>
+            <p style="color: var(--slate-engineer); margin-top: 10px;">Technical Kinetic Play</p>
+            
+            <div class="product-placeholder">
+                [IMAGEN PUBLICITARIA DE NIÑOS / JUGUETES TÉCNICOS]
+            </div>
+
+            <p style="margin-top: 20px; line-height: 1.6; opacity: 0.8;">
+                Explora nuestra línea de ingeniería lúdica. Juguetes articulados con precisión industrial para los ingenieros del mañana.
+            </p>
+            
+            <a href="LINK_DE_TU_PAGINA_MOTION.html" class="btn-motion">Explorar Línea Motion</a>
+        </div>
+        
+        <div style="flex: 1; font-size: 3rem; font-weight: 700; line-height: 1;">
+            MÁS ALLÁ DEL <span style="color: var(--kinetic-cyan);">MOVIMIENTO.</span>
+        </div>
+    </section>
+
+</body>
+</html>
