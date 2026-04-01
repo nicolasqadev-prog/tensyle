@@ -3,206 +3,350 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>TENSYLE | Resilience by Design</title>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;700&display=swap" rel="stylesheet">
+    <title>Tensyle | Precision in Every Layer</title>
+    
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;600&family=Oswald:wght@500;700&display=swap" rel="stylesheet">
+    
     <style>
-        /* PALETA DE COLORES TENSYLE */
         :root {
-            --matte-carbon: #121212;
-            --slate-engineer: #4A4A4A;
-            --kinetic-cyan: #00E5FF; /* Ajusta este Hex según tu marca */
-            --glass: rgba(255, 255, 255, 0.05);
+            --primary-black: #050505;
+            --tensyle-blue: #00d4ff; /* Identidad Tecnológica */
+            --dark-gray: #121212;
+            --accent-gray: #1a1a1a;
+            --text-silver: #a8a8a8;
+            --pure-white: #ffffff;
+            --transition: all 0.4s cubic-bezier(0.165, 0.84, 0.44, 1);
         }
 
         * {
+            box-sizing: border-box;
             margin: 0;
             padding: 0;
-            box-sizing: border-box;
-            font-family: 'Inter', sans-serif;
         }
 
         body {
-            background-color: var(--matte-carbon);
-            color: white;
+            font-family: 'Montserrat', sans-serif;
+            background-color: var(--primary-black);
+            color: var(--pure-white);
+            line-height: 1.6;
             overflow-x: hidden;
         }
 
-        /* NAVEGACIÓN PREMIUM */
-        nav {
-            position: fixed;
-            top: 0;
-            width: 100%;
-            padding: 30px 10%;
+        /* Hero Section - Estética Mercedes-Benz / High-End */
+        header {
+            height: 100vh;
+            background: linear-gradient(rgba(0,0,0,0.8), rgba(0,0,0,0.4)), 
+                        url('tapa cubre cadenas.jpg') center/cover no-repeat fixed;
             display: flex;
-            justify-content: space-between;
+            flex-direction: column;
+            justify-content: center;
             align-items: center;
-            background: linear-gradient(to bottom, rgba(0,0,0,0.8), transparent);
-            z-index: 1000;
-            backdrop-filter: blur(10px);
+            text-align: center;
+            border-bottom: 3px solid var(--tensyle-blue);
         }
 
-        .logo {
-            font-weight: 700;
-            letter-spacing: 5px;
-            font-size: 1.5rem;
-            color: white;
+        header h1 {
+            font-family: 'Oswald', sans-serif;
+            font-size: clamp(3rem, 12vw, 7rem);
+            letter-spacing: 12px;
+            text-transform: uppercase;
+            margin-bottom: 5px;
+            filter: drop-shadow(0 0 15px rgba(0,212,255,0.3));
+        }
+
+        header p {
+            font-size: clamp(0.8rem, 3vw, 1.2rem);
+            letter-spacing: 6px;
+            color: var(--tensyle-blue);
+            font-weight: 400;
             text-transform: uppercase;
         }
 
-        .logo span { color: var(--kinetic-cyan); }
+        /* Contenedor Global */
+        .container {
+            max-width: 1400px;
+            margin: auto;
+            padding: 80px 20px;
+        }
 
-        .nav-links a {
-            color: white;
-            text-decoration: none;
-            margin-left: 40px;
-            font-size: 0.8rem;
+        .section-header {
+            text-align: center;
+            margin-bottom: 60px;
+        }
+
+        .section-title {
+            font-family: 'Oswald', sans-serif;
+            font-size: 2.8rem;
+            text-transform: uppercase;
+            position: relative;
+            display: inline-block;
+            padding-bottom: 15px;
+        }
+
+        .section-title::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 60px;
+            height: 4px;
+            background: var(--tensyle-blue);
+        }
+
+        /* Portfolio Grid */
+        .portfolio-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+            gap: 30px;
+        }
+
+        .card {
+            background: var(--dark-gray);
+            border: 1px solid #222;
+            overflow: hidden;
+            position: relative;
+            transition: var(--transition);
+        }
+
+        .card:hover {
+            transform: translateY(-10px);
+            border-color: var(--tensyle-blue);
+            box-shadow: 0 15px 40px rgba(0, 212, 255, 0.15);
+        }
+
+        .card img {
+            width: 100%;
+            height: 350px;
+            object-fit: cover;
+            filter: grayscale(100%);
+            transition: var(--transition);
+        }
+
+        .card:hover img {
+            filter: grayscale(0%);
+            transform: scale(1.03);
+        }
+
+        .card-info {
+            padding: 25px;
+            background: linear-gradient(to top, rgba(0,0,0,0.9), transparent);
+            position: absolute;
+            bottom: 0;
+            width: 100%;
+        }
+
+        .card-info h3 {
+            font-size: 0.85rem;
             letter-spacing: 2px;
             text-transform: uppercase;
-            transition: 0.3s;
-            opacity: 0.7;
+            color: var(--tensyle-blue);
         }
 
-        .nav-links a:hover { opacity: 1; color: var(--kinetic-cyan); }
-
-        /* HERO SECTION - EFECTO MERCEDES */
-        .hero {
-            height: 100vh;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-            text-align: center;
-            background: radial-gradient(circle at center, #1a1a1a 0%, var(--matte-carbon) 100%);
-            /* ESPACIO PARA TU IMAGEN DE FONDO (COLECTOR O AUTO) */
-            background-image: url('TU_IMAGEN_HERO.jpg'); 
-            background-size: cover;
-            background-position: center;
-        }
-
-        .hero h1 {
-            font-size: 5rem;
-            font-weight: 300;
-            letter-spacing: 15px;
-            margin-bottom: 10px;
-            animation: fadeInDown 1.5s ease;
-        }
-
-        .hero p {
-            color: var(--slate-engineer);
-            letter-spacing: 5px;
+        /* Badge Categoría */
+        .badge {
+            position: absolute;
+            top: 20px;
+            left: 20px;
+            background: var(--tensyle-blue);
+            color: var(--primary-black);
+            padding: 6px 14px;
+            font-weight: 700;
+            font-size: 0.65rem;
             text-transform: uppercase;
-            margin-bottom: 30px;
+            z-index: 10;
         }
 
-        /* SECCIÓN TENSYLE MOTION - ACCESO A LA OTRA PÁGINA */
-        .motion-gate {
-            padding: 100px 10%;
-            background-color: #080808;
-            display: flex;
-            align-items: center;
-            gap: 50px;
+        /* NUEVA SECCIÓN: Especificaciones Técnicas (FAQ/Materiales) */
+        .tech-specs {
+            background: var(--accent-gray);
+            padding: 80px 20px;
+            margin-top: 50px;
         }
 
-        .motion-card {
-            flex: 1;
-            height: 500px;
-            background: var(--glass);
-            border: 1px solid rgba(0, 229, 255, 0.1);
+        .specs-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 40px;
+            max-width: 1200px;
+            margin: auto;
+        }
+
+        .spec-item h4 {
+            color: var(--tensyle-blue);
+            font-family: 'Oswald', sans-serif;
+            text-transform: uppercase;
+            margin-bottom: 15px;
+            font-size: 1.2rem;
+        }
+
+        .spec-item p {
+            font-size: 0.9rem;
+            color: var(--text-silver);
+        }
+
+        /* WhatsApp Flotante */
+        .whatsapp-btn {
+            position: fixed;
+            bottom: 40px;
+            right: 40px;
+            background: #25d366;
+            width: 65px;
+            height: 65px;
+            border-radius: 50%;
             display: flex;
-            flex-direction: column;
             justify-content: center;
-            padding: 60px;
-            transition: 0.5s;
-            cursor: pointer;
-            position: relative;
-            overflow: hidden;
-        }
-
-        .motion-card:hover {
-            border-color: var(--kinetic-cyan);
-            transform: translateY(-10px);
-        }
-
-        /* ESPACIO PARA IMAGEN DE PRODUCTO (JUGUETES) */
-        .product-placeholder {
-            width: 100%;
-            height: 300px;
-            background: #1a1a1a;
-            margin-top: 20px;
-            display: flex;
             align-items: center;
-            justify-content: center;
-            color: var(--slate-engineer);
-            font-size: 0.7rem;
-            border: 1px dashed var(--slate-engineer);
-        }
-
-        .btn-motion {
-            margin-top: 30px;
-            padding: 15px 40px;
-            border: 1px solid var(--kinetic-cyan);
-            color: var(--kinetic-cyan);
+            color: white;
             text-decoration: none;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.3);
+            z-index: 1000;
+            transition: var(--transition);
+        }
+
+        .whatsapp-btn:hover {
+            transform: scale(1.1) rotate(5deg);
+        }
+
+        footer {
+            padding: 80px 20px;
             text-align: center;
+            border-top: 1px solid #222;
+        }
+
+        footer .brand {
+            font-family: 'Oswald', sans-serif;
+            font-size: 1.5rem;
+            letter-spacing: 5px;
+            margin-bottom: 20px;
+        }
+
+        footer p {
+            font-size: 0.7rem;
+            color: #555;
             text-transform: uppercase;
-            letter-spacing: 3px;
-            font-size: 0.8rem;
-            transition: 0.4s;
+            letter-spacing: 2px;
         }
 
-        .btn-motion:hover {
-            background: var(--kinetic-cyan);
-            color: black;
+        /* Responsive */
+        @media (max-width: 768px) {
+            header h1 { letter-spacing: 5px; }
+            .whatsapp-btn { bottom: 20px; right: 20px; width: 55px; height: 55px; }
         }
-
-        /* ANIMACIONES */
-        @keyframes fadeInDown {
-            from { opacity: 0; transform: translateY(-30px); }
-            to { opacity: 1; transform: translateY(0); }
-        }
-
     </style>
 </head>
 <body>
 
-    <nav>
-        <div class="logo">TENSYLE<span>E</span></div>
-        <div class="nav-links">
-            <a href="#automotive">Automotriz</a>
-            <a href="#industrial">Industrial</a>
-            <a href="LINK_DE_TU_PAGINA_MOTION.html" style="color: var(--kinetic-cyan);">Tensyle Motion</a>
-            <a href="#contact">Contacto</a>
-        </div>
-    </nav>
+    <a href="https://wa.me/573171687777?text=Hola%20Tensyle%203D,%20deseo%20solicitar%20una%20cotización%20personalizada." class="whatsapp-btn" target="_blank">
+        <svg width="32" height="32" fill="currentColor" viewBox="0 0 16 16">
+            <path d="M13.601 2.326A7.854 7.854 0 0 0 7.994 0C3.627 0 .068 3.558.064 7.926c0 1.399.366 2.76 1.057 3.965L0 16l4.204-1.102a7.933 7.933 0 0 0 3.79.965h.004c4.368 0 7.926-3.558 7.93-7.93a7.898 7.898 0 0 0-2.327-5.594l.008-.008zm-5.607 11.366A6.613 6.613 0 0 1 4.43 13.042l-.318-.189-2.384.626.637-2.324-.208-.33A6.612 6.612 0 0 1 1.488 7.927c.003-3.646 2.974-6.617 6.623-6.617a6.611 6.611 0 0 1 4.676 1.933 6.611 6.611 0 0 1 1.93 4.68c-.003 3.646-2.974 6.618-6.622 6.618h-.007zm3.846-4.33c-.211-.106-1.247-.617-1.442-.687-.195-.07-.338-.106-.48.106-.142.212-.55.687-.674.832-.124.145-.248.163-.459.058-.211-.106-.89-.328-1.695-1.045-.626-.558-1.048-1.247-1.171-1.458-.124-.211-.013-.324.093-.429.095-.094.211-.246.317-.369.105-.123.14-.211.21-.351.071-.14.035-.264-.018-.369-.053-.105-.48-1.156-.658-1.583-.173-.416-.347-.358-.48-.365-.125-.006-.268-.007-.411-.007s-.375.053-.572.269c-.197.216-.753.736-.753 1.795 0 1.059.77 2.081.877 2.223.107.142 1.514 2.312 3.668 3.242.512.221.912.353 1.225.453.514.163.982.14 1.352.084.413-.062 1.247-.51 1.423-1.003.176-.493.176-.916.123-1.003-.053-.087-.196-.139-.407-.245z"/>
+        </svg>
+    </a>
 
-    <section class="hero">
+    <header>
         <h1>TENSYLE</h1>
-        <p>Resilience by Design</p>
-        <div class="product-placeholder" style="border:none; width: 60%; height: 400px; background: rgba(255,255,255,0.02);">
-            [INSERTAR AQUÍ IMAGEN DE PIEZA AUTOMOTRIZ PREMIUM]
-        </div>
-    </section>
+        <p>Precision in Every Layer</p>
+    </header>
 
-    <section class="motion-gate" id="motion">
-        <div class="motion-card">
-            <h2>TENSILE MOTION</h2>
-            <p style="color: var(--slate-engineer); margin-top: 10px;">Technical Kinetic Play</p>
-            
-            <div class="product-placeholder">
-                [IMAGEN PUBLICITARIA DE NIÑOS / JUGUETES TÉCNICOS]
-            </div>
-
-            <p style="margin-top: 20px; line-height: 1.6; opacity: 0.8;">
-                Explora nuestra línea de ingeniería lúdica. Juguetes articulados con precisión industrial para los ingenieros del mañana.
-            </p>
-            
-            <a href="LINK_DE_TU_PAGINA_MOTION.html" class="btn-motion">Explorar Línea Motion</a>
+    <div class="container">
+        
+        <div class="section-header">
+            <h2 class="section-title">Tensyle Automotive</h2>
         </div>
         
-        <div style="flex: 1; font-size: 3rem; font-weight: 700; line-height: 1;">
-            MÁS ALLÁ DEL <span style="color: var(--kinetic-cyan);">MOVIMIENTO.</span>
+        <div class="portfolio-grid">
+            <div class="card">
+                <div class="badge">Ingeniería Crítica</div>
+                <img src="tapa cubre cadenas.jpg" alt="Cubre Cadenas">
+                <div class="card-info"><h3>Protector de Piñón Moto</h3></div>
+            </div>
+            <div class="card">
+                <img src="inferior forntal panal.jpg" alt="Rejilla Panal">
+                <div class="card-info"><h3>Rejilla Panal de Alto Flujo</h3></div>
+            </div>
+            <div class="card">
+                <img src="manija puerta exterior.jpg" alt="Manija Exterior">
+                <div class="card-info"><h3>Repuesto Manija Exterior</h3></div>
+            </div>
+            <div class="card">
+                <img src="lateral moto fin.jpg" alt="Carenaje">
+                <div class="card-info"><h3>Carenaje Lateral Finalizado</h3></div>
+            </div>
+            <div class="card">
+                <img src="espejo retrovisor moto.jpg" alt="Retrovisor">
+                <div class="card-info"><h3>Carcasa de Espejo Retrovisor</h3></div>
+            </div>
+            <div class="card">
+                <img src="pieza interna puerta.jpg" alt="Interior Puerta">
+                <div class="card-info"><h3>Componente Interno Puerta</h3></div>
+            </div>
+        </div>
+
+        <div class="section-header" style="margin-top: 120px;">
+            <h2 class="section-title">Tensyle Motion</h2>
+        </div>
+
+        <div class="portfolio-grid">
+            <div class="card">
+                <div class="badge">Top Tier Articulación</div>
+                <img src="transformers.jpg" alt="Transformers">
+                <div class="card-info"><h3>Ingeniería Transformers</h3></div>
+            </div>
+            <div class="card">
+                <img src="phineas limpio.jpeg" alt="Phineas y Ferb">
+                <div class="card-info"><h3>Diorama Phineas y Ferb</h3></div>
+            </div>
+            <div class="card">
+                <img src="pato aventuras.jpg" alt="Ducktales">
+                <div class="card-info"><h3>Escena Pato Aventuras</h3></div>
+            </div>
+            <div class="card">
+                <img src="bluey.jpg" alt="Bluey">
+                <div class="card-info"><h3>Colección Completa Bluey</h3></div>
+            </div>
+            <div class="card">
+                <img src="bob esponja.jpg" alt="Spongebob">
+                <div class="card-info"><h3>Fondo de Bikini Diorama</h3></div>
+            </div>
+            <div class="card">
+                <img src="pokemon 2.jpg" alt="Pokemon">
+                <div class="card-info"><h3>Battle Pack Pokémon</h3></div>
+            </div>
+            <div class="card">
+                <img src="gravitifalls.jpg" alt="Gravity Falls">
+                <div class="card-info"><h3>Mystery Shack Collection</h3></div>
+            </div>
+            <div class="card">
+                <img src="octonautalimpio.jpeg" alt="Octonautas">
+                <div class="card-info"><h3>Set Octonautas</h3></div>
+            </div>
+        </div>
+    </div>
+
+    <section class="tech-specs">
+        <div class="section-header">
+            <h2 class="section-title" style="font-size: 2rem;">Especificaciones de Ingeniería</h2>
+        </div>
+        <div class="specs-grid">
+            <div class="spec-item">
+                <h4>Materiales Premium</h4>
+                <p>Utilizamos polímeros de grado industrial (PETG, ASA, Fibra de Carbono) que garantizan resistencia térmica y mecánica en condiciones reales.</p>
+            </div>
+            <div class="spec-item">
+                <h4>Precisión en Capa</h4>
+                <p>Nuestras máquinas están calibradas para ofrecer resoluciones de hasta 0.1mm, asegurando que cada repuesto automotriz encaje como el original.</p>
+            </div>
+            <div class="spec-item">
+                <h4>Acabados Profesionales</h4>
+                <p>Desde superficies rugosas técnicas para mayor agarre hasta post-procesado liso para piezas estéticas de alta gama.</p>
+            </div>
         </div>
     </section>
+
+    <footer>
+        <div class="brand">TENSYLE</div>
+        <p>CHÍA, COLOMBIA | PRECISION IN EVERY LAYER | © 2026</p>
+    </footer>
 
 </body>
 </html>
