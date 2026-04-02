@@ -9,25 +9,32 @@
         :root { --cyan: #00f2ff; --black: #050505; }
         * { box-sizing: border-box; margin: 0; padding: 0; scroll-behavior: smooth; }
         body { font-family: 'Montserrat', sans-serif; background: var(--black); color: white; line-height: 1.6; overflow-x: hidden; }
+        
         nav { position: fixed; top: 0; width: 100%; background: rgba(5,5,5,0.98); padding: 15px 0; z-index: 2000; border-bottom: 1px solid #1a1a1a; display: flex; align-items: center; justify-content: center; gap: 40px; }
         .nav-logo { height: 40px; border-radius: 50%; border: 1px solid var(--cyan); }
         nav a { color: white; text-decoration: none; font-family: 'Oswald'; letter-spacing: 3px; font-size: 0.8rem; text-transform: uppercase; transition: 0.3s; }
-        nav a:hover { color: var(--cyan); }
+        
         header { height: 50vh; display: flex; flex-direction: column; justify-content: center; align-items: center; text-align: center; background: radial-gradient(circle at center, #0a1a1f 0%, #000 100%); border-bottom: 2px solid var(--cyan); padding-top: 60px; }
         header h1 { font-family: 'Oswald'; font-size: clamp(3rem, 10vw, 6rem); letter-spacing: 20px; font-weight: 200; text-transform: uppercase; margin: 0; }
         .slogan-motion { font-family: 'Oswald'; color: var(--cyan); letter-spacing: 10px; font-size: clamp(0.6rem, 2.5vw, 0.9rem); text-transform: uppercase; margin-top: 5px; font-weight: 400; }
+
         .container { max-width: 1400px; margin: auto; padding: 60px 20px; }
-        .grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 25px; }
-        .card { background: #0f0f0f; border: 1px solid #1a1a1a; transition: 0.4s; overflow: hidden; position: relative; border-radius: 4px; }
-        .card:hover { border-color: var(--cyan); }
-        .img-wrap { width: 100%; height: 380px; overflow: hidden; background: #000; }
-        .card img { width: 100%; height: 100%; object-fit: cover; cursor: zoom-in; touch-action: manipulation; transition: 0.3s; }
-        /* PANTALLA COMPLETA TOTAL */
-        .card img:active { position: fixed !important; top: 0 !important; left: 0 !important; width: 100vw !important; height: 100vh !important; object-fit: contain !important; z-index: 9999 !important; background: #000 !important; padding: 15px; }
-        .info { padding: 20px; border-top: 1px solid #1a1a1a; }
-        .info h3 { font-family: 'Oswald'; color: var(--cyan); letter-spacing: 2px; text-transform: uppercase; font-size: 1.1rem; margin-bottom: 5px; }
-        .price-note { font-size: 0.65rem; color: #666; font-style: italic; display: block; margin-top: 10px; border-top: 1px solid #222; padding-top: 10px; }
-        .wa-float { position: fixed; bottom: 30px; right: 30px; width: 60px; z-index: 5000; transition: 0.3s; }
+        
+        /* DISTRIBUCIÓN ORIGINAL RECUPERADA */
+        .grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(350px, 1fr)); gap: 30px; }
+        .card { background: #0f0f0f; border: 1px solid #1a1a1a; transition: 0.4s; overflow: hidden; border-radius: 4px; }
+        .card:hover { border-color: var(--cyan); transform: translateY(-5px); }
+        
+        .img-wrap { width: 100%; height: 400px; overflow: hidden; background: #000; }
+        .card img { width: 100%; height: 100%; object-fit: cover; cursor: zoom-in; transition: 0.3s; }
+        
+        /* PANTALLA COMPLETA MEJORADA */
+        .card img:active { position: fixed !important; top: 0 !important; left: 0 !important; width: 100vw !important; height: 100vh !important; object-fit: contain !important; z-index: 9999 !important; background: #000 !important; padding: 10px; }
+
+        .info { padding: 25px; border-top: 1px solid #1a1a1a; }
+        .info h3 { font-family: 'Oswald'; color: var(--cyan); letter-spacing: 2px; text-transform: uppercase; font-size: 1.2rem; }
+        
+        .wa-float { position: fixed; bottom: 30px; right: 30px; width: 60px; z-index: 5000; }
     </style>
 </head>
 <body>
@@ -50,12 +57,18 @@
             <div class="card"><div class="img-wrap"><img src="gravitifalls.jpg"></div><div class="info"><h3>Gravity Falls</h3></div></div>
             <div class="card"><div class="img-wrap"><img src="octonautalimpio.jpg"></div><div class="info"><h3>Octonautas</h3></div></div>
             <div class="card"><div class="img-wrap"><img src="pato-aventuras.jpg"></div><div class="info"><h3>Pato Aventuras</h3></div></div>
+            
             <div class="card"><div class="img-wrap"><img src="phineas-limpio.jpg"></div><div class="info"><h3>Phineas y Ferb</h3></div></div>
+            
             <div class="card"><div class="img-wrap"><img src="pjmask.jpg"></div><div class="info"><h3>PJ Masks</h3></div></div>
             <div class="card"><div class="img-wrap"><img src="pocoyo.jpg"></div><div class="info"><h3>Pocoyó</h3></div></div>
+            
             <div class="card"><div class="img-wrap"><img src="pocoyo-sofa.jpg"></div><div class="info"><h3>Pocoyó Articulado</h3></div></div>
+            
             <div class="card"><div class="img-wrap"><img src="pokemon-2.jpg"></div><div class="info"><h3>Pikachu Articulado</h3></div></div>
+            
             <div class="card"><div class="img-wrap"><img src="pokemon1.jpg"></div><div class="info"><h3>Pokémon Colección</h3></div></div>
+            
             <div class="card"><div class="img-wrap"><img src="transformers.jpg"></div><div class="info"><h3>Transformers Prime</h3></div></div>
         </div>
     </div>
@@ -74,7 +87,6 @@
             audio.play().catch(() => { window.location.href = targetUrl; });
             setTimeout(() => { window.location.href = targetUrl; }, 350);
         }
-
         document.querySelectorAll('nav a').forEach(link => {
             if(!link.href.includes('motion.html')) {
                 link.addEventListener('click', playTransition);
