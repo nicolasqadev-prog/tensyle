@@ -3,164 +3,139 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>Tensyle | Precision in Every Layer</title>
+    <title>Tensyle | Engineering & 3D Solutions</title>
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;600&family=Oswald:wght@200;400;700&display=swap" rel="stylesheet">
     <style>
         :root { --blue: #00d4ff; --black: #050505; --gray: #121212; }
-        * { box-sizing: border-box; margin: 0; padding: 0; scroll-behavior: smooth; }
-        body { font-family: 'Montserrat', sans-serif; background: var(--black); color: white; line-height: 1.6; overflow-x: hidden; }
+        * { box-sizing: border-box; margin: 0; padding: 0; scroll-behavior: smooth; -webkit-tap-highlight-color: transparent; }
+        body { font-family: 'Montserrat', sans-serif; background: var(--black); color: white; overflow-x: hidden; -webkit-overflow-scrolling: touch; }
         
-        nav { position: fixed; top: 0; width: 100%; background: rgba(5,5,5,0.98); padding: 15px 0; z-index: 2000; border-bottom: 1px solid #222; display: flex; align-items: center; justify-content: center; gap: 40px; }
-        .nav-logo { height: 40px; border-radius: 50%; border: 1px solid var(--blue); }
-        nav a { color: white; text-decoration: none; font-family: 'Oswald'; letter-spacing: 3px; font-size: 0.8rem; text-transform: uppercase; transition: 0.3s; }
-        
-        header { height: 60vh; display: flex; flex-direction: column; justify-content: center; align-items: center; text-align: center; background: radial-gradient(circle at center, #1a1a1a 0%, #000 100%); border-bottom: 1px solid #222; padding-top: 60px; }
-        header h1 { font-family: 'Oswald'; font-size: clamp(3rem, 10vw, 6rem); letter-spacing: 20px; font-weight: 200; text-transform: uppercase; margin: 0; }
-        .slogan { font-family: 'Oswald'; color: var(--blue); letter-spacing: 12px; font-size: clamp(0.6rem, 2.5vw, 0.9rem); text-transform: uppercase; margin-top: 5px; font-weight: 400; }
+        /* Navbar Fluida */
+        nav { position: fixed; top: 0; width: 100%; background: rgba(5,5,5,0.8); backdrop-filter: blur(15px); -webkit-backdrop-filter: blur(15px); padding: 12px 0; z-index: 2000; border-bottom: 1px solid #222; display: flex; align-items: center; justify-content: center; gap: 30px; }
+        .nav-logo { height: 35px; border-radius: 50%; border: 1px solid var(--blue); }
+        nav a { color: white; text-decoration: none; font-family: 'Oswald'; letter-spacing: 2px; font-size: 0.75rem; text-transform: uppercase; }
 
-        .container { max-width: 1300px; margin: auto; padding: 60px 20px; }
-        .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(380px, 1fr)); gap: 35px; }
-        .card { background: var(--gray); border: 1px solid #222; transition: 0.4s; overflow: hidden; border-radius: 4px; display: flex; flex-direction: column; }
-        
-        .img-container { display: flex; gap: 2px; height: 320px; background: #000; border-bottom: 1px solid #222; }
+        /* Hero Section - Explicación inmediata */
+        header { height: 80vh; display: flex; flex-direction: column; justify-content: center; align-items: center; text-align: center; background: radial-gradient(circle at center, #0a1a20 0%, #000 100%); border-bottom: 1px solid var(--blue); padding: 20px; }
+        header h1 { font-family: 'Oswald'; font-size: clamp(3rem, 10vw, 6rem); letter-spacing: 10px; font-weight: 700; text-transform: uppercase; line-height: 1; }
+        .slogan { font-family: 'Oswald'; color: var(--blue); letter-spacing: 5px; font-size: clamp(0.7rem, 2.5vw, 1rem); text-transform: uppercase; margin: 15px 0; }
+        .intro-text { max-width: 650px; font-size: 0.95rem; color: #aaa; font-weight: 300; margin-bottom: 25px; }
+
+        .container { max-width: 1200px; margin: auto; padding: 60px 20px; }
+        .section-title { font-family: 'Oswald'; text-align: center; font-size: 1.8rem; letter-spacing: 4px; color: var(--blue); margin-bottom: 40px; text-transform: uppercase; }
+
+        /* Grid y Cards Optimizadas */
+        .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 25px; }
+        .card { background: var(--gray); border: 1px solid #222; border-radius: 8px; overflow: hidden; transform: translateZ(0); }
+        .img-container { display: flex; gap: 2px; height: 300px; background: #000; }
         .img-box { flex: 1; position: relative; overflow: hidden; }
-        
-        /* --- VISTA PREVIA AMIGABLE (AUTOMOTIVE) --- */
-        .img-box img { 
-            width: 100%; height: 100%; object-fit: cover; 
-            cursor: zoom-in; 
-            touch-action: none;
-            -webkit-user-drag: none;
-            -webkit-touch-callout: none;
-        }
-        
-        /* Pop-up centrado y estético al presionar */
-        .img-box img:active { 
-            position: fixed !important; 
-            top: 50% !important; 
-            left: 50% !important; 
-            transform: translate(-50%, -50%) scale(1) !important;
-            width: 85vw !important; 
-            height: 70vh !important; 
-            object-fit: contain !important; 
-            z-index: 99999 !important; 
-            background: rgba(10, 10, 10, 0.98) !important; 
-            border: 2px solid var(--blue);
-            border-radius: 15px;
-            box-shadow: 0 0 50px rgba(0, 212, 255, 0.3);
-            padding: 10px;
-        }
 
-        .tag { position: absolute; bottom: 8px; left: 8px; background: rgba(0,0,0,0.8); color: var(--blue); font-size: 0.55rem; padding: 2px 6px; font-family: 'Oswald'; border: 1px solid var(--blue); pointer-events: none; z-index: 10; }
+        /* Previsualización Amigable (Anti-descarga iPhone/Android) */
+        .img-box img { width: 100%; height: 100%; object-fit: cover; cursor: pointer; touch-action: none; -webkit-user-select: none; -webkit-touch-callout: none; }
+        .img-box img:active { position: fixed !important; top: 50% !important; left: 50% !important; transform: translate(-50%, -50%) !important; width: 85vw !important; height: auto !important; max-height: 75vh !important; object-fit: contain !important; z-index: 99999 !important; background: rgba(0,0,0,0.98) !important; border: 2px solid var(--blue); border-radius: 12px; box-shadow: 0 0 50px rgba(0,0,0,1); padding: 10px; }
+
+        .tag { position: absolute; bottom: 8px; left: 8px; background: rgba(0,0,0,0.85); color: var(--blue); font-size: 0.5rem; padding: 2px 6px; font-family: 'Oswald'; border: 1px solid var(--blue); pointer-events: none; }
+        .info { padding: 15px; border-top: 1px solid #1a1a1a; }
+        .info h3 { font-family: 'Oswald'; font-size: 1rem; color: var(--blue); text-transform: uppercase; }
+        .brand-tag { font-size: 0.65rem; color: #666; font-weight: 600; display: block; margin-bottom: 2px; }
+
+        /* Secciones de Proceso y FAQ */
+        .process-box { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 20px; }
+        .step { padding: 25px; background: #0a0a0a; border: 1px solid #222; border-radius: 6px; text-align: center; }
+        .step h4 { font-family: 'Oswald'; color: var(--blue); margin-bottom: 10px; }
         
-        .info { padding: 20px; }
-        .info h3 { font-family: 'Oswald'; font-size: 1.1rem; color: var(--blue); text-transform: uppercase; margin-bottom: 5px; }
-        .brand-tag { font-size: 0.7rem; color: #777; font-weight: 600; display: block; }
-        
-        .wa-float { position: fixed; bottom: 30px; right: 30px; width: 60px; z-index: 5000; }
+        details { background: #0a0a0a; margin-bottom: 10px; padding: 15px; border-radius: 6px; border: 1px solid #1a1a1a; cursor: pointer; }
+        summary { font-family: 'Oswald'; color: var(--blue); font-size: 0.9rem; list-style: none; }
+        details p { font-size: 0.85rem; color: #888; margin-top: 10px; }
+
+        .wa-float { position: fixed; bottom: 25px; right: 25px; width: 55px; z-index: 5000; }
+        footer { text-align: center; padding: 40px; color: #444; font-size: 0.7rem; border-top: 1px solid #111; }
     </style>
 </head>
 <body>
     <nav>
         <img src="logo-automotive.jpg" class="nav-logo">
-        <a href="index.html" style="border-bottom: 2px solid var(--blue);">AUTOMOTIVE</a>
+        <a href="index.html">AUTOMOTIVE</a>
         <a href="motion.html">MOTION</a>
     </nav>
 
     <header>
-        <img src="logo-automotive.jpg" style="width:80px; border-radius:50%; margin-bottom:20px; border:1px solid var(--blue);">
         <h1>TENSYLE</h1>
-        <p class="slogan">PRECISION IN EVERY LAYER</p>
+        <p class="slogan">Ingeniería & Soluciones 3D</p>
+        <p class="intro-text">Expertos en fabricación de componentes de alta precisión y réplica de piezas descontinuadas. Soluciones duraderas con materiales de grado industrial.</p>
     </header>
 
     <div class="container">
+        <h2 class="section-title">NUESTRO PROCESO</h2>
+        <div class="process-box">
+            <div class="step"><h4>ESCANEO & DISEÑO</h4><p style="font-size: 0.8rem; color:#777;">Digitalización de piezas para reconstrucción exacta.</p></div>
+            <div class="step"><h4>ALTA RESISTENCIA</h4><p style="font-size: 0.8rem; color:#777;">Materiales técnicos (ABS, Carbono) resistentes al calor.</p></div>
+            <div class="step"><h4>CALCE PERFECTO</h4><p style="font-size: 0.8rem; color:#777;">Verificación dimensional para un montaje sin errores.</p></div>
+        </div>
+    </div>
+
+    <div class="container">
+        <h2 class="section-title">PORTAFOLIO AUTOMOTIVE</h2>
         <div class="grid">
             <div class="card">
                 <div class="img-container">
-                    <div class="img-box"><img src="lateral-moto-impresa-antes.jpg"><span class="tag">ANTES</span></div>
-                    <div class="img-box"><img src="lateral-moto-impresa.jpg"><span class="tag">PROCESO</span></div>
-                    <div class="img-box"><img src="lateral-moto-fin.jpg"><span class="tag">FINAL</span></div>
+                    <div class="img-box"><img src="lateral-moto-impresa-antes.jpg" loading="lazy"><span class="tag">ANTES</span></div>
+                    <div class="img-box"><img src="lateral-moto-impresa.jpg" loading="lazy"><span class="tag">PROCESO</span></div>
+                    <div class="img-box"><img src="lateral-moto-fin.jpg" loading="lazy"><span class="tag">FINAL</span></div>
                 </div>
-                <div class="info">
-                    <span class="brand-tag">YAMAHA FAZER 2.0 (2020)</span>
-                    <h3>Carena Lateral Completa</h3>
-                </div>
+                <div class="info"><span class="brand-tag">YAMAHA FAZER 2.0</span><h3>Carena Lateral</h3></div>
             </div>
 
             <div class="card">
                 <div class="img-container">
-                    <div class="img-box"><img src="frontal-rejilla-despues-antes.jpg"><span class="tag">ANTES</span></div>
-                    <div class="img-box"><img src="frontal-rejilla-despues.jpg"><span class="tag">DESPUÉS</span></div>
+                    <div class="img-box"><img src="frontal-rejilla-despues-antes.jpg" loading="lazy"><span class="tag">ANTES</span></div>
+                    <div class="img-box"><img src="frontal-rejilla-despues.jpg" loading="lazy"><span class="tag">DESPUÉS</span></div>
                 </div>
-                <div class="info">
-                    <span class="brand-tag">RENAULT MÉGANE 2 (2006)</span>
-                    <h3>Frontal Rejilla</h3>
-                </div>
+                <div class="info"><span class="brand-tag">RENAULT MÉGANE 2</span><h3>Frontal Rejilla</h3></div>
             </div>
 
             <div class="card">
                 <div class="img-container">
-                    <div class="img-box"><img src="inferior-frontal-panal-antes.jpg"><span class="tag">ANTES</span></div>
-                    <div class="img-box"><img src="inferior-frontal-panal.jpg"><span class="tag">DESPUÉS</span></div>
+                    <div class="img-box"><img src="inferior-frontal-panal-antes.jpg" loading="lazy"><span class="tag">ANTES</span></div>
+                    <div class="img-box"><img src="inferior-frontal-panal.jpg" loading="lazy"><span class="tag">DESPUÉS</span></div>
                 </div>
-                <div class="info">
-                    <span class="brand-tag">RENAULT MÉGANE 2 (2006)</span>
-                    <h3>Inferior Frontal Panal</h3>
-                </div>
+                <div class="info"><span class="brand-tag">RENAULT MÉGANE 2</span><h3>Inferior Frontal Panal</h3></div>
             </div>
 
             <div class="card">
                 <div class="img-container">
-                    <div class="img-box"><img src="manija-puerta-exterior-antes.jpg"><span class="tag">ANTES</span></div>
-                    <div class="img-box"><img src="manija-puerta-exterior.jpg"><span class="tag">DESPUÉS</span></div>
+                    <div class="img-box"><img src="manija-puerta-exterior-antes.jpg" loading="lazy"><span class="tag">ANTES</span></div>
+                    <div class="img-box"><img src="manija-puerta-exterior.jpg" loading="lazy"><span class="tag">DESPUÉS</span></div>
                 </div>
-                <div class="info">
-                    <span class="brand-tag">RENAULT MÉGANE 2 (2006)</span>
-                    <h3>Manija Puerta Exterior</h3>
-                </div>
+                <div class="info"><span class="brand-tag">RENAULT MÉGANE 2</span><h3>Manija Puerta Exterior</h3></div>
             </div>
 
             <div class="card">
                 <div class="img-container">
-                    <div class="img-box"><img src="pieza-interna-puerta-antes.jpg"><span class="tag">ANTES</span></div>
-                    <div class="img-box"><img src="pieza-interna-puerta.jpg"><span class="tag">DESPUÉS</span></div>
+                    <div class="img-box"><img src="tapa-cubre-cadenas-antes.jpg" loading="lazy"><span class="tag">ANTES</span></div>
+                    <div class="img-box"><img src="tapa-cubre-cadenas.jpg" loading="lazy"><span class="tag">DESPUÉS</span></div>
                 </div>
-                <div class="info">
-                    <span class="brand-tag">RENAULT MÉGANE 2 (2006)</span>
-                    <h3>Pieza Interna Puerta</h3>
-                </div>
-            </div>
-
-            <div class="card">
-                <div class="img-container">
-                    <div class="img-box"><img src="tapa-cubre-cadenas-antes.jpg"><span class="tag">ANTES</span></div>
-                    <div class="img-box"><img src="tapa-cubre-cadenas.jpg"><span class="tag">DESPUÉS</span></div>
-                </div>
-                <div class="info">
-                    <span class="brand-tag">YAMAHA FAZER 2.0 (2020)</span>
-                    <h3>Tapa Cubre Cadenas</h3>
-                </div>
-            </div>
-
-            <div class="card">
-                <div class="img-container">
-                    <div class="img-box"><img src="espejo-retrovisor-moto.jpg"></div>
-                </div>
-                <div class="info">
-                    <span class="brand-tag">YAMAHA FAZER 2.0 (2020)</span>
-                    <h3>Espejo Retrovisor Moto</h3>
-                </div>
+                <div class="info"><span class="brand-tag">YAMAHA FAZER 2.0</span><h3>Tapa Cubre Cadenas</h3></div>
             </div>
         </div>
     </div>
 
-<a href="https://wa.me/573171687777?text=Hola,%20equipo%20de%20Tensyle.%20Vi%20sus%20trabajos%20en%20piezas%20automotrices%20y%20me%20interesa%20una%20asesoría%20para%20un%20proyecto%20personalizado.%20¿Cómo%20podemos%20empezar?" class="wa-float" target="_blank">
-    <img src="https://upload.wikimedia.org/wikipedia/commons/6/6b/WhatsApp.svg" style="width: 60px;">
-</a>
+    <div class="container">
+        <h2 class="section-title">PREGUNTAS FRECUENTES</h2>
+        <details><summary>¿Son piezas de plástico común?</summary><p>No. Usamos polímeros industriales que soportan vibraciones y temperaturas de motor, superando la resistencia del plástico comercial.</p></details>
+        <details><summary>¿Hacen envíos nacionales?</summary><p>Sí, enviamos a toda Colombia desde Chía con empaque reforzado.</p></details>
+    </div>
+
+    <footer>TENSYLE SOLUTIONS © 2026 | CHÍA, COLOMBIA | CALIDAD INDUSTRIAL</footer>
+
+    <a href="https://wa.me/573171687777?text=Hola,%20equipo%20de%20Tensyle.%20Vi%20sus%20trabajos%20en%20piezas%20automotrices%20y%20me%20interesa%20una%20asesoría." class="wa-float" target="_blank">
+        <img src="https://upload.wikimedia.org/wikipedia/commons/6/6b/WhatsApp.svg">
+    </a>
 
     <audio id="transitionSound" src="click.mp3" preload="auto"></audio>
 
     <script>
+        window.oncontextmenu = function(event) { if (event.target.tagName === 'IMG') event.preventDefault(); };
         function playTransition(e) {
             e.preventDefault();
             const targetUrl = e.currentTarget.href;
@@ -169,9 +144,7 @@
             setTimeout(() => { window.location.href = targetUrl; }, 350);
         }
         document.querySelectorAll('nav a').forEach(link => {
-            if(!link.href.includes('index.html')) {
-                link.addEventListener('click', playTransition);
-            }
+            if(!link.href.includes('index.html')) { link.addEventListener('click', playTransition); }
         });
     </script>
 </body>
