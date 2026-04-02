@@ -82,7 +82,35 @@
         </div>
     </div>
 
-    <a href="https://wa.me/573171687777" class="wa-float" target="_blank">
+    <a href="https://wa.me/573171687777" class="wa-float" target="_blank"> <audio id="transitionSound" src="click.mp3" preload="auto"></audio>
+
+<script>
+    function playTransition(e) {
+        e.preventDefault();
+        const targetUrl = e.currentTarget.href;
+        const audio = document.getElementById('transitionSound');
+        
+        // Intentamos reproducir el sonido local
+        audio.play().catch(() => {
+            // Si hay error, saltamos directo a la página
+            window.location.href = targetUrl;
+        });
+
+        // Esperamos el tiempo justo para el efecto sonoro
+        setTimeout(() => {
+            window.location.href = targetUrl;
+        }, 350);
+    }
+
+    // Seleccionamos los enlaces de la navegación
+    document.querySelectorAll('nav a').forEach(link => {
+        // IMPORTANTE: El sonido suena si el destino NO es la página actual (motion.html)
+        // Esto significa que sonará cuando el usuario haga clic para volver a Automotive
+        if(!link.href.includes('motion.html')) { 
+            link.addEventListener('click', playTransition);
+        }
+    });
+</script>
         <img src="https://upload.wikimedia.org/wikipedia/commons/6/6b/WhatsApp.svg">
     </a>
 </body>
