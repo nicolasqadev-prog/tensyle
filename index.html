@@ -39,7 +39,43 @@
         #modal { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.95); z-index: 10000; justify-content: center; align-items: center; padding: 20px; }
         #modal img { max-width: 90%; max-height: 80%; border: 1px solid var(--blue); border-radius: 8px; box-shadow: 0 0 50px rgba(0, 212, 255, 0.2); object-fit: contain; }
         .close-modal { position: absolute; top: 25px; right: 25px; color: white; font-size: 35px; cursor: pointer; }
-        .wa-float { position: fixed; bottom: 25px; right: 25px; width: 55px; z-index: 5000; }
+        .wa-float { position: fixed; bottom: 25px; right: 25px; width: 55px; z-index: 5000; }/* --- ESTILOS BOTÓN INSTAGRAM TENSYLE --- */
+.floating-social-tensyle {
+    position: fixed;
+    right: 25px;       /* Alineado con el margen de WhatsApp */
+    bottom: 95px;      /* Ubicado arriba del botón de WhatsApp */
+    z-index: 5000;     /* Mismo nivel que el wa-float para que no se tapen */
+}
+
+.insta-float {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 55px;
+    height: 55px;
+    background-color: #1a1a1a; /* Fondo oscuro para combinar con tu web */
+    border-radius: 50%;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.5);
+    transition: all 0.3s ease;
+    border: 1px solid #222;
+}
+
+.insta-float img {
+    width: 28px;
+    height: 28px;
+}
+
+/* Efecto hover: se ilumina con el gradiente de Instagram */
+.insta-float:hover {
+    transform: translateY(-5px);
+    background: linear-gradient(45deg, #f09433, #bc1888);
+    border-color: transparent;
+}
+
+/* El icono se pone blanco puro al pasar el mouse */
+.insta-float:hover img {
+    filter: brightness(0) invert(1);
+}
         footer { text-align: center; padding: 40px; color: #444; font-size: 0.7rem; border-top: 1px solid #111; }
     </style>
 </head>
@@ -96,6 +132,11 @@
             <details><summary>¿Hacen envíos nacionales?</summary><p>Sí, enviamos a toda Colombia desde Chía con empaque de seguridad.</p></details>
         </div>
     </div>
+    <div class="floating-social-tensyle">
+    <a href="https://www.instagram.com/tensyle.3d?utm_source=qr&igsh=a3JvdmdjOWoxNXR1" target="_blank" class="insta-float">
+        <img src="https://upload.wikimedia.org/wikipedia/commons/e/e7/Instagram_logo_2016.svg" alt="Instagram Tensyle">
+    </a>
+</div>
     <div id="modal" onclick="this.style.display='none'"><span class="close-modal">&times;</span><img id="modal-img" src=""></div>
     <footer>TENSYLE SOLUTIONS © 2026 | CHÍA</footer>
     <a href="https://wa.me/573171687777?text=Hola,%20equipo%20de%20Tensyle.%20Vi%20sus%20trabajos%20en%20piezas%20automotrices%20y%20me%20interesa%20una%20asesoría%20personalizada%20para%20un%20proyecto." class="wa-float" target="_blank">
