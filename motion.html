@@ -9,21 +9,41 @@
         :root { --cyan: #00f2ff; --black: #050505; }
         * { box-sizing: border-box; margin: 0; padding: 0; }
         body { font-family: 'Montserrat', sans-serif; background: var(--black); color: white; line-height: 1.6; overflow-x: hidden; }
+        
         nav { position: fixed; top: 0; width: 100%; background: rgba(5,5,5,0.95); padding: 15px 0; z-index: 2000; display: flex; justify-content: center; gap: 40px; border-bottom: 1px solid #1a1a1a; }
         .nav-logo { height: 40px; border-radius: 50%; border: 1px solid var(--cyan); }
         nav a { color: white; text-decoration: none; font-family: 'Oswald'; letter-spacing: 3px; font-size: 0.8rem; text-transform: uppercase; }
-        header { height: 50vh; display: flex; flex-direction: column; justify-content: center; align-items: center; text-align: center; background: radial-gradient(circle at center, #0a1a1f 0%, #000 100%); border-bottom: 2px solid var(--cyan); padding-top: 60px; }
+
+        header { 
+            height: 50vh; display: flex; flex-direction: column; justify-content: center; align-items: center; text-align: center; 
+            background: radial-gradient(circle at center, #0a1a1f 0%, #000 100%); 
+            border-bottom: 2px solid var(--cyan); padding-top: 60px;
+        }
         header h1 { font-family: 'Oswald'; font-size: clamp(3rem, 10vw, 6rem); letter-spacing: 20px; font-weight: 200; text-transform: uppercase; filter: drop-shadow(0 0 10px rgba(0,242,255,0.3)); margin: 0; }
         .slogan-motion { font-family: 'Oswald'; color: var(--cyan); letter-spacing: 10px; font-size: clamp(0.6rem, 2.5vw, 0.9rem); text-transform: uppercase; margin-top: 5px; font-weight: 400; }
+
         .container { max-width: 1400px; margin: auto; padding: 60px 20px; }
         .grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 25px; }
+        
         .card { background: #0f0f0f; border: 1px solid #1a1a1a; transition: 0.4s ease; overflow: hidden; position: relative; }
         .card:hover { border-color: var(--cyan); transform: translateY(-5px); }
-        .card img { width: 100%; height: 380px; object-fit: cover; cursor: zoom-in; }
-        .card img:active { position: fixed; top: 0; left: 0; width: 100vw; height: 100vh; object-fit: contain !important; z-index: 9999; background: rgba(0,0,0,0.98); padding: 15px; }
+        
+        .img-wrap { width: 100%; height: 380px; overflow: hidden; background: #000; }
+        .card img { width: 100%; height: 100%; object-fit: cover; cursor: zoom-in; transition: 0.3s; }
+
+        /* --- CORRECCIÓN PANTALLA COMPLETA TOTAL --- */
+        .card img:active { 
+            position: fixed; top: 0; left: 0; width: 100vw; height: 100vh; 
+            object-fit: contain !important; z-index: 9999; background: rgba(0,0,0,0.98); 
+            padding: 15px; cursor: zoom-out;
+        }
+
         .info { padding: 20px; border-top: 1px solid #1a1a1a; }
         .info h3 { font-family: 'Oswald'; color: var(--cyan); letter-spacing: 2px; text-transform: uppercase; font-size: 1.1rem; }
         .price-note { font-size: 0.65rem; color: #666; font-style: italic; display: block; margin-top: 10px; border-top: 1px solid #222; padding-top: 10px; }
+
+        .wa-float { position: fixed; bottom: 30px; right: 30px; width: 60px; z-index: 5000; transition: 0.3s; }
+        .wa-float:hover { transform: scale(1.1); }
     </style>
 </head>
 <body>
@@ -32,27 +52,32 @@
         <a href="index.html">AUTOMOTIVE</a>
         <a href="motion.html" style="border-bottom: 2px solid var(--cyan);">MOTION</a>
     </nav>
+
     <header>
-        <img src="logo-motion.jpg" style="width:90px; border-radius:50%; margin-bottom:15px; border:2px solid var(--cyan);">
+        <img src="logo-motion.jpg" style="width:80px; border-radius:50%; margin-bottom:20px; border:1px solid var(--cyan);">
         <h1>TENSYLE</h1>
         <p class="slogan-motion">ENGINEERING THE FUTURE OF PLAY</p>
     </header>
+
     <div class="container">
         <div class="grid">
-            <div class="card"><img src="bluey.jpg"><div class="info"><h3>Bluey</h3><span class="price-note">El valor de las piezas varía según escala y acabado.</span></div></div>
-            <div class="card"><img src="bob-esponja.jpg"><div class="info"><h3>Bob Esponja</h3><span class="price-note">El valor de las piezas varía según escala y acabado.</span></div></div>
-            <div class="card"><img src="gravitifalls.jpg"><div class="info"><h3>Gravity Falls</h3><span class="price-note">El valor de las piezas varía según escala y acabado.</span></div></div>
-            <div class="card"><img src="octonautalimpio.jpg"><div class="info"><h3>Octonautas</h3><span class="price-note">El valor de las piezas varía según escala y acabado.</span></div></div>
-            <div class="card"><img src="pato-aventuras.jpg"><div class="info"><h3>Pato Aventuras</h3><span class="price-note">El valor de las piezas varía según escala y acabado.</span></div></div>
-            <div class="card"><img src="phineas-limpio.jpg"><div class="info"><h3>Phineas Flynn</h3><span class="price-note">El valor de las piezas varía según escala y acabado.</span></div></div>
-            <div class="card"><img src="pjmask.jpg"><div class="info"><h3>PJ Masks</h3><span class="price-note">El valor de las piezas varía según escala y acabado.</span></div></div>
-            <div class="card"><img src="pocoyo.jpg"><div class="info"><h3>Pocoyó</h3><span class="price-note">El valor de las piezas varía según escala y acabado.</span></div></div>
-            <div class="card"><img src="pocoyo-sofa.jpg"><div class="info"><h3>Pocoyó Sofa</h3><span class="price-note">El valor de las piezas varía según escala y acabado.</span></div></div>
-            <div class="card"><img src="pokemon-2.jpg"><div class="info"><h3>Gengar Articulado</h3><span class="price-note">El valor de las piezas varía según escala y acabado.</span></div></div>
-            <div class="card"><img src="pokemon1.jpg"><div class="info"><h3>Pokémon Colección</h3><span class="price-note">El valor de las piezas varía según escala y acabado.</span></div></div>
-            <div class="card"><img src="transformers.jpg"><div class="info"><h3>Transformers Prime</h3><span class="price-note">El valor de las piezas varía según escala y acabado.</span></div></div>
+            <div class="card"><div class="img-wrap"><img src="bluey.jpg"></div><div class="info"><h3>Bluey</h3><span class="price-note">El valor de las piezas varía según escala y acabado.</span></div></div>
+            <div class="card"><div class="img-wrap"><img src="bob-esponja.jpg"></div><div class="info"><h3>Bob Esponja</h3><span class="price-note">El valor de las piezas varía según escala y acabado.</span></div></div>
+            <div class="card"><div class="img-wrap"><img src="gravitifalls.jpg"></div><div class="info"><h3>Gravity Falls</h3><span class="price-note">El valor de las piezas varía según escala y acabado.</span></div></div>
+            <div class="card"><div class="img-wrap"><img src="octonautalimpio.jpg"></div><div class="info"><h3>Octonautas</h3><span class="price-note">El valor de las piezas varía según escala y acabado.</span></div></div>
+            <div class="card"><div class="img-wrap"><img src="pato-aventuras.jpg"></div><div class="info"><h3>Pato Aventuras</h3><span class="price-note">El valor de las piezas varía según escala y acabado.</span></div></div>
+            <div class="card"><div class="img-wrap"><img src="phineas-limpio.jpg"></div><div class="info"><h3>Phineas Flynn</h3><span class="price-note">El valor de las piezas varía según escala y acabado.</span></div></div>
+            <div class="card"><div class="img-wrap"><img src="pjmask.jpg"></div><div class="info"><h3>PJ Masks</h3><span class="price-note">El valor de las piezas varía según escala y acabado.</span></div></div>
+            <div class="card"><div class="img-wrap"><img src="pocoyo.jpg"></div><div class="info"><h3>Pocoyó</h3><span class="price-note">El valor de las piezas varía según escala y acabado.</span></div></div>
+            <div class="card"><div class="img-wrap"><img src="pocoyo-sofa.jpg"></div><div class="info"><h3>Pocoyó Sofa</h3><span class="price-note">El valor de las piezas varía según escala y acabado.</span></div></div>
+            <div class="card"><div class="img-wrap"><img src="pokemon-2.jpg"></div><div class="info"><h3>Pokémon - Gengar</h3><span class="price-note">El valor de las piezas varía según escala y acabado.</span></div></div>
+            <div class="card"><div class="img-wrap"><img src="pokemon1.jpg"></div><div class="info"><h3>Pokémon Colección</h3><span class="price-note">El valor de las piezas varía según escala y acabado.</span></div></div>
+            <div class="card"><div class="img-wrap"><img src="transformers.jpg"></div><div class="info"><h3>Transformers Prime</h3><span class="price-note">El valor de las piezas varía según escala y acabado.</span></div></div>
         </div>
     </div>
-    <a href="https://wa.me/573171687777" style="position:fixed; bottom:30px; right:30px; width:60px; z-index:5000;"><img src="https://upload.wikimedia.org/wikipedia/commons/6/6b/WhatsApp.svg"></a>
+
+    <a href="https://wa.me/573171687777" class="wa-float" target="_blank">
+        <img src="https://upload.wikimedia.org/wikipedia/commons/6/6b/WhatsApp.svg">
+    </a>
 </body>
 </html>
