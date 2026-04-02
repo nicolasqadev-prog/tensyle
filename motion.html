@@ -8,30 +8,33 @@
     <style>
         :root { --cyan: #00f2ff; --black: #050505; --gray: #0a0a0a; }
         * { box-sizing: border-box; margin: 0; padding: 0; scroll-behavior: smooth; -webkit-tap-highlight-color: transparent; }
-        body { font-family: 'Montserrat', sans-serif; background: var(--black); color: white; overflow-x: hidden; -webkit-overflow-scrolling: touch; }
+        body { font-family: 'Montserrat', sans-serif; background: var(--black); color: white; overflow-x: hidden; }
         
-        nav { position: fixed; top: 0; width: 100%; background: rgba(5,5,5,0.85); backdrop-filter: blur(15px); -webkit-backdrop-filter: blur(15px); padding: 12px 0; z-index: 2000; border-bottom: 1px solid #1a1a1a; display: flex; align-items: center; justify-content: center; gap: 30px; }
+        nav { position: fixed; top: 0; width: 100%; background: rgba(5,5,5,0.9); backdrop-filter: blur(10px); padding: 12px 0; z-index: 1000; border-bottom: 1px solid #1a1a1a; display: flex; align-items: center; justify-content: center; gap: 30px; }
         .nav-logo { height: 35px; border-radius: 50%; border: 1px solid var(--cyan); }
         nav a { color: white; text-decoration: none; font-family: 'Oswald'; letter-spacing: 2px; font-size: 0.75rem; text-transform: uppercase; }
 
-        header { height: 80vh; display: flex; flex-direction: column; justify-content: center; align-items: center; text-align: center; background: radial-gradient(circle at center, #0a1a20 0%, #000 100%); border-bottom: 1px solid var(--cyan); padding: 20px; }
+        header { height: 70vh; display: flex; flex-direction: column; justify-content: center; align-items: center; text-align: center; background: radial-gradient(circle at center, #0a1a20 0%, #000 100%); border-bottom: 1px solid var(--cyan); padding: 20px; }
         header h1 { font-family: 'Oswald'; font-size: clamp(3.5rem, 12vw, 7rem); letter-spacing: 20px; font-weight: 200; text-transform: uppercase; line-height: 1; margin: 0; }
-        .slogan { font-family: 'Oswald'; color: var(--cyan); letter-spacing: 12px; font-size: clamp(0.7rem, 2.5vw, 1rem); text-transform: uppercase; margin: 15px 0; font-weight: 400; }
-        .intro-text { max-width: 650px; font-size: 0.95rem; color: #aaa; font-weight: 300; margin-bottom: 25px; }
+        .slogan { font-family: 'Oswald'; color: var(--cyan); letter-spacing: 12px; font-size: clamp(0.7rem, 2.5vw, 1rem); text-transform: uppercase; margin: 15px 0; }
+        .intro-text { max-width: 650px; font-size: 0.95rem; color: #aaa; font-weight: 300; }
 
         .container { max-width: 1200px; margin: auto; padding: 60px 20px; }
         .section-title { font-family: 'Oswald'; text-align: center; font-size: 1.8rem; letter-spacing: 5px; color: var(--cyan); margin-bottom: 40px; text-transform: uppercase; }
         
         .grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 20px; }
-        .card { background: var(--gray); border: 1px solid #1a1a1a; border-radius: 8px; overflow: hidden; transform: translateZ(0); }
-        .img-wrap { width: 100%; height: 350px; overflow: hidden; background: #000; position: relative; }
-
-        .card img { width: 100%; height: 100%; object-fit: cover; cursor: pointer; touch-action: none; -webkit-user-select: none; -webkit-touch-callout: none; }
-        .card img:active { position: fixed !important; top: 50% !important; left: 50% !important; transform: translate(-50%, -50%) !important; width: 85vw !important; height: auto !important; max-height: 75vh !important; object-fit: contain !important; z-index: 99999 !important; background: rgba(0,0,0,0.98) !important; border: 2px solid var(--cyan); border-radius: 12px; box-shadow: 0 0 60px rgba(0,0,0,1); padding: 10px; }
+        .card { background: var(--gray); border: 1px solid #1a1a1a; border-radius: 8px; overflow: hidden; }
+        .img-wrap { width: 100%; height: 350px; overflow: hidden; background: #000; cursor: pointer; }
+        .img-wrap img { width: 100%; height: 100%; object-fit: cover; pointer-events: none; }
 
         .info { padding: 20px; border-top: 1px solid #1a1a1a; }
         .info h3 { font-family: 'Oswald'; font-size: 1.1rem; color: var(--cyan); text-transform: uppercase; letter-spacing: 2px; }
-        
+
+        /* VISOR MODAL (Pantalla Completa Amigable) */
+        #modal { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.98); z-index: 10000; justify-content: center; align-items: center; padding: 20px; }
+        #modal img { max-width: 95%; max-height: 85%; border: 1px solid var(--cyan); border-radius: 8px; box-shadow: 0 0 50px rgba(0, 242, 255, 0.2); object-fit: contain; }
+        .close-modal { position: absolute; top: 30px; right: 30px; color: white; font-size: 40px; cursor: pointer; }
+
         .wa-float { position: fixed; bottom: 25px; right: 25px; width: 55px; z-index: 5000; }
         footer { text-align: center; padding: 40px; color: #444; font-size: 0.7rem; border-top: 1px solid #111; }
     </style>
@@ -46,35 +49,44 @@
     <header>
         <h1>TENSYLE</h1>
         <p class="slogan">THE FUTURE OF PLAY</p>
-        <p class="intro-text">Diseño y fabricación de figuras articuladas con tecnología 3D. Piezas únicas con estructuras reforzadas ideales para coleccionistas.</p>
+        <p class="intro-text">Diseño y fabricación de figuras articuladas con tecnología 3D. Piezas únicas ideales para coleccionistas.</p>
     </header>
 
     <div class="container">
         <h2 class="section-title">CATÁLOGO MOTION</h2>
         <div class="grid">
-            <div class="card"><div class="img-wrap"><img src="bluey.jpg" loading="lazy"></div><div class="info"><h3>Bluey Articulado</h3></div></div>
-            <div class="card"><div class="img-wrap"><img src="bob-esponja.jpg" loading="lazy"></div><div class="info"><h3>Bob Esponja Articulado</h3></div></div>
-            <div class="card"><div class="img-wrap"><img src="gravitifalls.jpg" loading="lazy"></div><div class="info"><h3>Gravity Falls</h3></div></div>
-            <div class="card"><div class="img-wrap"><img src="octonautalimpio.jpg" loading="lazy"></div><div class="info"><h3>Octonautas</h3></div></div>
-            <div class="card"><div class="img-wrap"><img src="pato-aventuras.jpg" loading="lazy"></div><div class="info"><h3>Pato Aventuras</h3></div></div>
-            <div class="card"><div class="img-wrap"><img src="phineas-limpio.jpg" loading="lazy"></div><div class="info"><h3>Phineas y Ferb</h3></div></div>
-            <div class="card"><div class="img-wrap"><img src="pjmask.jpg" loading="lazy"></div><div class="info"><h3>PJ Masks</h3></div></div>
-            <div class="card"><div class="img-wrap"><img src="pocoyo.jpg" loading="lazy"></div><div class="info"><h3>Pocoyó</h3></div></div>
-            <div class="card"><div class="img-wrap"><img src="pocoyo-sofa.jpg" loading="lazy"></div><div class="info"><h3>Pocoyó Articulado</h3></div></div>
-            <div class="card"><div class="img-wrap"><img src="pokemon-2.jpg" loading="lazy"></div><div class="info"><h3>Pikachu Articulado</h3></div></div>
-            <div class="card"><div class="img-wrap"><img src="pokemon1.jpg" loading="lazy"></div><div class="info"><h3>Pokémon Colección</h3></div></div>
-            <div class="card"><div class="img-wrap"><img src="transformers.jpg" loading="lazy"></div><div class="info"><h3>Transformers Prime</h3></div></div>
+            <div class="card" onclick="openModal(this)"><div class="img-wrap"><img src="bluey.jpg" loading="lazy"></div><div class="info"><h3>Bluey Articulado</h3></div></div>
+            <div class="card" onclick="openModal(this)"><div class="img-wrap"><img src="bob-esponja.jpg" loading="lazy"></div><div class="info"><h3>Bob Esponja Articulado</h3></div></div>
+            <div class="card" onclick="openModal(this)"><div class="img-wrap"><img src="gravitifalls.jpg" loading="lazy"></div><div class="info"><h3>Gravity Falls</h3></div></div>
+            <div class="card" onclick="openModal(this)"><div class="img-wrap"><img src="octonautalimpio.jpg" loading="lazy"></div><div class="info"><h3>Octonautas</h3></div></div>
+            <div class="card" onclick="openModal(this)"><div class="img-wrap"><img src="pato-aventuras.jpg" loading="lazy"></div><div class="info"><h3>Pato Aventuras</h3></div></div>
+            <div class="card" onclick="openModal(this)"><div class="img-wrap"><img src="phineas-limpio.jpg" loading="lazy"></div><div class="info"><h3>Phineas y Ferb</h3></div></div>
+            <div class="card" onclick="openModal(this)"><div class="img-wrap"><img src="pjmask.jpg" loading="lazy"></div><div class="info"><h3>PJ Masks</h3></div></div>
+            <div class="card" onclick="openModal(this)"><div class="img-wrap"><img src="pocoyo.jpg" loading="lazy"></div><div class="info"><h3>Pocoyó</h3></div></div>
+            <div class="card" onclick="openModal(this)"><div class="img-wrap"><img src="pocoyo-sofa.jpg" loading="lazy"></div><div class="info"><h3>Pocoyó Articulado</h3></div></div>
+            <div class="card" onclick="openModal(this)"><div class="img-wrap"><img src="pokemon-2.jpg" loading="lazy"></div><div class="info"><h3>Pikachu Articulado</h3></div></div>
+            <div class="card" onclick="openModal(this)"><div class="img-wrap"><img src="pokemon1.jpg" loading="lazy"></div><div class="info"><h3>Pokémon Colección</h3></div></div>
+            <div class="card" onclick="openModal(this)"><div class="img-wrap"><img src="transformers.jpg" loading="lazy"></div><div class="info"><h3>Transformers Prime</h3></div></div>
         </div>
     </div>
 
-    <footer>TENSYLE MOTION © 2026 | CHÍA, COLOMBIA</footer>
+    <div id="modal" onclick="this.style.display='none'">
+        <span class="close-modal">&times;</span>
+        <img id="modal-img" src="">
+    </div>
+
+    <footer>TENSYLE MOTION © 2026 | CHÍA</footer>
 
     <a href="https://wa.me/573171687777?text=Hola,%20Tensyle.%20Estuve%20viendo%20su%20catálogo%20Motion%20y%20me%20gustaría%20pedir%20información." class="wa-float" target="_blank">
         <img src="https://upload.wikimedia.org/wikipedia/commons/6/6b/WhatsApp.svg">
     </a>
 
     <script>
-        window.oncontextmenu = function(event) { if (event.target.tagName === 'IMG') event.preventDefault(); };
+        function openModal(element) {
+            const imgSrc = element.querySelector('img').src;
+            document.getElementById('modal-img').src = imgSrc;
+            document.getElementById('modal').style.display = 'flex';
+        }
     </script>
 </body>
 </html>
