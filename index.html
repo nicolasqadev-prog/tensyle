@@ -10,180 +10,127 @@
         * { box-sizing: border-box; margin: 0; padding: 0; scroll-behavior: smooth; -webkit-tap-highlight-color: transparent; }
         body { font-family: 'Montserrat', sans-serif; background: var(--black); color: white; overflow-x: hidden; }
         
-        /* Navegación */
         nav { position: fixed; top: 0; width: 100%; background: rgba(5,5,5,0.9); backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px); padding: 12px 0; z-index: 1000; border-bottom: 1px solid #222; display: flex; align-items: center; justify-content: center; gap: 30px; }
         .nav-logo { height: 35px; border-radius: 50%; border: 1px solid var(--blue); }
         nav a { color: white; text-decoration: none; font-family: 'Oswald'; letter-spacing: 2px; font-size: 0.75rem; text-transform: uppercase; }
-        
-        /* Header con Animación Láser */
-        header { height: 85vh; display: flex; flex-direction: column; justify-content: center; align-items: center; text-align: center; background: radial-gradient(circle at center, var(--dark-blue) 0%, #000 100%); border-bottom: 1px solid var(--blue); padding: 20px; overflow: hidden; }
-        
-        .logo-container { position: relative; display: inline-block; }
-        
+
+        header { position: relative; height: 85vh; display: flex; flex-direction: column; justify-content: center; align-items: center; text-align: center; background: #000; overflow: hidden; border-bottom: 1px solid var(--blue); }
+        #canvas-dots { position: absolute; top: 0; left: 0; width: 100%; height: 100%; z-index: 1; opacity: 0.5; }
+        .header-content { position: relative; z-index: 2; }
+
         header h1 { 
-            font-family: 'Oswald'; 
-            font-size: clamp(3.5rem, 12vw, 7rem); 
-            letter-spacing: 20px; 
-            font-weight: 200; 
-            text-transform: uppercase; 
-            line-height: 1; 
-            margin: 0;
-            color: rgba(255,255,255,0.1);
-            background: linear-gradient(to right, #ffffff 0%, var(--blue) 50%, #ffffff 100%);
-            background-size: 200% auto;
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            animation: shine 4s linear infinite;
+            font-family: 'Oswald'; font-size: clamp(3.5rem, 12vw, 7.5rem); letter-spacing: 25px; font-weight: 200; text-transform: uppercase; margin: 0;
+            background: linear-gradient(90deg, #222, #fff, #222); background-size: 80%; background-repeat: no-repeat;
+            animation: shine 5s linear infinite; -webkit-background-clip: text; -webkit-text-fill-color: rgba(255,255,255,0.1);
         }
+        @keyframes shine { 0% { background-position: -500%; } 100% { background-position: 500%; } }
 
-        @keyframes shine {
-            to { background-position: 200% center; }
-        }
+        .slogan { font-family: 'Oswald'; color: var(--blue); letter-spacing: 15px; font-size: clamp(0.7rem, 2.5vw, 1rem); text-transform: uppercase; margin: 20px 0; font-weight: 400; text-shadow: 0 0 10px rgba(0, 212, 255, 0.5); }
 
-        .slogan { font-family: 'Oswald'; color: var(--blue); letter-spacing: 12px; font-size: clamp(0.7rem, 2.5vw, 1rem); text-transform: uppercase; margin: 25px 0; font-weight: 400; opacity: 0; animation: fadeIn 2s forwards 1s; }
-
-        @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
-
-        /* Contenedores y Secciones */
         .container { max-width: 1300px; margin: auto; padding: 60px 20px; }
         .section-title { font-family: 'Oswald'; text-align: center; font-size: 1.8rem; letter-spacing: 5px; color: var(--blue); margin-bottom: 40px; text-transform: uppercase; }
         
-        .custom-banner { background: linear-gradient(90deg, #050505, #121212); border: 1px dashed var(--blue); padding: 35px; border-radius: 8px; text-align: center; margin: 40px 0; }
-        .custom-banner h3 { font-family: 'Oswald'; letter-spacing: 3px; color: var(--blue); margin-bottom: 10px; }
-
-        /* Portafolio (Se mantiene igual) */
         .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(380px, 1fr)); gap: 35px; }
-        .card { background: var(--gray); border: 1px solid #222; border-radius: 8px; overflow: hidden; }
+        .card { background: var(--gray); border: 1px solid #222; border-radius: 8px; overflow: hidden; transition: 0.3s; }
+        .card:hover { border-color: var(--blue); }
         .img-container { display: flex; gap: 2px; height: 320px; background: #000; border-bottom: 1px solid #222; }
         .img-box { flex: 1; position: relative; overflow: hidden; cursor: pointer; }
-        .img-box img { width: 100%; height: 100%; object-fit: cover; transition: 0.4s; pointer-events: none; }
-        .img-box:hover img { transform: scale(1.1); }
+        .img-box img { width: 100%; height: 100%; object-fit: cover; transition: 0.5s; pointer-events: none; }
+        .img-box:hover img { transform: scale(1.1); filter: brightness(1.2); }
         .tag { position: absolute; bottom: 8px; left: 8px; background: rgba(0,0,0,0.85); color: var(--blue); font-size: 0.5rem; padding: 2px 6px; font-family: 'Oswald'; border: 1px solid var(--blue); z-index: 6; }
         .info { padding: 20px; }
         .info h3 { font-family: 'Oswald'; font-size: 1.1rem; color: var(--blue); text-transform: uppercase; letter-spacing: 2px; }
+        .brand-tag { font-size: 0.65rem; color: #666; font-weight: 600; display: block; margin-bottom: 5px; }
 
-        /* Formulario de Cotización Avanzado */
-        .quote-section { background: #0a0a0a; padding: 45px; border-radius: 12px; border: 1px solid #1a1a1a; max-width: 700px; margin: 80px auto; box-shadow: 0 20px 40px rgba(0,0,0,0.5); }
-        .quote-form label { display: block; margin-bottom: 10px; font-size: 0.75rem; color: var(--blue); font-family: 'Oswald'; letter-spacing: 1.5px; }
-        .quote-form input, .quote-form textarea { width: 100%; background: #050505; border: 1px solid #222; padding: 15px; color: white; margin-bottom: 25px; border-radius: 6px; font-family: 'Montserrat'; transition: 0.3s; }
-        .quote-form input:focus, .quote-form textarea:focus { border-color: var(--blue); outline: none; background: #0a0a0a; }
-        
-        .file-upload { border: 2px dashed #222; padding: 30px; text-align: center; margin-bottom: 30px; border-radius: 6px; cursor: pointer; transition: 0.3s; }
-        .file-upload:hover { border-color: var(--blue); background: rgba(0,212,255,0.05); }
-        .file-upload input[type="file"] { display: none; }
-        .file-label { cursor: pointer; font-size: 0.8rem; color: #888; }
+        .quote-section { background: #0a0a0a; padding: 45px; border-radius: 12px; border: 1px solid #1a1a1a; max-width: 700px; margin: 80px auto; }
+        .quote-form label { display: block; margin-bottom: 10px; font-size: 0.75rem; color: var(--blue); font-family: 'Oswald'; text-transform: uppercase; }
+        .quote-form input, .quote-form textarea { width: 100%; background: #050505; border: 1px solid #222; padding: 15px; color: white; margin-bottom: 20px; border-radius: 6px; font-family: 'Montserrat'; }
+        .btn-submit { width: 100%; background: var(--blue); color: black; border: none; padding: 20px; font-family: 'Oswald'; font-weight: bold; cursor: pointer; text-transform: uppercase; letter-spacing: 3px; transition: 0.4s; }
+        .btn-submit:hover { background: white; transform: translateY(-5px); box-shadow: 0 10px 20px rgba(0,212,255,0.3); }
 
-        .btn-submit { width: 100%; background: var(--blue); color: black; border: none; padding: 20px; font-family: 'Oswald'; font-weight: bold; cursor: pointer; text-transform: uppercase; letter-spacing: 3px; font-size: 1rem; transition: 0.4s; }
-        .btn-submit:hover { background: white; transform: translateY(-5px); box-shadow: 0 15px 30px rgba(0,212,255,0.25); }
-
-        /* Botones Flotantes (Se mantiene el estilo limpio de Instagram) */
         .wa-float { position: fixed; bottom: 25px; right: 25px; width: 55px; z-index: 5000; transition: 0.3s; }
         .insta-float-tensyle { position: fixed; right: 25px; bottom: 95px; width: 55px; z-index: 5000; transition: 0.3s; }
-        .insta-float-tensyle:hover, .wa-float:hover { transform: scale(1.15); }
         .insta-float-tensyle img, .wa-float img { width: 100%; display: block; }
 
-        /* Modal */
-        #modal { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.98); z-index: 10000; justify-content: center; align-items: center; padding: 20px; }
-        #modal img { max-width: 95%; max-height: 85%; border: 1px solid var(--blue); border-radius: 4px; box-shadow: 0 0 40px rgba(0,212,255,0.1); }
+        #modal { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.95); z-index: 10000; justify-content: center; align-items: center; }
+        #modal img { max-width: 90%; max-height: 80%; border: 1px solid var(--blue); border-radius: 8px; }
         .close-modal { position: absolute; top: 25px; right: 25px; color: white; font-size: 40px; cursor: pointer; }
-        
-        footer { text-align: center; padding: 60px 20px; color: #333; font-size: 0.75rem; border-top: 1px solid #111; font-family: 'Oswald'; letter-spacing: 2px; }
+        footer { text-align: center; padding: 60px; color: #444; font-size: 0.7rem; border-top: 1px solid #111; }
     </style>
 </head>
 <body>
-
     <nav>
         <img src="logo-automotive.jpg" class="nav-logo">
         <a href="index.html">AUTOMOTIVE</a>
         <a href="motion.html">MOTION</a>
         <a href="#cotizar">COTIZAR</a>
     </nav>
-
     <header>
-        <div class="logo-container">
+        <canvas id="canvas-dots"></canvas>
+        <div class="header-content">
             <h1>TENSYLE</h1>
+            <p class="slogan">PRECISION IN EVERY LAYER</p>
         </div>
-        <p class="slogan">PRECISION IN EVERY LAYER</p>
     </header>
-
     <div class="container">
-        <div class="custom-banner">
-            <h3>DISEÑO DE INGENIERÍA 3D</h3>
-            <p>Especialistas en reconstrucción de piezas descontinuadas. Si tienes el componente original roto, nosotros creamos el reemplazo técnico.</p>
-        </div>
-
-        <h2 class="section-title">PORTAFOLIO DESTACADO</h2>
+        <h2 class="section-title">PORTAFOLIO AUTOMOTIVE</h2>
         <div class="grid">
             <div class="card"><div class="img-container">
-                <div class="img-box" onclick="openModal(this)"><img src="lateral-moto-impresa-antes.jpg"><span class="tag">DAÑO</span></div>
-                <div class="img-box" onclick="openModal(this)"><img src="lateral-moto-fin.jpg"><span class="tag">RESULTADO</span></div>
-            </div><div class="info"><h3>Carena Yamaha Fazer 2.0</h3></div></div>
-            
+                <div class="img-box" onclick="openModal(this)"><img src="lateral-moto-impresa-antes.jpg"><span class="tag">ANTES</span></div>
+                <div class="img-box" onclick="openModal(this)"><img src="lateral-moto-impresa.jpg"><span class="tag">PROCESO</span></div>
+                <div class="img-box" onclick="openModal(this)"><img src="lateral-moto-fin.jpg"><span class="tag">FINAL</span></div>
+            </div><div class="info"><span class="brand-tag">YAMAHA FAZER 2.0</span><h3>Carena Lateral</h3></div></div>
             <div class="card"><div class="img-container">
-                <div class="img-box" onclick="openModal(this)"><img src="manija-puerta-exterior-antes.jpg"><span class="tag">ESTADO INICIAL</span></div>
-                <div class="img-box" onclick="openModal(this)"><img src="manija-puerta-exterior.jpg"><span class="tag">FABRICACIÓN</span></div>
-            </div><div class="info"><h3>Manija Renault Mégane 2</h3></div></div>
+                <div class="img-box" onclick="openModal(this)"><img src="frontal-rejilla-despues-antes.jpg"><span class="tag">ANTES</span></div>
+                <div class="img-box" onclick="openModal(this)"><img src="frontal-rejilla-despues.jpg"><span class="tag">DESPUÉS</span></div>
+            </div><div class="info"><span class="brand-tag">RENAULT MÉGANE 2</span><h3>Frontal Rejilla</h3></div></div>
+            <div class="card"><div class="img-container">
+                <div class="img-box" onclick="openModal(this)"><img src="inferior-frontal-panal-antes.jpg"><span class="tag">ANTES</span></div>
+                <div class="img-box" onclick="openModal(this)"><img src="inferior-frontal-panal.jpg"><span class="tag">DESPUÉS</span></div>
+            </div><div class="info"><span class="brand-tag">RENAULT MÉGANE 2</span><h3>Inferior Frontal Panal</h3></div></div>
+            <div class="card"><div class="img-container">
+                <div class="img-box" onclick="openModal(this)"><img src="manija-puerta-exterior-antes.jpg"><span class="tag">ANTES</span></div>
+                <div class="img-box" onclick="openModal(this)"><img src="manija-puerta-exterior.jpg"><span class="tag">DESPUÉS</span></div>
+            </div><div class="info"><span class="brand-tag">RENAULT MÉGANE 2</span><h3>Manija Puerta Exterior</h3></div></div>
+            <div class="card"><div class="img-container">
+                <div class="img-box" onclick="openModal(this)"><img src="tapa-cubre-cadenas-antes.jpg"><span class="tag">ANTES</span></div>
+                <div class="img-box" onclick="openModal(this)"><img src="tapa-cubre-cadenas.jpg"><span class="tag">DESPUÉS</span></div>
+            </div><div class="info"><span class="brand-tag">YAMAHA FAZER 2.0</span><h3>Tapa Cubre Cadenas</h3></div></div>
+            <div class="card"><div class="img-container">
+                <div class="img-box" onclick="openModal(this)"><img src="espejo-retrovisor-moto.jpg"></div>
+            </div><div class="info"><span class="brand-tag">YAMAHA FAZER 2.0</span><h3>Espejo Retrovisor</h3></div></div>
         </div>
-
         <section id="cotizar" class="quote-section">
-            <h2 class="section-title" style="font-size: 1.4rem; margin-bottom: 20px;">CENTRO DE COTIZACIÓN</h2>
-            <p style="text-align: center; font-size: 0.8rem; color: #666; margin-bottom: 40px;">Envíanos los detalles y fotos para iniciar el análisis técnico.</p>
-            
+            <h2 class="section-title" style="font-size: 1.4rem;">SOLICITAR COTIZACIÓN</h2>
             <form action="https://formspree.io/f/mqakevlv" method="POST" enctype="multipart/form-data" class="quote-form">
-                
-                <label>SOLICITANTE</label>
-                <input type="text" name="Nombre" placeholder="Nombre completo" required>
-                <input type="email" name="Email" placeholder="Tu correo electrónico de contacto" required>
-                
-                <label>ESPECIFICACIONES DEL VEHÍCULO</label>
-                <input type="text" name="Vehiculo" placeholder="Ej: Yamaha Fazer 150 / Modelo 2020" required>
-                
-                <label>DESCRIPCIÓN DE LA PIEZA</label>
-                <textarea name="Mensaje" rows="5" placeholder="¿Qué pieza necesitas? Menciona si tienes la pieza original para escaneo..." required></textarea>
-                
-                <label>DOCUMENTACIÓN VISUAL (RECOMENDADO)</label>
-                <div class="file-upload" onclick="document.getElementById('fotos').click()">
-                    <span class="file-label" id="file-name">Haz clic aquí para adjuntar fotos de la pieza</span>
-                    <input type="file" name="attachment" id="fotos" accept="image/*" multiple onchange="updateFileName(this)">
-                </div>
-
-                <button type="submit" class="btn-submit">Enviar para Análisis Técnico</button>
-                
-                <input type="hidden" name="_subject" value="Nueva Cotización Técnica - Tensyle Web">
+                <label>Nombre</label><input type="text" name="Nombre" required>
+                <label>Correo</label><input type="email" name="Email" required>
+                <label>Vehículo y Pieza</label><textarea name="Detalles" rows="4" required></textarea>
+                <label>Adjuntar Fotos</label><input type="file" name="attachment" accept="image/*" multiple style="border:none;">
+                <button type="submit" class="btn-submit">Enviar Solicitud</button>
             </form>
         </section>
     </div>
-
-    <a href="https://www.instagram.com/tensyle.3d?utm_source=qr&igsh=a3JvdmdjOWoxNXR1" target="_blank" class="insta-float-tensyle">
-        <img src="https://upload.wikimedia.org/wikipedia/commons/e/e7/Instagram_logo_2016.svg" alt="Instagram Tensyle">
-    </a>
-
-    <a href="https://wa.me/573171687777" class="wa-float" target="_blank">
-        <img src="https://upload.wikimedia.org/wikipedia/commons/6/6b/WhatsApp.svg" alt="WhatsApp Tensyle">
-    </a>
-
-    <div id="modal" onclick="this.style.display='none'"><span class="close-modal">&times;</span><img id="modal-img" src=""></div>
-
-    <footer>TENSYLE SOLUTIONS © 2026 | CHÍA, COLOMBIA</footer>
-
+    <a href="https://www.instagram.com/tensyle.3d?utm_source=qr&igsh=a3JvdmdjOWoxNXR1" target="_blank" class="insta-float-tensyle"><img src="https://upload.wikimedia.org/wikipedia/commons/e/e7/Instagram_logo_2016.svg"></a>
+    <a href="https://wa.me/573171687777" class="wa-float" target="_blank"><img src="https://upload.wikimedia.org/wikipedia/commons/6/6b/WhatsApp.svg"></a>
+    <div id="modal" onclick="this.style.display='none'"><span class="close-modal">&times;</span><img id="modal-img"></div>
+    <footer>TENSYLE SOLUTIONS © 2026</footer>
     <script>
-        // Verificación de archivos seleccionados
-        function updateFileName(input) {
-            const label = document.getElementById('file-name');
-            if (input.files.length > 0) {
-                label.innerText = input.files.length + " foto(s) seleccionada(s) lista(s).";
-                label.style.color = "#00d4ff";
+        const canvas = document.getElementById('canvas-dots'); const ctx = canvas.getContext('2d');
+        canvas.width = window.innerWidth; canvas.height = window.innerHeight;
+        let particles = [];
+        class Particle {
+            constructor() {
+                this.x = Math.random() * canvas.width; this.y = Math.random() * canvas.height;
+                this.size = Math.random() * 2; this.speedX = Math.random() * 0.5 - 0.25; this.speedY = Math.random() * 0.5 - 0.25;
             }
+            update() { this.x += this.speedX; this.y += this.speedY; if (this.x > canvas.width) this.x = 0; if (this.x < 0) this.x = canvas.width; if (this.y > canvas.height) this.y = 0; if (this.y < 0) this.y = canvas.height; }
+            draw() { ctx.fillStyle = '#00d4ff'; ctx.beginPath(); ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2); ctx.fill(); }
         }
-
-        // Modal de imágenes grandes
-        function openModal(element) { 
-            const imgSrc = element.querySelector('img').src; 
-            document.getElementById('modal-img').src = imgSrc; 
-            document.getElementById('modal').style.display = 'flex'; 
-        }
-
-        // Bloqueo de click derecho (se mantiene por seguridad de archivos)
+        for (let i = 0; i < 100; i++) { particles.push(new Particle()); }
+        function animate() { ctx.clearRect(0, 0, canvas.width, canvas.height); particles.forEach(p => { p.update(); p.draw(); }); requestAnimationFrame(animate); }
+        animate();
+        function openModal(element) { document.getElementById('modal-img').src = element.querySelector('img').src; document.getElementById('modal').style.display = 'flex'; }
         window.oncontextmenu = function() { return false; };
     </script>
 </body>
