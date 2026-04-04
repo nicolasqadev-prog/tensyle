@@ -3,61 +3,55 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>TENSYLE | Master Engineering</title>
+    <title>TENSYLE | Core Engineering</title>
     <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@700&family=Oswald:wght@200;700&display=swap" rel="stylesheet">
     <style>
-        :root { --cyan: #00f2ff; --black: #000000; }
+        :root { --cyan: #00f2ff; --black: #000; }
         * { margin: 0; padding: 0; box-sizing: border-box; }
-        body { background: var(--black); height: 100vh; overflow: hidden; font-family: 'Oswald', sans-serif; display: flex; align-items: center; justify-content: center; perspective: 2000px; }
+        body { background: var(--black); height: 100vh; overflow: hidden; font-family: 'Oswald', sans-serif; display: flex; align-items: center; justify-content: center; color: white; }
 
-        /* Fondo de red neuronal / ingeniería */
-        .grid-bg { position: fixed; width: 200%; height: 200%; background-image: 
-            linear-gradient(rgba(0, 242, 255, 0.05) 1px, transparent 1px),
-            linear-gradient(90deg, rgba(0, 242, 255, 0.05) 1px, transparent 1px);
-            background-size: 50px 50px; transform: rotateX(60deg) translateY(-50%); z-index: -1; animation: gridMove 20s linear infinite; }
-        @keyframes gridMove { from { transform: rotateX(60deg) translateY(-50%); } to { transform: rotateX(60deg) translateY(0%); } }
+        /* Fondo Dinámico de Ingeniería */
+        .bg-scanner { position: fixed; width: 100%; height: 100%; background: radial-gradient(circle at 50% 50%, #0a1e24 0%, #000 100%); z-index: -1; }
+        .bg-scanner::after { content: ""; position: absolute; top: 0; left: 0; width: 100%; height: 100%; background: repeating-linear-gradient(0deg, rgba(0,242,255,0.03) 0px, transparent 1px); background-size: 100% 4px; animation: scan 10s linear infinite; }
+        @keyframes scan { from { transform: translateY(0); } to { transform: translateY(100%); } }
 
-        /* LOGO TENSYLE - Animación de Impacto */
-        .logo-center { position: absolute; width: 300px; z-index: 100; filter: drop-shadow(0 0 50px var(--cyan)); animation: logoHero 3.5s cubic-bezier(0.23, 1, 0.32, 1) forwards; }
-        @keyframes logoHero {
-            0% { transform: scale(0) translateZ(-1000px) rotateY(90deg); opacity: 0; }
-            50% { opacity: 1; transform: scale(1.2) translateZ(100px) rotateY(0deg); }
-            100% { transform: scale(1) translateY(-250px); width: 120px; }
+        /* LOGO TENSYLE - Efecto Impacto Mercedes Style */
+        .brand-logo { position: absolute; width: 350px; z-index: 100; filter: drop-shadow(0 0 40px var(--cyan)); animation: logoFocus 3s cubic-bezier(0.16, 1, 0.3, 1) forwards; }
+        @keyframes logoFocus {
+            0% { transform: scale(3) translateZ(500px); opacity: 0; filter: blur(30px) brightness(5); }
+            100% { transform: scale(1) translateY(-220px); width: 100px; opacity: 1; filter: blur(0) brightness(1); }
         }
 
-        /* Portales de Selección */
-        .main-gate { display: flex; gap: 40px; width: 90%; max-width: 1200px; z-index: 50; opacity: 0; animation: fadeInUI 1.5s ease-out 2.8s forwards; }
-        .gate-card { flex: 1; height: 500px; position: relative; border: 1px solid rgba(0, 242, 255, 0.2); border-radius: 5px; overflow: hidden; text-decoration: none; transition: 0.5s cubic-bezier(0.4, 0, 0.2, 1); background: rgba(5, 5, 5, 0.8); backdrop-filter: blur(20px); display: flex; flex-direction: column; align-items: center; justify-content: center; }
+        /* Portales de Selección Cinéticos */
+        .main-portal { display: flex; width: 100vw; height: 100vh; opacity: 0; animation: fadeInUI 1s ease-out 2.5s forwards; }
+        .section { flex: 1; display: flex; flex-direction: column; align-items: center; justify-content: center; text-decoration: none; position: relative; border-right: 1px solid rgba(0, 242, 255, 0.1); transition: 0.6s cubic-bezier(0.2, 1, 0.3, 1); overflow: hidden; }
+        .section:last-child { border: none; }
         
-        .gate-card::before { content: ""; position: absolute; top: 0; left: 0; width: 100%; height: 100%; background: linear-gradient(45deg, transparent, rgba(0, 242, 255, 0.1), transparent); transform: translateX(-100%); transition: 0.6s; }
-        .gate-card:hover::before { transform: translateX(100%); }
-        .gate-card:hover { border-color: var(--cyan); transform: scale(1.02); box-shadow: 0 0 80px rgba(0, 242, 255, 0.15); }
+        .section::before { content: ""; position: absolute; width: 100%; height: 100%; background: var(--cyan); opacity: 0; transition: 0.5s; z-index: 0; }
+        .section:hover::before { opacity: 0.05; }
+        .section:hover { flex: 1.5; }
 
-        .gate-card h2 { font-size: 3.5rem; letter-spacing: 15px; color: #fff; text-transform: uppercase; margin-bottom: 20px; transition: 0.4s; }
-        .gate-card p { font-size: 0.7rem; letter-spacing: 5px; color: var(--cyan); text-transform: uppercase; opacity: 0.7; }
-
-        .enter-btn { margin-top: 40px; padding: 15px 50px; border: 1px solid var(--cyan); color: #fff; letter-spacing: 5px; font-size: 0.7rem; transition: 0.3s; }
-        .gate-card:hover .enter-btn { background: var(--cyan); color: #000; font-weight: bold; box-shadow: 0 0 20px var(--cyan); }
-
-        @keyframes fadeInUI { from { opacity: 0; transform: translateY(100px); } to { opacity: 1; transform: translateY(0); } }
+        .section h2 { font-size: 6rem; letter-spacing: 25px; color: #fff; text-transform: uppercase; z-index: 1; transition: 0.5s; font-weight: 700; opacity: 0.3; }
+        .section:hover h2 { opacity: 1; letter-spacing: 40px; color: var(--cyan); }
         
-        footer { position: fixed; bottom: 30px; font-size: 0.6rem; color: #444; letter-spacing: 10px; text-transform: uppercase; }
+        .section p { z-index: 1; letter-spacing: 8px; color: var(--cyan); font-size: 0.7rem; text-transform: uppercase; margin-top: 20px; }
+
+        @keyframes fadeInUI { from { opacity: 0; } to { opacity: 1; } }
+        footer { position: fixed; bottom: 30px; font-size: 0.6rem; color: #333; letter-spacing: 15px; text-transform: uppercase; }
     </style>
 </head>
 <body>
-    <div class="grid-bg"></div>
-    <img src="logo-automotive.jpg" class="logo-center" alt="Tensyle Logo">
+    <div class="bg-scanner"></div>
+    <img src="logo-automotive.jpg" class="brand-logo" alt="Logo Tensyle">
 
-    <main class="main-gate">
-        <a href="automotive.html" class="gate-card">
-            <h2>Automotive</h2>
-            <p>Industrial Additive Manufacturing</p>
-            <div class="enter-btn">ACCESS CORE</div>
+    <main class="main-portal">
+        <a href="automotive.html" class="section">
+            <h2>AUTO</h2>
+            <p>Engineering & Reconstruction</p>
         </a>
-        <a href="motion.html" class="gate-card">
-            <h2>Motion</h2>
-            <p>Advanced Kinetic Engineering</p>
-            <div class="enter-btn">EXPLORE LAB</div>
+        <a href="motion.html" class="section">
+            <h2>MOTION</h2>
+            <p>Kinetic Collectibles Lab</p>
         </a>
     </main>
     <footer>TENSYLE . PRECISION IN EVERY LAYER . 2026</footer>
