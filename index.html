@@ -2,108 +2,60 @@
 <html lang="es">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Tensyle | Engineering Precision</title>
-    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;700&family=Oswald:wght@300;600&display=swap" rel="stylesheet">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Tensyle | Precision in Every Layer</title>
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;700&family=Montserrat:wght@300;400;600&family=Oswald:wght@300;500;700&display=swap" rel="stylesheet">
     <style>
-        :root { --cyan: #00f2ff; --black: #050505; --glass: rgba(10, 10, 10, 0.85); }
+        :root { --cyan: #00f2ff; --black: #050505; --glass: rgba(15, 15, 15, 0.75); }
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+        body { font-family: 'Montserrat', sans-serif; background: var(--black); color: white; height: 100vh; display: flex; align-items: center; justify-content: center; overflow: hidden; perspective: 1200px; }
+        .bg-space { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: radial-gradient(circle at center, #0a1e24 0%, #000 100%); z-index: -1; }
         
-        body { 
-            margin: 0; background: var(--black); height: 100vh; 
-            display: flex; align-items: center; justify-content: center; 
-            overflow: hidden; perspective: 1200px; font-family: 'Oswald', sans-serif;
-        }
-
-        .bg-env {
-            position: fixed; width: 100%; height: 100%;
-            background: radial-gradient(circle at center, #0a1e24 0%, #000 100%);
-            z-index: -1;
-        }
-
-        /* --- ANIMACIÓN DEL LOGO REAL (ATRÁS HACIA ADELANTE) --- */
-        .logo-branding {
-            position: absolute;
-            width: 350px; /* Tamaño de impacto inicial */
-            z-index: 50;
-            filter: drop-shadow(0 0 25px rgba(0, 242, 255, 0.4));
-            /* La animación de profundidad */
-            animation: logoEntrance 3s cubic-bezier(0.165, 0.84, 0.44, 1) forwards;
-        }
-
+        /* Animación Logo Malla Hexagonal - El vuelo de atrás hacia adelante */
+        .logo-branding { position: absolute; width: 280px; z-index: 50; filter: drop-shadow(0 0 30px rgba(0, 242, 255, 0.2)); animation: logoEntrance 2.8s cubic-bezier(0.165, 0.84, 0.44, 1) forwards; }
         @keyframes logoEntrance {
-            0% { 
-                transform: scale(0.1) translateZ(-800px); 
-                opacity: 0; 
-                filter: blur(20px); 
-            }
-            60% { 
-                opacity: 1; 
-                filter: blur(0px); 
-            }
-            100% { 
-                transform: scale(1) translateY(-220px); 
-                width: 130px; /* Se queda arriba como cabecera */
-            }
+            0% { transform: scale(0.1) translateZ(-500px); opacity: 0; filter: blur(15px); }
+            60% { opacity: 1; filter: blur(0px); }
+            100% { transform: scale(1) translateY(-200px); width: 110px; }
         }
 
-        /* --- INTERFAZ DE SELECCIÓN (GLASSMORPHISM) --- */
-        .portal-ui {
-            display: flex; gap: 30px; width: 90%; max-width: 1000px;
-            z-index: 100; opacity: 0;
-            animation: fadeInUI 1s ease-out 2.6s forwards; /* Aparece después del logo */
-        }
-
-        .card {
-            flex: 1; background: var(--glass); backdrop-filter: blur(15px); -webkit-backdrop-filter: blur(15px);
-            border: 1px solid rgba(255, 255, 255, 0.1); padding: 55px 35px;
-            text-align: center; text-decoration: none; border-radius: 20px;
-            transition: 0.4s; position: relative; overflow: hidden;
-        }
-
-        .card:hover { border-color: var(--cyan); transform: translateY(-12px); background: rgba(0, 242, 255, 0.05); }
-        .card h2 { font-size: 2.3rem; letter-spacing: 6px; color: white; margin-bottom: 18px; text-transform: uppercase; }
-        .card p { font-family: 'Montserrat', sans-serif; color: #aaa; font-size: 0.85rem; margin-bottom: 30px; line-height: 1.6; }
+        .portal-grid { display: flex; gap: 30px; width: 100%; max-width: 1000px; padding: 0 20px; z-index: 100; opacity: 0; animation: showContent 1s ease-out 2.2s forwards; }
+        .unit-card { flex: 1; background: var(--glass); backdrop-filter: blur(15px); border: 1px solid rgba(255,255,255,0.1); padding: 60px 40px; text-align: center; text-decoration: none; border-radius: 20px; transition: 0.5s; display: flex; flex-direction: column; align-items: center; }
+        .unit-card:hover { border-color: var(--cyan); transform: translateY(-15px); box-shadow: 0 20px 50px rgba(0, 242, 255, 0.15); }
+        .unit-card h2 { font-family: 'Oswald', sans-serif; font-size: 2.5rem; letter-spacing: 6px; color: #fff; margin-bottom: 20px; text-transform: uppercase; }
+        .unit-card p { font-size: 0.85rem; color: #aaa; margin-bottom: 30px; line-height: 1.6; font-weight: 300; }
+        .action-btn { padding: 14px 40px; border: 1px solid var(--cyan); color: var(--cyan); font-family: 'Oswald'; font-size: 0.75rem; letter-spacing: 3px; text-transform: uppercase; transition: 0.3s; }
+        .unit-card:hover .action-btn { background: var(--cyan); color: #000; }
         
-        .btn {
-            display: inline-block; padding: 12px 35px; border: 1px solid var(--cyan);
-            color: var(--cyan); font-size: 0.75rem; letter-spacing: 3px; text-transform: uppercase; transition: 0.3s;
-        }
-
-        .card:hover .btn { background: var(--cyan); color: #000; }
-
-        @keyframes fadeInUI { from { opacity: 0; transform: translateY(40px); } to { opacity: 1; transform: translateY(0); } }
-
-        footer { position: fixed; bottom: 30px; color: #333; font-size: 0.6rem; letter-spacing: 4px; text-transform: uppercase; }
+        @keyframes showContent { from { opacity: 0; transform: translateY(50px); } to { opacity: 1; transform: translateY(0); } }
+        footer { position: fixed; bottom: 30px; font-size: 0.65rem; color: #444; letter-spacing: 4px; text-transform: uppercase; }
 
         @media (max-width: 768px) {
-            .portal-ui { flex-direction: column; padding-top: 100px; }
+            .portal-grid { flex-direction: column; margin-top: 100px; }
+            .logo-branding { width: 120px; }
             @keyframes logoEntrance {
                 0% { transform: scale(0.1); opacity: 0; }
-                100% { transform: scale(0.8) translateY(-260px); width: 110px; }
+                100% { transform: scale(0.8) translateY(-250px); }
             }
         }
     </style>
 </head>
 <body>
-    <div class="bg-env"></div>
-
-    <img src="logo-automotive.jpg" class="logo-branding" alt="Tensyle Logo Oficial">
-
-    <main class="portal-ui">
-        <a href="automotive.html" class="card">
+    <div class="bg-space"></div>
+    <img src="logo-instagram.jpg" class="logo-branding" alt="Logo Tensyle">
+    <main class="portal-grid">
+        <a href="automotive.html" class="unit-card">
             <h2>AUTOMOTIVE</h2>
-            <p>Ingeniería de precisión, escaneo 3D y reconstrucción de componentes con polímeros técnicos.</p>
-            <div class="btn">INGRESAR</div>
+            <p>Manufactura aditiva de alto rendimiento. Reconstrucción 3D, escaneo y polímeros técnicos industriales.</p>
+            <div class="action-btn">INGRESAR</div>
         </a>
-        <a href="motion.html" class="card">
+        <a href="motion.html" class="unit-card">
             <h2>MOTION</h2>
-            <p>Diseño avanzado de figuras articuladas y coleccionables premium con mecanismos reforzados.</p>
-            <div class="btn">EXPLORAR</div>
+            <p>Diseño avanzado de figuras articuladas y coleccionables. Ingeniería aplicada al entretenimiento.</p>
+            <div class="action-btn">EXPLORAR</div>
         </a>
     </main>
-
     <footer>TENSYLE SOLUTIONS © 2026 | CHÍA, COLOMBIA</footer>
-
     <script>window.oncontextmenu = function() { return false; };</script>
 </body>
 </html>
