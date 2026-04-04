@@ -6,52 +6,59 @@
     <title>TENSYLE | Core Engineering</title>
     <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@700&family=Oswald:wght@200;700&display=swap" rel="stylesheet">
     <style>
-        :root { --cyan: #00f2ff; --black: #000; }
+        :root { --cyan: #00f2ff; --black: #000; --transition: all 0.8s cubic-bezier(0.2, 1, 0.3, 1); }
         * { margin: 0; padding: 0; box-sizing: border-box; }
-        body { background: var(--black); height: 100vh; overflow: hidden; font-family: 'Oswald', sans-serif; display: flex; align-items: center; justify-content: center; color: white; }
+        body { background: var(--black); height: 100vh; overflow: hidden; font-family: 'Oswald', sans-serif; display: flex; align-items: center; justify-content: center; color: white; perspective: 1500px; }
 
-        /* Fondo Dinámico de Ingeniería */
-        .bg-scanner { position: fixed; width: 100%; height: 100%; background: radial-gradient(circle at 50% 50%, #0a1e24 0%, #000 100%); z-index: -1; }
-        .bg-scanner::after { content: ""; position: absolute; top: 0; left: 0; width: 100%; height: 100%; background: repeating-linear-gradient(0deg, rgba(0,242,255,0.03) 0px, transparent 1px); background-size: 100% 4px; animation: scan 10s linear infinite; }
-        @keyframes scan { from { transform: translateY(0); } to { transform: translateY(100%); } }
+        /* Fondo Atmosférico */
+        .ambient-bg { position: fixed; width: 100%; height: 100%; background: radial-gradient(circle at center, #0a1e24 0%, #000 100%); z-index: -1; }
+        .scanline { position: absolute; width: 100%; height: 2px; background: rgba(0, 242, 255, 0.1); top: 0; animation: scan 8s linear infinite; z-index: 1; }
+        @keyframes scan { from { top: 0; } to { top: 100%; } }
 
-        /* LOGO TENSYLE - Efecto Impacto Mercedes Style */
-        .brand-logo { position: absolute; width: 350px; z-index: 100; filter: drop-shadow(0 0 40px var(--cyan)); animation: logoFocus 3s cubic-bezier(0.16, 1, 0.3, 1) forwards; }
+        /* LOGO TENSYLE - Entrada de Alta Gama */
+        .branding-core { position: absolute; width: 380px; z-index: 100; filter: drop-shadow(0 0 50px var(--cyan)); animation: logoFocus 3.2s cubic-bezier(0.16, 1, 0.3, 1) forwards; pointer-events: none; }
         @keyframes logoFocus {
-            0% { transform: scale(3) translateZ(500px); opacity: 0; filter: blur(30px) brightness(5); }
-            100% { transform: scale(1) translateY(-220px); width: 100px; opacity: 1; filter: blur(0) brightness(1); }
+            0% { transform: scale(4) translate3d(0,0,500px); opacity: 0; filter: blur(40px) brightness(3); }
+            100% { transform: scale(1) translate3d(0,-240px,0); width: 110px; opacity: 1; filter: blur(0) brightness(1); }
         }
 
-        /* Portales de Selección Cinéticos */
-        .main-portal { display: flex; width: 100vw; height: 100vh; opacity: 0; animation: fadeInUI 1s ease-out 2.5s forwards; }
-        .section { flex: 1; display: flex; flex-direction: column; align-items: center; justify-content: center; text-decoration: none; position: relative; border-right: 1px solid rgba(0, 242, 255, 0.1); transition: 0.6s cubic-bezier(0.2, 1, 0.3, 1); overflow: hidden; }
-        .section:last-child { border: none; }
+        /* PORTALES CINÉTICOS */
+        .hub-selection { display: flex; width: 100%; height: 100%; opacity: 0; animation: revealUI 1.2s ease-out 2.8s forwards; }
+        .hub-gate { flex: 1; display: flex; flex-direction: column; align-items: center; justify-content: center; text-decoration: none; position: relative; overflow: hidden; border-right: 1px solid rgba(255,255,255,0.05); transition: var(--transition); }
+        .hub-gate:last-child { border: none; }
         
-        .section::before { content: ""; position: absolute; width: 100%; height: 100%; background: var(--cyan); opacity: 0; transition: 0.5s; z-index: 0; }
-        .section:hover::before { opacity: 0.05; }
-        .section:hover { flex: 1.5; }
+        .hub-gate::after { content: ""; position: absolute; width: 100%; height: 100%; background: linear-gradient(0deg, var(--cyan) 0%, transparent 100%); opacity: 0; transition: 0.6s; z-index: 0; }
+        .hub-gate:hover::after { opacity: 0.08; }
+        .hub-gate:hover { flex: 1.4; }
 
-        .section h2 { font-size: 6rem; letter-spacing: 25px; color: #fff; text-transform: uppercase; z-index: 1; transition: 0.5s; font-weight: 700; opacity: 0.3; }
-        .section:hover h2 { opacity: 1; letter-spacing: 40px; color: var(--cyan); }
+        .hub-gate h2 { font-size: clamp(3rem, 8vw, 7rem); letter-spacing: 30px; color: #fff; text-transform: uppercase; z-index: 10; opacity: 0.2; transition: var(--transition); font-weight: 700; margin-left: 30px; }
+        .hub-gate:hover h2 { opacity: 1; letter-spacing: 45px; color: var(--cyan); text-shadow: 0 0 30px rgba(0, 242, 255, 0.5); }
         
-        .section p { z-index: 1; letter-spacing: 8px; color: var(--cyan); font-size: 0.7rem; text-transform: uppercase; margin-top: 20px; }
+        .hub-gate p { z-index: 10; letter-spacing: 10px; color: var(--cyan); font-size: 0.7rem; text-transform: uppercase; margin-top: 15px; font-weight: 200; transform: translateY(20px); opacity: 0; transition: var(--transition); }
+        .hub-gate:hover p { transform: translateY(0); opacity: 0.8; }
 
-        @keyframes fadeInUI { from { opacity: 0; } to { opacity: 1; } }
-        footer { position: fixed; bottom: 30px; font-size: 0.6rem; color: #333; letter-spacing: 15px; text-transform: uppercase; }
+        @keyframes revealUI { from { opacity: 0; } to { opacity: 1; } }
+        footer { position: fixed; bottom: 35px; font-size: 0.6rem; color: #222; letter-spacing: 12px; text-transform: uppercase; }
+
+        @media (max-width: 768px) {
+            .hub-selection { flex-direction: column; }
+            .hub-gate { border-right: none; border-bottom: 1px solid rgba(255,255,255,0.05); }
+            @keyframes logoFocus { 0% { opacity: 0; } 100% { transform: scale(0.8) translateY(-280px); width: 100px; opacity: 1; } }
+        }
     </style>
 </head>
 <body>
-    <div class="bg-scanner"></div>
-    <img src="logo-automotive.jpg" class="brand-logo" alt="Logo Tensyle">
+    <div class="ambient-bg"><div class="scanline"></div></div>
+    <img src="logo-automotive.jpg" class="branding-core" alt="Tensyle">
 
-    <main class="main-portal">
-        <a href="automotive.html" class="section">
+    <main class="hub-selection">
+        <a href="automotive.html" class="hub-gate">
             <h2>AUTO</h2>
-            <p>Engineering & Reconstruction</p>
+            <p>Advanced Engineering</p>
         </a>
-        <a href="motion.html" class="section">
+        <a href="motion.html" class="hub-gate">
             <h2>MOTION</h2>
-            <p>Kinetic Collectibles Lab</p>
+            <p>Kinetic Collectibles</p>
         </a>
     </main>
     <footer>TENSYLE . PRECISION IN EVERY LAYER . 2026</footer>
