@@ -6,7 +6,7 @@
     <title>Tensyle | Engineering Precision</title>
     <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;700&family=Oswald:wght@300;600&display=swap" rel="stylesheet">
     <style>
-        :root { --cyan: #00f2ff; --black: #050505; --glass: rgba(10, 10, 10, 0.8); }
+        :root { --cyan: #00f2ff; --black: #050505; --glass: rgba(10, 10, 10, 0.85); }
         
         body { 
             margin: 0; background: var(--black); height: 100vh; 
@@ -20,84 +20,89 @@
             z-index: -1;
         }
 
-        /* --- LOGO TENSYLE EN SVG PURO --- */
-        .logo-container {
+        /* --- ANIMACIÓN DEL LOGO REAL (ATRÁS HACIA ADELANTE) --- */
+        .logo-branding {
             position: absolute;
-            width: 300px;
+            width: 350px; /* Tamaño de impacto inicial */
             z-index: 50;
             filter: drop-shadow(0 0 25px rgba(0, 242, 255, 0.4));
-            animation: logoFlight 3s cubic-bezier(0.165, 0.84, 0.44, 1) forwards;
+            /* La animación de profundidad */
+            animation: logoEntrance 3s cubic-bezier(0.165, 0.84, 0.44, 1) forwards;
         }
 
-        @keyframes logoFlight {
-            0% { transform: scale(0.1) translateZ(-800px) rotateX(20deg); opacity: 0; filter: blur(20px); }
-            50% { opacity: 1; filter: blur(0px); }
-            100% { transform: scale(1) translateY(-220px); width: 120px; }
+        @keyframes logoEntrance {
+            0% { 
+                transform: scale(0.1) translateZ(-800px); 
+                opacity: 0; 
+                filter: blur(20px); 
+            }
+            60% { 
+                opacity: 1; 
+                filter: blur(0px); 
+            }
+            100% { 
+                transform: scale(1) translateY(-220px); 
+                width: 130px; /* Se queda arriba como cabecera */
+            }
         }
 
-        /* Animación interna de la malla hexagonal */
-        .hex-mesh { stroke-dasharray: 10; animation: meshFlow 5s linear infinite; }
-        @keyframes meshFlow { from { stroke-dashoffset: 20; } to { stroke-dashoffset: 0; } }
-
-        /* --- MENÚ DE SELECCIÓN --- */
+        /* --- INTERFAZ DE SELECCIÓN (GLASSMORPHISM) --- */
         .portal-ui {
             display: flex; gap: 30px; width: 90%; max-width: 1000px;
             z-index: 100; opacity: 0;
-            animation: fadeInUI 1s ease-out 2.5s forwards;
+            animation: fadeInUI 1s ease-out 2.6s forwards; /* Aparece después del logo */
         }
 
         .card {
-            flex: 1; background: var(--glass); backdrop-filter: blur(15px);
-            border: 1px solid rgba(255, 255, 255, 0.05); padding: 50px 30px;
+            flex: 1; background: var(--glass); backdrop-filter: blur(15px); -webkit-backdrop-filter: blur(15px);
+            border: 1px solid rgba(255, 255, 255, 0.1); padding: 55px 35px;
             text-align: center; text-decoration: none; border-radius: 20px;
             transition: 0.4s; position: relative; overflow: hidden;
         }
 
-        .card:hover { border-color: var(--cyan); transform: translateY(-10px); background: rgba(0, 242, 255, 0.03); }
-        .card h2 { font-size: 2.2rem; letter-spacing: 6px; color: white; margin-bottom: 15px; }
-        .card p { font-family: 'Montserrat', sans-serif; color: #888; font-size: 0.85rem; margin-bottom: 30px; line-height: 1.6; }
+        .card:hover { border-color: var(--cyan); transform: translateY(-12px); background: rgba(0, 242, 255, 0.05); }
+        .card h2 { font-size: 2.3rem; letter-spacing: 6px; color: white; margin-bottom: 18px; text-transform: uppercase; }
+        .card p { font-family: 'Montserrat', sans-serif; color: #aaa; font-size: 0.85rem; margin-bottom: 30px; line-height: 1.6; }
         
         .btn {
-            display: inline-block; padding: 12px 30px; border: 1px solid var(--cyan);
-            color: var(--cyan); font-size: 0.75rem; letter-spacing: 3px; text-transform: uppercase;
+            display: inline-block; padding: 12px 35px; border: 1px solid var(--cyan);
+            color: var(--cyan); font-size: 0.75rem; letter-spacing: 3px; text-transform: uppercase; transition: 0.3s;
         }
 
         .card:hover .btn { background: var(--cyan); color: #000; }
 
         @keyframes fadeInUI { from { opacity: 0; transform: translateY(40px); } to { opacity: 1; transform: translateY(0); } }
 
-        footer { position: fixed; bottom: 30px; color: #333; font-size: 0.6rem; letter-spacing: 4px; }
+        footer { position: fixed; bottom: 30px; color: #333; font-size: 0.6rem; letter-spacing: 4px; text-transform: uppercase; }
+
+        @media (max-width: 768px) {
+            .portal-ui { flex-direction: column; padding-top: 100px; }
+            @keyframes logoEntrance {
+                0% { transform: scale(0.1); opacity: 0; }
+                100% { transform: scale(0.8) translateY(-260px); width: 110px; }
+            }
+        }
     </style>
 </head>
 <body>
     <div class="bg-env"></div>
 
-    <div class="logo-container">
-        <svg viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
-            <path class="hex-mesh" d="M30 20 L70 20 L80 35 L70 50 L30 50 L20 35 Z" stroke="rgba(0, 242, 255, 0.3)" stroke-width="0.5"/>
-            <path d="M40 25 H60 M35 35 H65 M40 45 H60" stroke="var(--cyan)" stroke-width="0.2" opacity="0.5"/>
-            
-            <path d="M20 20 H80 V35 H60 V80 H40 V35 H20 V20 Z" stroke="var(--cyan)" stroke-width="1.5" stroke-linejoin="round"/>
-            
-            <circle cx="20" cy="20" r="1" fill="var(--cyan)"/>
-            <circle cx="80" cy="20" r="1" fill="var(--cyan)"/>
-        </svg>
-    </div>
+    <img src="logo-automotive.jpg" class="logo-branding" alt="Tensyle Logo Oficial">
 
     <main class="portal-ui">
         <a href="automotive.html" class="card">
             <h2>AUTOMOTIVE</h2>
-            <p>Ingeniería de reconstrucción y polímeros técnicos industriales.</p>
+            <p>Ingeniería de precisión, escaneo 3D y reconstrucción de componentes con polímeros técnicos.</p>
             <div class="btn">INGRESAR</div>
         </a>
         <a href="motion.html" class="card">
             <h2>MOTION</h2>
-            <p>Mecanismos articulados y figuras coleccionables de alta gama.</p>
+            <p>Diseño avanzado de figuras articuladas y coleccionables premium con mecanismos reforzados.</p>
             <div class="btn">EXPLORAR</div>
         </a>
     </main>
 
-    <footer>TENSYLE SOLUTIONS © 2026</footer>
+    <footer>TENSYLE SOLUTIONS © 2026 | CHÍA, COLOMBIA</footer>
 
     <script>window.oncontextmenu = function() { return false; };</script>
 </body>
