@@ -6,174 +6,148 @@
     <title>Tensyle | Precision in Every Layer</title>
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;600&family=Oswald:wght@200;400;700&display=swap" rel="stylesheet">
     <style>
-        :root { --blue: #00d4ff; --black: #050505; --gray: #121212; --dark-blue: #0a1a20; }
+        :root { --blue: #00d4ff; --black: #050505; --gray: #121212; }
         * { box-sizing: border-box; margin: 0; padding: 0; scroll-behavior: smooth; -webkit-tap-highlight-color: transparent; }
         body { font-family: 'Montserrat', sans-serif; background: var(--black); color: white; overflow-x: hidden; }
-        
-        nav { position: fixed; top: 0; width: 100%; background: rgba(5,5,5,0.9); backdrop-filter: blur(10px); padding: 12px 0; z-index: 1000; border-bottom: 1px solid #222; display: flex; align-items: center; justify-content: center; gap: 30px; }
+        nav { position: fixed; top: 0; width: 100%; background: rgba(5,5,5,0.9); backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px); padding: 12px 0; z-index: 1000; border-bottom: 1px solid #222; display: flex; align-items: center; justify-content: center; gap: 30px; }
         .nav-logo { height: 35px; border-radius: 50%; border: 1px solid var(--blue); }
         nav a { color: white; text-decoration: none; font-family: 'Oswald'; letter-spacing: 2px; font-size: 0.75rem; text-transform: uppercase; }
-
-        /* HEADER AVANZADO */
-        header { position: relative; height: 100vh; display: flex; flex-direction: column; justify-content: center; align-items: center; text-align: center; background: #000; overflow: hidden; border-bottom: 1px solid var(--blue); }
-        #logo-canvas { position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); width: 100vw; height: 100vh; z-index: 1; opacity: 0.15; }
-        #canvas-dots { position: absolute; top: 0; left: 0; width: 100%; height: 100%; z-index: 2; opacity: 0.4; }
-        .header-content { position: relative; z-index: 3; }
-        header h1 { font-family: 'Oswald'; font-size: clamp(3.5rem, 12vw, 7.5rem); letter-spacing: 25px; font-weight: 200; text-transform: uppercase; margin: 0; background: linear-gradient(90deg, #222, #fff, #222); background-size: 80%; animation: shine 5s linear infinite; -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
-        @keyframes shine { 0% { background-position: -500%; } 100% { background-position: 500%; } }
-        .slogan { font-family: 'Oswald'; color: var(--blue); letter-spacing: 15px; font-size: clamp(0.7rem, 2.5vw, 1rem); text-transform: uppercase; margin: 20px 0; font-weight: 400; text-shadow: 0 0 10px rgba(0, 212, 255, 0.5); }
-
+        header { height: 75vh; display: flex; flex-direction: column; justify-content: center; align-items: center; text-align: center; background: radial-gradient(circle at center, #0a1a20 0%, #000 100%); border-bottom: 1px solid var(--blue); padding: 20px; }
+        header h1 { font-family: 'Oswald'; font-size: clamp(3.5rem, 12vw, 7rem); letter-spacing: 20px; font-weight: 200; text-transform: uppercase; line-height: 1; margin: 0; }
+        .slogan { font-family: 'Oswald'; color: var(--blue); letter-spacing: 12px; font-size: clamp(0.7rem, 2.5vw, 1rem); text-transform: uppercase; margin: 15px 0; font-weight: 400; }
+        .intro-text { max-width: 650px; font-size: 0.95rem; color: #aaa; font-weight: 300; line-height: 1.5; }
         .container { max-width: 1300px; margin: auto; padding: 60px 20px; }
-        .section-title { font-family: 'Oswald'; text-align: center; font-size: 2rem; letter-spacing: 8px; color: var(--blue); margin-bottom: 50px; text-transform: uppercase; }
-
-        /* SELECTOR DE LÍNEAS (AUTOMOTIVE VS MOTION) */
-        .selector-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; margin-bottom: 80px; }
-        .line-card { position: relative; height: 400px; border: 1px solid #333; overflow: hidden; display: flex; flex-direction: column; justify-content: center; align-items: center; transition: 0.5s; cursor: pointer; text-decoration: none; }
-        .line-card:hover { border-color: var(--blue); transform: scale(1.02); background: rgba(0, 212, 255, 0.05); }
-        .line-card h2 { font-family: 'Oswald'; font-size: 3rem; letter-spacing: 10px; color: white; transition: 0.3s; }
-        .line-card p { font-family: 'Montserrat'; font-size: 0.8rem; color: var(--blue); letter-spacing: 3px; margin-top: 10px; opacity: 0.7; }
-        .line-card:hover h2 { letter-spacing: 15px; color: var(--blue); }
-
-        /* BANNERS DE MATERIALES */
-        .materials-banner { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 15px; background: #0a0a0a; border: 1px solid #1a1a1a; padding: 30px; border-radius: 8px; margin-bottom: 40px; }
-        .mat-item { text-align: center; }
-        .mat-item h4 { font-family: 'Oswald'; color: var(--blue); font-size: 1rem; margin-bottom: 5px; }
-        .mat-item p { font-size: 0.75rem; color: #777; line-height: 1.4; }
-
-        /* PORTAFOLIO GRID */
+        .section-title { font-family: 'Oswald'; text-align: center; font-size: 1.8rem; letter-spacing: 5px; color: var(--blue); margin-bottom: 40px; text-transform: uppercase; }
+        .process-box { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 20px; margin-bottom: 60px; }
+        .step { padding: 30px; background: #0a0a0a; border: 1px solid #222; border-radius: 8px; text-align: center; }
+        .step h4 { font-family: 'Oswald'; color: var(--blue); margin-bottom: 15px; letter-spacing: 2px; }
+        .step p { font-size: 0.85rem; color: #777; line-height: 1.6; }
         .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(380px, 1fr)); gap: 35px; }
-        .card { background: var(--gray); border: 1px solid #222; border-radius: 8px; overflow: hidden; transition: 0.3s; }
-        .card:hover { border-color: var(--blue); }
-        .img-container { display: flex; gap: 2px; height: 320px; background: #000; }
+        .card { background: var(--gray); border: 1px solid #222; border-radius: 8px; overflow: hidden; }
+        .img-container { display: flex; gap: 2px; height: 320px; background: #000; border-bottom: 1px solid #222; }
         .img-box { flex: 1; position: relative; overflow: hidden; cursor: pointer; }
-        .img-box img { width: 100%; height: 100%; object-fit: cover; transition: 0.5s; pointer-events: none; }
-        .tag { position: absolute; bottom: 8px; left: 8px; background: rgba(0,0,0,0.85); color: var(--blue); font-size: 0.5rem; padding: 2px 6px; font-family: 'Oswald'; border: 1px solid var(--blue); }
+        .img-box::after { content: ""; position: absolute; top: 0; left: 0; width: 100%; height: 100%; z-index: 5; } 
+        .img-box img { width: 100%; height: 100%; object-fit: cover; transition: 0.3s; pointer-events: none; }
+        .tag { position: absolute; bottom: 8px; left: 8px; background: rgba(0,0,0,0.85); color: var(--blue); font-size: 0.5rem; padding: 2px 6px; font-family: 'Oswald'; border: 1px solid var(--blue); z-index: 6; pointer-events: none; }
         .info { padding: 20px; }
         .info h3 { font-family: 'Oswald'; font-size: 1.1rem; color: var(--blue); text-transform: uppercase; letter-spacing: 2px; }
+        .brand-tag { font-size: 0.65rem; color: #666; font-weight: 600; display: block; margin-bottom: 5px; }
+        .faq-container { max-width: 800px; margin: 40px auto; }
+        details { background: #0a0a0a; margin-bottom: 10px; padding: 15px; border-radius: 6px; border: 1px solid #1a1a1a; cursor: pointer; }
+        summary { font-family: 'Oswald'; color: var(--blue); font-size: 0.9rem; list-style: none; text-transform: uppercase; letter-spacing: 1px; }
+        details p { font-size: 0.85rem; color: #888; margin-top: 10px; }
+        #modal { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.95); z-index: 10000; justify-content: center; align-items: center; padding: 20px; }
+        #modal img { max-width: 90%; max-height: 80%; border: 1px solid var(--blue); border-radius: 8px; box-shadow: 0 0 50px rgba(0, 212, 255, 0.2); object-fit: contain; }
+        .close-modal { position: absolute; top: 25px; right: 25px; color: white; font-size: 35px; cursor: pointer; }
+        .wa-float { position: fixed; bottom: 25px; right: 25px; width: 55px; z-index: 5000; }/* --- ESTILOS BOTÓN INSTAGRAM TENSYLE --- */
+.floating-social-tensyle {
+    position: fixed;
+    right: 25px;       /* Alineado con el margen de WhatsApp */
+    bottom: 95px;      /* Ubicado arriba del botón de WhatsApp */
+    z-index: 5000;     /* Mismo nivel que el wa-float para que no se tapen */
+}
 
-        /* FORMULARIO */
-        .quote-section { background: #0a0a0a; padding: 45px; border-radius: 12px; border: 1px solid #1a1a1a; max-width: 700px; margin: 80px auto; }
-        .quote-form label { display: block; margin-bottom: 10px; font-size: 0.75rem; color: var(--blue); font-family: 'Oswald'; text-transform: uppercase; }
-        .quote-form input, .quote-form textarea { width: 100%; background: #050505; border: 1px solid #222; padding: 15px; color: white; margin-bottom: 20px; border-radius: 6px; font-family: 'Montserrat'; }
-        .btn-submit { width: 100%; background: var(--blue); color: black; border: none; padding: 20px; font-family: 'Oswald'; font-weight: bold; cursor: pointer; text-transform: uppercase; letter-spacing: 3px; }
+.insta-float {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 55px;
+    height: 55px;
+    background-color: #1a1a1a; /* Fondo oscuro para combinar con tu web */
+    border-radius: 50%;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.5);
+    transition: all 0.3s ease;
+    border: 1px solid #222;
+}
 
-        .wa-float { position: fixed; bottom: 25px; right: 25px; width: 55px; z-index: 5000; }
-        .insta-float-tensyle { position: fixed; right: 25px; bottom: 95px; width: 55px; z-index: 5000; }
-        #modal { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.95); z-index: 10000; justify-content: center; align-items: center; }
-        #modal img { max-width: 90%; max-height: 80%; border: 1px solid var(--blue); border-radius: 8px; }
-        footer { text-align: center; padding: 60px; color: #444; font-size: 0.7rem; border-top: 1px solid #111; }
+.insta-float img {
+    width: 28px;
+    height: 28px;
+}
 
-        @media (max-width: 768px) { .selector-grid { grid-template-columns: 1fr; } .line-card { height: 250px; } }
+/* Efecto hover: se ilumina con el gradiente de Instagram */
+.insta-float:hover {
+    transform: translateY(-5px);
+    background: linear-gradient(45deg, #f09433, #bc1888);
+    border-color: transparent;
+}
+
+/* El icono se pone blanco puro al pasar el mouse */
+.insta-float:hover img {
+    filter: brightness(0) invert(1);
+}
+        footer { text-align: center; padding: 40px; color: #444; font-size: 0.7rem; border-top: 1px solid #111; }
     </style>
 </head>
 <body>
     <nav>
         <img src="logo-automotive.jpg" class="nav-logo">
-        <a href="index.html">TENSYLE</a>
-        <a href="#automotive">AUTOMOTIVE</a>
-        <a href="#motion">MOTION</a>
+        <a href="index.html">AUTOMOTIVE</a>
+        <a href="motion.html">MOTION</a>
     </nav>
-
     <header>
-        <canvas id="logo-canvas"></canvas>
-        <canvas id="canvas-dots"></canvas>
-        <div class="header-content">
-            <h1>TENSYLE</h1>
-            <p class="slogan">PRECISION IN EVERY LAYER</p>
-        </div>
+        <h1>TENSYLE</h1>
+        <p class="slogan">PRECISION IN EVERY LAYER</p>
+        <p class="intro-text">Reconstrucción de componentes descontinuados y fabricación de piezas a medida. Utilizamos polímeros técnicos seleccionados para ofrecer durabilidad y funcionalidad.</p>
     </header>
-
     <div class="container">
-        <div class="selector-grid">
-            <a href="#automotive" class="line-card">
-                <h2>AUTOMOTIVE</h2>
-                <p>RECONSTRUCCIÓN TÉCNICA</p>
-            </a>
-            <a href="#motion" class="line-card">
-                <h2>MOTION</h2>
-                <p>DISEÑO Y COLECCIONABLES</p>
-            </a>
+        <h2 class="section-title">NUESTRO PROCESO</h2>
+        <div class="process-box">
+            <div class="step"><h4>ESCANEO & DISEÑO</h4><p>Digitalizamos piezas dañadas para una reconstrucción funcional y precisa.</p></div>
+            <div class="step"><h4>POLÍMEROS TÉCNICOS</h4><p>Fabricamos con materiales de alta resistencia (ABS, PETG) configurados para el entorno automotriz.</p></div>
+            <div class="step"><h4>SOPORTE DE CALCE</h4><p>Acompañamos tu proyecto para asegurar que la pieza cumpla su propósito final.</p></div>
         </div>
-
-        <section id="automotive">
-            <h2 class="section-title">LINEA AUTOMOTIVE</h2>
-            <div class="materials-banner">
-                <div class="mat-item"><h4>ABS / ASA</h4><p>Resistencia térmica extrema y protección UV para exterior.</p></div>
-                <div class="mat-item"><h4>PETG TÉCNICO</h4><p>Piezas estructurales con alta tenacidad mecánica.</p></div>
-                <div class="mat-item"><h4>NYLON CF</h4><p>Refuerzo con Fibra de Carbono para máxima exigencia.</p></div>
-            </div>
-            
-            <div class="grid">
-                <div class="card"><div class="img-container">
-                    <div class="img-box" onclick="openModal(this)"><img src="lateral-moto-impresa-antes.jpg"><span class="tag">ANTES</span></div>
-                    <div class="img-box" onclick="openModal(this)"><img src="lateral-moto-impresa.jpg"><span class="tag">PROCESO</span></div>
-                    <div class="img-box" onclick="openModal(this)"><img src="lateral-moto-fin.jpg"><span class="tag">FINAL</span></div>
-                </div><div class="info"><h3>Carena Fazer 2.0</h3></div></div>
-                <div class="card"><div class="img-container">
-                    <div class="img-box" onclick="openModal(this)"><img src="manija-puerta-exterior-antes.jpg"><span class="tag">ANTES</span></div>
-                    <div class="img-box" onclick="openModal(this)"><img src="manija-puerta-exterior.jpg"><span class="tag">FINAL</span></div>
-                </div><div class="info"><h3>Manija Megane 2</h3></div></div>
-            </div>
-        </section>
-
-        <section id="motion" style="margin-top: 100px;">
-            <h2 class="section-title">LINEA MOTION</h2>
-            <div class="materials-banner" style="border-color: #ff006e;">
-                <div class="mat-item"><h4>RESINA 4K</h4><p>Nivel de detalle microscópico para figuras y prototipos.</p></div>
-                <div class="mat-item"><h4>PLA+ PRO</h4><p>Acabado estético superior y amplia gama cromática.</p></div>
-                <div class="mat-item"><h4>SILK METALLIC</h4><p>Efectos de brillo real para piezas de exhibición.</p></div>
-            </div>
-            <div style="text-align:center; color:#555; padding: 40px; border: 1px dashed #333;">
-                <p>Próximamente: El catálogo completo de Motion está siendo impreso.</p>
-            </div>
-        </section>
-
-        <section id="cotizar" class="quote-section">
-            <h2 class="section-title" style="font-size: 1.4rem;">CENTRO DE COTIZACIÓN</h2>
-            <form action="https://formspree.io/f/mqakevlv" method="POST" enctype="multipart/form-data" class="quote-form">
-                <label>Nombre</label><input type="text" name="Nombre" required>
-                <label>Correo</label><input type="email" name="Email" required>
-                <label>Línea (Auto / Juguete)</label><input type="text" name="Linea" required>
-                <textarea name="Detalles" rows="4" placeholder="Describe tu proyecto..." required></textarea>
-                <label>Fotos</label><input type="file" name="attachment" accept="image/*" multiple style="border:none;">
-                <button type="submit" class="btn-submit">Enviar Solicitud</button>
-            </form>
+        <h2 class="section-title">PORTAFOLIO AUTOMOTIVE</h2>
+        <div class="grid">
+            <div class="card"><div class="img-container">
+                <div class="img-box" onclick="openModal(this)"><img src="lateral-moto-impresa-antes.jpg"><span class="tag">ANTES</span></div>
+                <div class="img-box" onclick="openModal(this)"><img src="lateral-moto-impresa.jpg"><span class="tag">PROCESO</span></div>
+                <div class="img-box" onclick="openModal(this)"><img src="lateral-moto-fin.jpg"><span class="tag">FINAL</span></div>
+            </div><div class="info"><span class="brand-tag">YAMAHA FAZER 2.0</span><h3>Carena Lateral</h3></div></div>
+            <div class="card"><div class="img-container">
+                <div class="img-box" onclick="openModal(this)"><img src="frontal-rejilla-despues-antes.jpg"><span class="tag">ANTES</span></div>
+                <div class="img-box" onclick="openModal(this)"><img src="frontal-rejilla-despues.jpg"><span class="tag">DESPUÉS</span></div>
+            </div><div class="info"><span class="brand-tag">RENAULT MÉGANE 2</span><h3>Frontal Rejilla</h3></div></div>
+            <div class="card"><div class="img-container">
+                <div class="img-box" onclick="openModal(this)"><img src="inferior-frontal-panal-antes.jpg"><span class="tag">ANTES</span></div>
+                <div class="img-box" onclick="openModal(this)"><img src="inferior-frontal-panal.jpg"><span class="tag">DESPUÉS</span></div>
+            </div><div class="info"><span class="brand-tag">RENAULT MÉGANE 2</span><h3>Inferior Frontal Panal</h3></div></div>
+            <div class="card"><div class="img-container">
+                <div class="img-box" onclick="openModal(this)"><img src="manija-puerta-exterior-antes.jpg"><span class="tag">ANTES</span></div>
+                <div class="img-box" onclick="openModal(this)"><img src="manija-puerta-exterior.jpg"><span class="tag">DESPUÉS</span></div>
+            </div><div class="info"><span class="brand-tag">RENAULT MÉGANE 2</span><h3>Manija Puerta Exterior</h3></div></div>
+            <div class="card"><div class="img-container">
+                <div class="img-box" onclick="openModal(this)"><img src="pieza-interna-puerta-antes.jpg"><span class="tag">ANTES</span></div>
+                <div class="img-box" onclick="openModal(this)"><img src="pieza-interna-puerta.jpg"><span class="tag">DESPUÉS</span></div>
+            </div><div class="info"><span class="brand-tag">RENAULT MÉGANE 2</span><h3>Pieza Interna Puerta</h3></div></div>
+            <div class="card"><div class="img-container">
+                <div class="img-box" onclick="openModal(this)"><img src="tapa-cubre-cadenas-antes.jpg"><span class="tag">ANTES</span></div>
+                <div class="img-box" onclick="openModal(this)"><img src="tapa-cubre-cadenas.jpg"><span class="tag">DESPUÉS</span></div>
+            </div><div class="info"><span class="brand-tag">YAMAHA FAZER 2.0</span><h3>Tapa Cubre Cadenas</h3></div></div>
+            <div class="card"><div class="img-container"><div class="img-box" onclick="openModal(this)"><img src="espejo-retrovisor-moto.jpg"></div></div><div class="info"><span class="brand-tag">YAMAHA FAZER 2.0</span><h3>Espejo Retrovisor</h3></div></div>
+        </div>
+        <h2 class="section-title">PREGUNTAS FRECUENTES</h2>
+        <div class="faq-container">
+            <details><summary>¿Qué materiales utilizan?</summary><p>Trabajamos con polímeros técnicos como ABS y PETG reforzado, seleccionados por su resistencia térmica y mecánica.</p></details>
+            <details><summary>¿Hacen envíos nacionales?</summary><p>Sí, enviamos a toda Colombia desde Chía con empaque de seguridad.</p></details>
         </div>
     </div>
-
-    <a href="https://www.instagram.com/tensyle.3d" target="_blank" class="insta-float-tensyle"><img src="https://upload.wikimedia.org/wikipedia/commons/e/e7/Instagram_logo_2016.svg"></a>
-    <a href="https://wa.me/573171687777" class="wa-float" target="_blank"><img src="https://upload.wikimedia.org/wikipedia/commons/6/6b/WhatsApp.svg"></a>
-    <div id="modal" onclick="this.style.display='none'"><img id="modal-img"></div>
-    <footer>TENSYLE SOLUTIONS © 2026</footer>
-
+    <div class="floating-social-tensyle">
+    <a href="https://www.instagram.com/tensyle.3d?utm_source=qr&igsh=a3JvdmdjOWoxNXR1" target="_blank" class="insta-float">
+        <img src="https://upload.wikimedia.org/wikipedia/commons/e/e7/Instagram_logo_2016.svg" alt="Instagram Tensyle">
+    </a>
+</div>
+    <div id="modal" onclick="this.style.display='none'"><span class="close-modal">&times;</span><img id="modal-img" src=""></div>
+    <footer>TENSYLE SOLUTIONS © 2026 | CHÍA</footer>
+    <a href="https://wa.me/573171687777?text=Hola,%20equipo%20de%20Tensyle.%20Vi%20sus%20trabajos%20en%20piezas%20automotrices%20y%20me%20interesa%20una%20asesoría%20personalizada%20para%20un%20proyecto." class="wa-float" target="_blank">
+        <img src="https://upload.wikimedia.org/wikipedia/commons/6/6b/WhatsApp.svg">
+    </a>
+    <audio id="transitionSound" src="click.mp3" preload="auto"></audio>
     <script>
-        const logoCanvas = document.getElementById('logo-canvas');
-        const logoCtx = logoCanvas.getContext('2d');
-        logoCanvas.width = window.innerWidth;
-        logoCanvas.height = window.innerHeight;
-        const tensyleLogoSVG = `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 500 150"><text x="50%" y="50%" dominant-baseline="middle" text-anchor="middle" font-family="Oswald" font-weight="200" font-size="120" fill="#00d4ff" letter-spacing="25">TENSYLE</text></svg>`;
-        const logoImg = new Image();
-        logoImg.src = 'data:image/svg+xml;base64,' + btoa(tensyleLogoSVG);
-        let scale = 0.9, speed = 0.0001;
-        function animateLogo() {
-            logoCtx.clearRect(0,0,logoCanvas.width,logoCanvas.height);
-            scale += speed; if(scale>1 || scale<0.9) speed *= -1;
-            logoCtx.save(); logoCtx.translate(logoCanvas.width/2, logoCanvas.height/2);
-            logoCtx.scale(scale,scale); logoCtx.drawImage(logoImg, -250, -75, 500, 150);
-            logoCtx.restore(); requestAnimationFrame(animateLogo);
-        }
-        logoImg.onload = animateLogo;
-
-        const canvas = document.getElementById('canvas-dots'); const ctx = canvas.getContext('2d');
-        canvas.width = window.innerWidth; canvas.height = window.innerHeight;
-        let particles = [];
-        class Particle { constructor() { this.x = Math.random()*canvas.width; this.y = Math.random()*canvas.height; this.size = Math.random()*2; this.speedX = Math.random()*0.5-0.25; this.speedY = Math.random()*0.5-0.25; } update() { this.x+=this.speedX; this.y+=this.speedY; if(this.x>canvas.width) this.x=0; if(this.y>canvas.height) this.y=0; } draw() { ctx.fillStyle = '#00d4ff'; ctx.beginPath(); ctx.arc(this.x, this.y, this.size, 0, Math.PI*2); ctx.fill(); } }
-        for(let i=0; i<80; i++) particles.push(new Particle());
-        function animDots() { ctx.clearRect(0,0,canvas.width,canvas.height); particles.forEach(p=>{p.update();p.draw();}); requestAnimationFrame(animDots); }
-        animDots();
-
-        function openModal(el) { document.getElementById('modal-img').src = el.querySelector('img').src; document.getElementById('modal').style.display = 'flex'; }
-        window.oncontextmenu = () => false;
+        function openModal(element) { const imgSrc = element.querySelector('img').src; document.getElementById('modal-img').src = imgSrc; document.getElementById('modal').style.display = 'flex'; }
+        function playTransition(e) { e.preventDefault(); const targetUrl = e.currentTarget.href; const audio = document.getElementById('transitionSound'); audio.play().catch(() => { window.location.href = targetUrl; }); setTimeout(() => { window.location.href = targetUrl; }, 350); }
+        document.querySelectorAll('nav a').forEach(link => { if(!link.href.includes('index.html')) { link.addEventListener('click', playTransition); } });
+        window.oncontextmenu = function() { return false; };
     </script>
 </body>
 </html>
