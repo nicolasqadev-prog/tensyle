@@ -2,97 +2,65 @@
 <html lang="es">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>Tensyle | Precision Engineering</title>
-    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@700&family=Oswald:wght@200;500;700&display=swap" rel="stylesheet">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TENSYLE | Master Engineering</title>
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@700&family=Oswald:wght@200;700&display=swap" rel="stylesheet">
     <style>
-        :root { --cyan: #00f2ff; --black: #020202; --dark-blue: #0a1e24; }
-        * { box-sizing: border-box; margin: 0; padding: 0; }
-        body { background: var(--black); color: white; height: 100vh; display: flex; align-items: center; justify-content: center; overflow: hidden; perspective: 1500px; font-family: 'Oswald', sans-serif; }
+        :root { --cyan: #00f2ff; --black: #000000; }
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { background: var(--black); height: 100vh; overflow: hidden; font-family: 'Oswald', sans-serif; display: flex; align-items: center; justify-content: center; perspective: 2000px; }
+
+        /* Fondo de red neuronal / ingeniería */
+        .grid-bg { position: fixed; width: 200%; height: 200%; background-image: 
+            linear-gradient(rgba(0, 242, 255, 0.05) 1px, transparent 1px),
+            linear-gradient(90deg, rgba(0, 242, 255, 0.05) 1px, transparent 1px);
+            background-size: 50px 50px; transform: rotateX(60deg) translateY(-50%); z-index: -1; animation: gridMove 20s linear infinite; }
+        @keyframes gridMove { from { transform: rotateX(60deg) translateY(-50%); } to { transform: rotateX(60deg) translateY(0%); } }
+
+        /* LOGO TENSYLE - Animación de Impacto */
+        .logo-center { position: absolute; width: 300px; z-index: 100; filter: drop-shadow(0 0 50px var(--cyan)); animation: logoHero 3.5s cubic-bezier(0.23, 1, 0.32, 1) forwards; }
+        @keyframes logoHero {
+            0% { transform: scale(0) translateZ(-1000px) rotateY(90deg); opacity: 0; }
+            50% { opacity: 1; transform: scale(1.2) translateZ(100px) rotateY(0deg); }
+            100% { transform: scale(1) translateY(-250px); width: 120px; }
+        }
+
+        /* Portales de Selección */
+        .main-gate { display: flex; gap: 40px; width: 90%; max-width: 1200px; z-index: 50; opacity: 0; animation: fadeInUI 1.5s ease-out 2.8s forwards; }
+        .gate-card { flex: 1; height: 500px; position: relative; border: 1px solid rgba(0, 242, 255, 0.2); border-radius: 5px; overflow: hidden; text-decoration: none; transition: 0.5s cubic-bezier(0.4, 0, 0.2, 1); background: rgba(5, 5, 5, 0.8); backdrop-filter: blur(20px); display: flex; flex-direction: column; align-items: center; justify-content: center; }
         
-        /* Fondo de Partículas Sutiles */
-        .bg-void { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: radial-gradient(circle at center, var(--dark-blue) 0%, #000 100%); z-index: -1; }
+        .gate-card::before { content: ""; position: absolute; top: 0; left: 0; width: 100%; height: 100%; background: linear-gradient(45deg, transparent, rgba(0, 242, 255, 0.1), transparent); transform: translateX(-100%); transition: 0.6s; }
+        .gate-card:hover::before { transform: translateX(100%); }
+        .gate-card:hover { border-color: var(--cyan); transform: scale(1.02); box-shadow: 0 0 80px rgba(0, 242, 255, 0.15); }
 
-        /* ANIMACIÓN DE LOGO "HIPERSALTO" */
-        .logo-hyperspace {
-            position: absolute;
-            width: 350px;
-            z-index: 100;
-            filter: drop-shadow(0 0 40px rgba(0, 242, 255, 0.4));
-            animation: logoFlight 3s cubic-bezier(0.19, 1, 0.22, 1) forwards;
-        }
+        .gate-card h2 { font-size: 3.5rem; letter-spacing: 15px; color: #fff; text-transform: uppercase; margin-bottom: 20px; transition: 0.4s; }
+        .gate-card p { font-size: 0.7rem; letter-spacing: 5px; color: var(--cyan); text-transform: uppercase; opacity: 0.7; }
 
-        @keyframes logoFlight {
-            0% { transform: scale(0.01) translateZ(-1000px); opacity: 0; filter: blur(20px) brightness(2); }
-            50% { opacity: 1; filter: blur(0px) brightness(1); }
-            100% { transform: scale(1) translateY(-220px); width: 120px; }
-        }
+        .enter-btn { margin-top: 40px; padding: 15px 50px; border: 1px solid var(--cyan); color: #fff; letter-spacing: 5px; font-size: 0.7rem; transition: 0.3s; }
+        .gate-card:hover .enter-btn { background: var(--cyan); color: #000; font-weight: bold; box-shadow: 0 0 20px var(--cyan); }
 
-        /* DIVISIONES DE PORTAL */
-        .portal-wrapper {
-            display: flex; gap: 40px; width: 100%; max-width: 1100px; padding: 0 30px;
-            z-index: 50; opacity: 0;
-            animation: fadeInPortals 1.2s ease-out 2.5s forwards;
-        }
-
-        .portal-card {
-            flex: 1; position: relative; height: 450px;
-            background: rgba(255, 255, 255, 0.02);
-            border: 1px solid rgba(0, 242, 255, 0.1);
-            border-radius: 20px; overflow: hidden;
-            display: flex; flex-direction: column; align-items: center; justify-content: center;
-            text-decoration: none; transition: 0.6s cubic-bezier(0.23, 1, 0.32, 1);
-            backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px);
-        }
-
-        .portal-card:hover {
-            transform: scale(1.05) translateY(-10px);
-            border-color: var(--cyan);
-            box-shadow: 0 0 60px rgba(0, 242, 255, 0.2);
-            background: rgba(0, 242, 255, 0.05);
-        }
-
-        .portal-card h2 { font-size: 3rem; letter-spacing: 10px; color: #fff; text-transform: uppercase; margin-bottom: 15px; transition: 0.4s; }
-        .portal-card:hover h2 { letter-spacing: 15px; color: var(--cyan); }
-
-        .portal-card p { font-size: 0.8rem; letter-spacing: 4px; color: #666; text-transform: uppercase; margin-bottom: 30px; text-align: center; max-width: 80%; }
+        @keyframes fadeInUI { from { opacity: 0; transform: translateY(100px); } to { opacity: 1; transform: translateY(0); } }
         
-        .btn-action {
-            padding: 15px 45px; border: 1px solid var(--cyan); color: var(--cyan);
-            font-size: 0.7rem; letter-spacing: 5px; text-transform: uppercase;
-            transition: 0.3s; position: relative;
-        }
-
-        .portal-card:hover .btn-action { background: var(--cyan); color: #000; font-weight: 700; }
-
-        @keyframes fadeInPortals { from { opacity: 0; transform: translateY(100px); } to { opacity: 1; transform: translateY(0); } }
-
-        footer { position: fixed; bottom: 30px; font-size: 0.6rem; color: #333; letter-spacing: 5px; text-transform: uppercase; }
-
-        @media (max-width: 768px) {
-            .portal-wrapper { flex-direction: column; margin-top: 180px; padding-bottom: 50px; }
-            .portal-card { height: 300px; }
-            @keyframes logoFlight { 0% { opacity: 0; } 100% { transform: scale(0.8) translateY(-320px); width: 100px; } }
-        }
+        footer { position: fixed; bottom: 30px; font-size: 0.6rem; color: #444; letter-spacing: 10px; text-transform: uppercase; }
     </style>
 </head>
 <body>
-    <div class="bg-void"></div>
-    <img src="logo-automotive.jpg" class="logo-hyperspace" alt="Tensyle Logo">
+    <div class="grid-bg"></div>
+    <img src="logo-automotive.jpg" class="logo-center" alt="Tensyle Logo">
 
-    <main class="portal-wrapper">
-        <a href="automotive.html" class="portal-card">
-            <h2>AUTOMOTIVE</h2>
-            <p>Industrial Engineering & Reverse Engineering</p>
-            <div class="btn-action">ENTRY</div>
+    <main class="main-gate">
+        <a href="automotive.html" class="gate-card">
+            <h2>Automotive</h2>
+            <p>Industrial Additive Manufacturing</p>
+            <div class="enter-btn">ACCESS CORE</div>
         </a>
-        <a href="motion.html" class="portal-card">
-            <h2>MOTION</h2>
-            <p>Kinetic Collectibles & Mechanical Art</p>
-            <div class="btn-action">EXPLORE</div>
+        <a href="motion.html" class="gate-card">
+            <h2>Motion</h2>
+            <p>Advanced Kinetic Engineering</p>
+            <div class="enter-btn">EXPLORE LAB</div>
         </a>
     </main>
-    <footer>TENSYLE SOLUTIONS // CHÍA // 2026</footer>
+    <footer>TENSYLE . PRECISION IN EVERY LAYER . 2026</footer>
     <script>window.oncontextmenu = function() { return false; };</script>
 </body>
 </html>
