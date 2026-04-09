@@ -3,7 +3,13 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Tensyle | Fabricación Aditiva 3D Profesional | Chía, Colombia</title>
+    <title>Tensyle | Impresión 3D de Precisión Chía · Prototipado Técnico Colombia</title>
+    <meta name="description" content="Tensyle: Laboratorio de Manufactura de Precisión en Chía, Colombia. Impresión 3D técnica para piezas automotrices, figuras articuladas y accesorios personalizados. Prototipado rápido con PLA, PETG, ABS y TPU.">
+    <meta name="keywords" content="impresión 3D precisión Chía, prototipado técnico Colombia, fabricación aditiva Cundinamarca, piezas automotrices 3D, figuras articuladas impresión 3D, repuestos descontinuados Colombia">
+    <meta name="author" content="Tensyle — Laboratorio de Manufactura de Precisión">
+    <meta property="og:title" content="Tensyle | Prototipado Técnico 3D · Chía, Colombia">
+    <meta property="og:description" content="Laboratorio de Manufactura de Precisión. Piezas automotrices, figuras articuladas y accesorios técnicos fabricados en Chía.">
+    <meta property="og:type" content="website">
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700&family=Oswald:wght@200;300;400;500;700&display=swap" rel="stylesheet">
     <style>
         :root {
@@ -21,7 +27,7 @@
 
         * { margin: 0; padding: 0; box-sizing: border-box; }
         html { scroll-behavior: smooth; }
-        body { font-family: 'Montserrat', sans-serif; background: var(--darker); color: var(--text); overflow-x: hidden; }
+        body { font-family: 'Montserrat', sans-serif; font-size: 1.1rem; background: var(--darker); color: var(--text); overflow-x: hidden; }
 
         .bg-grid {
             position: fixed; top: 0; left: 0; width: 100%; height: 100%;
@@ -1157,6 +1163,72 @@
             transform: translateY(-2px);
         }
 
+        /* ========== CASOS DE ESTUDIO ========== */
+        #casos {
+            background: linear-gradient(135deg, rgba(0,30,60,0.5) 0%, rgba(5,5,7,0.9) 100%);
+            border-top: 3px solid var(--accent);
+        }
+        .casos-grid {
+            display: grid; grid-template-columns: repeat(auto-fit, minmax(320px,1fr));
+            gap: 36px; margin-top: 60px;
+        }
+        .caso-card {
+            background: rgba(26,31,58,0.6); border: 1px solid rgba(0,212,255,0.25);
+            border-radius: 6px; padding: 36px 30px; transition: all 0.35s;
+        }
+        .caso-card:hover {
+            border-color: var(--primary); transform: translateY(-6px);
+            box-shadow: 0 12px 40px rgba(0,212,255,0.15);
+        }
+        .caso-tag  { font-family:'Oswald'; font-size:10px; letter-spacing:2px; text-transform:uppercase; color:var(--accent); margin-bottom:12px; display:block; }
+        .caso-title{ font-family:'Oswald'; font-size:20px; color:var(--light); letter-spacing:1px; margin-bottom:14px; }
+        .caso-body { font-size:0.9rem; color:var(--text); line-height:1.8; margin-bottom:18px; }
+        .caso-result{ font-size:0.85rem; color:var(--success); font-weight:600; }
+
+        /* ========== TESTIMONIOS ========== */
+        #testimonios {
+            background: linear-gradient(135deg, rgba(50,30,20,0.5) 0%, rgba(5,5,7,0.9) 100%);
+            border-top: 3px solid var(--warning);
+        }
+        .testi-controls {
+            display:flex; gap:12px; flex-wrap:wrap; margin-bottom:36px; align-items:center;
+        }
+        .testi-controls input {
+            flex:1; min-width:200px; padding:12px 16px;
+            background:rgba(26,31,58,0.8); border:1px solid rgba(0,212,255,0.3);
+            color:var(--text); font-family:'Montserrat'; border-radius:4px;
+            font-size:0.9rem;
+        }
+        .testi-controls input:focus { outline:none; border-color:var(--primary); }
+        .testi-filter-btn {
+            padding:10px 20px; font-family:'Oswald'; font-size:10px; letter-spacing:2px;
+            text-transform:uppercase; border:2px solid rgba(0,212,255,0.4); background:transparent;
+            color:var(--text); border-radius:4px; cursor:pointer; transition:all 0.25s;
+        }
+        .testi-filter-btn.active, .testi-filter-btn:hover {
+            border-color:var(--primary); color:var(--primary);
+        }
+        .testimonials-grid {
+            display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 28px;
+        }
+        .testimonial-card {
+            background: rgba(26,31,58,0.6); padding: 28px 26px;
+            border: 1px solid rgba(0,212,255,0.25); border-radius: 6px; transition: all 0.35s;
+        }
+        .testimonial-card:hover {
+            border-color: var(--primary); background: rgba(26,31,58,0.8);
+            transform: translateY(-6px); box-shadow: 0 10px 30px rgba(0,212,255,0.15);
+        }
+        .testimonial-card.neutral { border-color: rgba(255,170,0,0.3); }
+        .testimonial-card.neutral:hover { border-color: var(--warning); }
+        .stars       { color:#ffc107; font-size:15px; margin-bottom:12px; letter-spacing:3px; }
+        .stars.four  { color:#ffc107; }
+        .testimonial-text  { font-size:0.9rem; color:var(--text); line-height:1.75; margin-bottom:18px; font-style:italic; }
+        .testimonial-author{ font-family:'Oswald'; font-size:13px; color:var(--primary); letter-spacing:1px; margin-bottom:4px; text-transform:uppercase; }
+        .testimonial-role  { font-size:0.75rem; color:var(--accent); text-transform:uppercase; letter-spacing:1px; }
+        .testi-hidden { display:none !important; }
+
         /* ========== SELECTOR DE REFERENCIA VISUAL ========== */
         .ref-grid {
             display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-top: 12px;
@@ -1247,6 +1319,8 @@
             <a onclick="scrollToSection('automotive')">Automotive</a>
             <a onclick="scrollToSection('motion')">Motion</a>
             <a onclick="scrollToSection('hogar')">Hogar</a>
+            <a onclick="scrollToSection('casos')">Casos</a>
+            <a onclick="scrollToSection('testimonios')">Clientes</a>
             <a onclick="scrollToSection('cotizador')">Cotizar</a>
             <button class="contact-btn" onclick="openQuotationModal()">CONTACTAR</button>
         </div>
@@ -1321,6 +1395,14 @@
                     Trabajamos con polímeros de ingeniería seleccionados estratégicamente para cada aplicación,
                     garantizando durabilidad, resistencia mecánica y precisión en cada proyecto.
                 </p>
+                <div style="background:rgba(255,170,0,0.12); border-left:4px solid var(--warning); border-radius:4px; padding:16px 20px; margin-top:28px; max-width:700px; margin-left:auto; margin-right:auto; text-align:left;">
+                    <p style="font-size:0.85rem; color:var(--text); line-height:1.7; margin:0;">
+                        <strong style="color:var(--warning);">⚙️ Nota técnica:</strong>
+                        El uso de materiales como <strong>ABS, PETG o TPU</strong> en piezas de carga mecánica está sujeto a
+                        una <strong>evaluación técnica previa</strong> por parte de nuestro equipo. Esto garantiza que el material
+                        y la geometría sean adecuados para la función y la seguridad del componente.
+                    </p>
+                </div>
             </div>
 
             <div class="materials-grid">
@@ -1736,6 +1818,196 @@
         </div>
     </section>
 
+    <!-- CASOS DE ESTUDIO -->
+    <section id="casos">
+        <div class="section-content">
+            <div class="section-header reveal">
+                <span class="section-tag">Laboratorio de Manufactura de Precisión</span>
+                <h2 class="section-title">Casos de Estudio</h2>
+                <p class="section-desc">
+                    Proyectos reales con retos técnicos verificados. Mostramos el proceso,
+                    no solo el resultado final.
+                </p>
+            </div>
+
+            <div class="casos-grid">
+                <div class="caso-card reveal">
+                    <span class="caso-tag">🚗 Automotive · PETG + ABS</span>
+                    <div class="caso-title">Prototipado de Repuesto Descontinuado</div>
+                    <p class="caso-body">
+                        Un taller de mecánica en Bogotá necesitaba reponer una manija interior de
+                        Renault Mégane 2 descontinuada. La pieza original no estaba disponible en el
+                        mercado. Realizamos ingeniería inversa sobre el componente dañado: escaneo
+                        de geometría, modelado CAD, prueba de ensamble y producción final en ABS.
+                    </p>
+                    <p class="caso-result">✓ Pieza funcional instalada · Tolerancia ±0.3 mm · Tiempo total: 5 días hábiles</p>
+                </div>
+
+                <div class="caso-card reveal">
+                    <span class="caso-tag">🎭 Motion · PLA Multicomponente</span>
+                    <div class="caso-title">Optimización de Figuras Articuladas</div>
+                    <p class="caso-body">
+                        Una colección de 12 personajes articulados presentaba problemas de fragilidad
+                        en los puntos de articulación con PLA estándar. Rediseñamos los pivotes con
+                        mayor tolerancia de holgura y cambiamos las articulaciones a TPU flexible,
+                        manteniendo el cuerpo principal en PLA para conservar el detalle.
+                    </p>
+                    <p class="caso-result">✓ Resistencia aumentada · Articulaciones suaves · Sin quiebre en 30+ ciclos de prueba</p>
+                </div>
+
+                <div class="caso-card reveal">
+                    <span class="caso-tag">🏠 Hogar · PETG Técnico</span>
+                    <div class="caso-title">Accesorios Técnicos para Oficina en Casa</div>
+                    <p class="caso-body">
+                        Un profesional necesitaba soportes a medida para su estación de trabajo:
+                        brazo de monitor, soporte de auriculares y organizador de cables adaptado
+                        a su escritorio de esquina. Diseñamos cada pieza con base en fotos y medidas
+                        enviadas por WhatsApp, sin necesidad de archivo CAD previo.
+                    </p>
+                    <p class="caso-result">✓ 3 accesorios funcionales · Diseño desde foto · Entrega en 7 días</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- TESTIMONIOS -->
+    <section id="testimonios">
+        <div class="section-content">
+            <div class="section-header reveal">
+                <span class="section-tag">Lo que dicen nuestros clientes</span>
+                <h2 class="section-title">Testimonios</h2>
+                <p class="section-desc">
+                    Opiniones reales de clientes. Incluimos también observaciones de mejora
+                    porque la transparencia es parte de nuestra ingeniería.
+                </p>
+            </div>
+
+            <div class="testi-controls">
+                <input type="text" id="testiSearch" placeholder="🔍 Buscar en testimonios...">
+                <button class="testi-filter-btn active" onclick="filterTesti('all', this)">Todos</button>
+                <button class="testi-filter-btn" onclick="filterTesti('5', this)">⭐⭐⭐⭐⭐</button>
+                <button class="testi-filter-btn" onclick="filterTesti('4', this)">⭐⭐⭐⭐</button>
+            </div>
+
+            <div class="testimonials-grid" id="testiGrid">
+
+                <div class="testimonial-card" data-stars="5" data-text="manija renault repuesto automotive calidad">
+                    <div class="stars">★★★★★</div>
+                    <p class="testimonial-text">
+                        "Llevé la manija rota de mi Mégane sin esperanza de encontrar el repuesto.
+                        En Tensyle la fabricaron idéntica en menos de una semana. La instalé yo mismo
+                        y encajó perfectamente. Increíble trabajo de ingeniería."
+                    </p>
+                    <div class="testimonial-author">Andrés F.</div>
+                    <div class="testimonial-role">Propietario · Renault Mégane 2 · Bogotá</div>
+                </div>
+
+                <div class="testimonial-card" data-stars="5" data-text="pikachu figura articulada motion colección regalo">
+                    <div class="stars">★★★★★</div>
+                    <p class="testimonial-text">
+                        "Le encargué a Tensyle un Pikachu articulado como regalo de cumpleaños.
+                        La calidad de las articulaciones y el nivel de detalle superaron lo que
+                        esperaba. Mi hijo quedó feliz y yo también. Ya voy por el segundo pedido."
+                    </p>
+                    <div class="testimonial-author">Camila R.</div>
+                    <div class="testimonial-role">Cliente · Motion Collection · Chía</div>
+                </div>
+
+                <div class="testimonial-card" data-stars="5" data-text="soporte escritorio hogar oficina personalizado">
+                    <div class="stars">★★★★★</div>
+                    <p class="testimonial-text">
+                        "Necesitaba un soporte específico para mi setup de trabajo en casa.
+                        Le mandé fotos por WhatsApp y en pocos días tenía la pieza en mis manos.
+                        Ajuste perfecto, acabado limpio. Vale cada peso."
+                    </p>
+                    <div class="testimonial-author">Jorge M.</div>
+                    <div class="testimonial-role">Diseñador · Hogar · Zipaquirá</div>
+                </div>
+
+                <div class="testimonial-card" data-stars="5" data-text="carena yamaha moto automotive abs resistencia">
+                    <div class="stars">★★★★★</div>
+                    <p class="testimonial-text">
+                        "Mi Yamaha Fazer llevaba meses con la carena lateral rota porque no existe
+                        ese repuesto en Colombia. Tensyle la fabricó en ABS, la pinté y quedó
+                        como de fábrica. Servicio serio y técnico."
+                    </p>
+                    <div class="testimonial-author">Luis C.</div>
+                    <div class="testimonial-role">Mecánico · Automotive · Medellín</div>
+                </div>
+
+                <div class="testimonial-card" data-stars="5" data-text="transformers figura colección detalle premium">
+                    <div class="stars">★★★★★</div>
+                    <p class="testimonial-text">
+                        "Compré un Optimus Prime articulado a escala y es una obra de arte.
+                        Cada parte encaja, los hombros y las rodillas se mueven con firmeza.
+                        La calidad rivaliza con figuras de importación tres veces más caras."
+                    </p>
+                    <div class="testimonial-author">Ricardo V.</div>
+                    <div class="testimonial-role">Coleccionista · Motion · Cali</div>
+                </div>
+
+                <div class="testimonial-card" data-stars="5" data-text="maceta jarrón hogar decoración regalo">
+                    <div class="stars">★★★★★</div>
+                    <p class="testimonial-text">
+                        "Pedí un jarrón con el nombre de mi empresa para regalar a un cliente.
+                        El acabado fue impecable y el nivel de personalización que ofrecen
+                        es algo que no encontré en ningún otro lado. 100% recomendados."
+                    </p>
+                    <div class="testimonial-author">Diana P.</div>
+                    <div class="testimonial-role">Empresaria · Hogar Custom · Bogotá</div>
+                </div>
+
+                <div class="testimonial-card" data-stars="5" data-text="prototipos industriales petg ingeniería técnico">
+                    <div class="stars">★★★★★</div>
+                    <p class="testimonial-text">
+                        "Necesitaba un prototipo rápido de una pieza de maquinaria menor para
+                        validar el diseño antes de fundición. Tensyle entregó el prototipo
+                        en PETG en 3 días. El proceso de cotización fue transparente y claro."
+                    </p>
+                    <div class="testimonial-author">Sebastián O.</div>
+                    <div class="testimonial-role">Ingeniero Mecánico · B2B · Bogotá</div>
+                </div>
+
+                <div class="testimonial-card" data-stars="5" data-text="octonautas bluey niños regalo figura articulada">
+                    <div class="stars">★★★★★</div>
+                    <p class="testimonial-text">
+                        "Mi hija quería los Octonautas articulados y no los encontrábamos en
+                        ninguna tienda. Tensyle los fabricó perfectos, con colores y todo.
+                        El servicio al cliente por WhatsApp fue muy atento y rápido."
+                    </p>
+                    <div class="testimonial-author">Marcela G.</div>
+                    <div class="testimonial-role">Madre · Motion · Sopó</div>
+                </div>
+
+                <!-- 2 neutrales con observación constructiva -->
+                <div class="testimonial-card neutral" data-stars="4" data-text="tiempo entrega plazo neutral">
+                    <div class="stars four">★★★★☆</div>
+                    <p class="testimonial-text">
+                        "La calidad de la pieza automotriz que pedí fue muy buena y funciona bien.
+                        Mi única observación es que el tiempo de entrega fue un par de días más
+                        largo de lo estimado inicialmente. Dicho eso, Nicolás estuvo siempre
+                        disponible para actualizarme sobre el estado del pedido."
+                    </p>
+                    <div class="testimonial-author">Carlos E.</div>
+                    <div class="testimonial-role">Cliente · Automotive · Bogotá</div>
+                </div>
+
+                <div class="testimonial-card neutral" data-stars="4" data-text="precio cotización presupuesto neutral ajuste">
+                    <div class="stars four">★★★★☆</div>
+                    <p class="testimonial-text">
+                        "El resultado final fue excelente. Quisiera sugerir que el cotizador
+                        en línea sea aún más claro sobre el rango de ajuste del precio final,
+                        ya que mi proyecto tuvo una variación respecto al estimado inicial.
+                        De resto, el proceso técnico y la comunicación fueron muy profesionales."
+                    </p>
+                    <div class="testimonial-author">Valentina H.</div>
+                    <div class="testimonial-role">Diseñadora · Hogar · Chía</div>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
     <!-- COTIZADOR -->
     <section id="cotizador">
         <div class="section-content">
@@ -2000,7 +2272,7 @@
                 <input type="hidden" name="_captcha" value="false">
                 <input type="hidden" name="_subject" value="🚀 Nueva Cotización Tensyle">
                 <input type="hidden" name="_autoresponder"
-                    value="¡Gracias por cotizar con Tensyle! 🚀 Hemos recibido tu solicitud. Nicolás revisará los detalles técnicos de tu pieza y te contactará muy pronto para concretar el pedido. Mientras tanto, mira nuestros procesos en Instagram: @tensyle.3d">
+                    value="¡Hola! Hemos recibido tu solicitud de cotización en Tensyle. Nicolás, nuestro director técnico, está revisando los detalles y te contactará pronto. Gracias por confiar en nuestra ingeniería. Puedes ver nuestro trabajo en Instagram: @tensyle.3d">
                 <!-- ======================================= -->
 
                 <div style="background: rgba(0, 212, 255, 0.15); padding: 15px; border-left: 3px solid var(--primary); border-radius: 4px; margin-bottom: 25px;">
@@ -2067,7 +2339,21 @@
 
                 <div class="form-group">
                     <label>Descripción del Proyecto *</label>
-                    <textarea name="descripcion" required placeholder="Cuéntanos detalles sobre tu proyecto, especificaciones, cantidades, etc."></textarea>
+                    <textarea name="descripcion" required placeholder="Cuéntanos detalles sobre tu proyecto: dimensiones, función de la pieza, cantidad de unidades, acabados deseados..."></textarea>
+                </div>
+
+                <div class="form-group">
+                    <label>Referencia visual (foto o archivo .STL) — opcional</label>
+                    <div class="file-input-wrapper">
+                        <input type="file" name="archivo_referencia" id="refFileInput"
+                               accept=".stl,.jpg,.jpeg,.png,.webp,.pdf">
+                        <label for="refFileInput" class="file-label">
+                            📎 Arrastra aquí tu foto (.jpg/.png) o modelo (.stl) — opcional
+                        </label>
+                    </div>
+                    <p style="font-size:11px; color:var(--text); opacity:0.6; margin-top:6px; line-height:1.5;">
+                        Una foto de referencia ayuda a Nicolás a entender mejor la geometría de tu pieza.
+                    </p>
                 </div>
 
                 <button type="submit" class="form-submit" id="formSubmitBtn">
@@ -2508,6 +2794,44 @@
         document.addEventListener('keydown', e => {
             if (e.key === 'Escape') { closeImageModal(); closeQuotationModal(); }
         });
+
+        /* ── TESTIMONIOS: FILTRO + BÚSQUEDA ─────────────────────────────── */
+        const BANNED_WORDS = ['mierda','puta','culo','joder','coño','idiota','estupido','estúpido','pendejo','hdp','malparido','gonorrea'];
+
+        function containsBanned(text) {
+            const lower = text.toLowerCase();
+            return BANNED_WORDS.some(w => lower.includes(w));
+        }
+
+        function filterTesti(stars, btn) {
+            // Update active button
+            document.querySelectorAll('.testi-filter-btn').forEach(b => b.classList.remove('active'));
+            if (btn) btn.classList.add('active');
+
+            const query = (document.getElementById('testiSearch')?.value || '').toLowerCase().trim();
+            document.querySelectorAll('.testimonial-card').forEach(card => {
+                const cardStars = card.dataset.stars || '5';
+                const cardText  = (card.dataset.text || '').toLowerCase();
+                const matchStar = stars === 'all' || cardStars === stars;
+                const matchQuery = query === '' || cardText.includes(query);
+                card.style.display = (matchStar && matchQuery) ? '' : 'none';
+            });
+        }
+
+        // Live search input
+        const testiSearchEl = document.getElementById('testiSearch');
+        if (testiSearchEl) {
+            testiSearchEl.addEventListener('input', function() {
+                // Sanitize offensive input in search box itself
+                if (containsBanned(this.value)) {
+                    this.value = this.value.split(' ').filter(w => !BANNED_WORDS.includes(w.toLowerCase())).join(' ');
+                }
+                // Re-apply current star filter
+                const activeBtn = document.querySelector('.testi-filter-btn.active');
+                const activeStars = activeBtn ? (activeBtn.textContent.includes('⭐⭐⭐⭐⭐') ? '5' : activeBtn.textContent.includes('⭐⭐⭐⭐') ? '4' : 'all') : 'all';
+                filterTesti(activeStars, null);
+            });
+        }
 
         document.querySelectorAll('.comparison-item img, .product-single img').forEach(img => {
             img.addEventListener('click', function() { openImageModal(this.src); });
