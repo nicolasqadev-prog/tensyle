@@ -1924,16 +1924,21 @@
         <div class="modal-content" style="text-align:center; max-width:500px;">
             <div style="font-size:60px; margin-bottom:20px;">✅</div>
             <h2 style="color:var(--primary); font-family:'Oswald'; font-size:24px; letter-spacing:2px; margin-bottom:15px;">¡COTIZACIÓN ENVIADA!</h2>
-            <p style="color:var(--text); font-size:15px; line-height:1.8; margin-bottom:25px;">
-                Revisa tu correo electrónico — te responderemos con un presupuesto detallado y personalizado.<br><br>
-                Mientras tanto, síguenos en Instagram para ver nuestro proceso en tiempo real:
+            <p style="color:var(--text); font-size:15px; line-height:1.8; margin-bottom:20px;">
+                Revisa tu correo — recibirás una confirmación automática ahora mismo.<br><br>
+                Síguenos en Instagram para ver nuestro proceso en tiempo real:
             </p>
             <a href="https://www.instagram.com/tensyle.3d" target="_blank"
                style="display:inline-block; padding:14px 40px; background:linear-gradient(135deg,#f09433,#dc2743,#bc1888); color:#fff; font-family:'Oswald'; font-size:12px; letter-spacing:2px; text-transform:uppercase; border-radius:4px; text-decoration:none; margin-bottom:20px;">
                 📸 @tensyle.3d en Instagram
             </a>
+            <div style="background:rgba(37,211,102,0.15); border:1px solid rgba(37,211,102,0.4); border-radius:6px; padding:14px; margin-top:10px;">
+                <p style="color:#25d366; font-family:'Oswald'; font-size:13px; letter-spacing:1px; margin:0;">
+                    📲 En 3 segundos te abrimos WhatsApp para coordinar los detalles finales con Nicolás...
+                </p>
+            </div>
             <br>
-            <button onclick="document.getElementById('successModal').classList.remove('show')" class="btn-secondary" style="margin-top:10px; padding:10px 30px; font-size:11px;">
+            <button onclick="document.getElementById('successModal').classList.remove('show')" class="btn-secondary" style="margin-top:6px; padding:10px 30px; font-size:11px;">
                 CERRAR
             </button>
         </div>
@@ -1987,6 +1992,13 @@
             <h2 style="color: var(--primary); margin-bottom: 30px; font-family: 'Oswald'; font-size: 24px; letter-spacing: 2px;">SOLICITAR COTIZACIÓN</h2>
 
             <form id="quotationForm">
+                <!-- ===== CAMPOS OCULTOS FORMSUBMIT ===== -->
+                <input type="hidden" name="_captcha" value="false">
+                <input type="hidden" name="_subject" value="🚀 Nueva Cotización Tensyle">
+                <input type="hidden" name="_autoresponder"
+                    value="¡Gracias por cotizar con Tensyle! 🚀 Hemos recibido tu solicitud. Nicolás revisará los detalles técnicos de tu pieza y te contactará muy pronto para concretar el pedido. Mientras tanto, mira nuestros procesos en Instagram: @tensyle.3d">
+                <!-- ======================================= -->
+
                 <div style="background: rgba(0, 212, 255, 0.15); padding: 15px; border-left: 3px solid var(--primary); border-radius: 4px; margin-bottom: 25px;">
                     <p style="font-size: 12px; color: var(--text); line-height: 1.6;">
                         <strong style="color: var(--primary);">⚠️ ACLARACIÓN IMPORTANTE:</strong> Los precios estimados desde el cotizador son valores mínimos de referencia. El precio final se ajustará según complejidad, acabados especiales y post-procesamiento. Te contactaremos con un presupuesto detallado.
@@ -1995,12 +2007,12 @@
 
                 <div class="form-group">
                     <label>Nombre Completo *</label>
-                    <input type="text" name="nombre" required>
+                    <input type="text" name="nombre" id="fieldNombre" required>
                 </div>
 
                 <div class="form-group">
                     <label>Correo Electrónico *</label>
-                    <input type="email" name="correo" required>
+                    <input type="email" name="email" id="fieldEmail" required>
                 </div>
 
                 <div class="form-group">
@@ -2124,7 +2136,7 @@
             if (e.target.id === 'successModal') e.target.classList.remove('show');
         });
 
-        // ===== FORMSPREE VÍA FETCH — SIN REDIRECCIÓN =====
+        // ===== FORMSUBMIT + AUTORESPUESTA + WHATSAPP REDIRECT =====
         async function submitQuotationForm() {
             const form = document.getElementById('quotationForm');
             const btn  = document.getElementById('formSubmitBtn');
@@ -2134,13 +2146,18 @@
                 return;
             }
 
+            // Capturar datos ANTES de hacer reset, para el mensaje de WhatsApp
+            const nombre  = (document.getElementById('fieldNombre')?.value  || '').trim();
+            const linea   = (form.querySelector('[name="linea_producto"]')?.value || 'proyecto').replace('_', ' ');
+            const precio  = document.getElementById('finalTotal')?.textContent || '30,000';
+
             btn.disabled = true;
-            btn.textContent = 'Enviando…';
+            btn.textContent = '⏳ Enviando…';
 
             const data = new FormData(form);
 
             try {
-                const res = await fetch('https://formsubmit.co/debug/nicolas.qa.dev@gmail.com', {
+                const res = await fetch('https://formsubmit.co/ajax/nicolas.qa.dev@gmail.com', {
                     method: 'POST',
                     body: data,
                     headers: { 'Accept': 'application/json' }
@@ -2149,13 +2166,21 @@
                 if (res.ok) {
                     closeQuotationModal();
                     form.reset();
+
+                    // 1 — Mostrar modal de éxito
                     document.getElementById('successModal').classList.add('show');
+
+                    // 2 — Después de 2.5 s redirigir a WhatsApp con datos del cliente
+                    const waMsg = `¡Hola Nicolás! Soy ${nombre || 'un cliente'}. Acabo de cotizar un proyecto de *${linea}* en Tensyle. El sistema me dio un precio estimado desde *$${precio} COP*. Te escribo para coordinar los detalles finales. 🚀`;
+                    setTimeout(() => {
+                        window.open('https://wa.me/573171687777?text=' + encodeURIComponent(waMsg), '_blank');
+                    }, 2500);
+
                 } else {
                     throw new Error('Respuesta no OK');
                 }
             } catch {
-                // Fallback: abrir correo directo
-                alert('Hubo un problema con el envío automático. Por favor escríbenos directamente a info@tensyle.co o por WhatsApp al +57 317 168 7777.');
+                alert('Hubo un problema con el envío. Por favor contáctanos directamente:\n📧 info@tensyle.co\n📱 +57 317 168 7777');
             } finally {
                 btn.disabled = false;
                 btn.textContent = '📩 Enviar Cotización por Correo';
