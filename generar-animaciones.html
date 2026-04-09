@@ -1,0 +1,342 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Generador de Animaciones Tensyle</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #0a0e27 0%, #1a1f3a 100%);
+            color: white;
+            padding: 40px 20px;
+            min-height: 100vh;
+        }
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        h1 {
+            color: #00d4ff;
+            margin-bottom: 10px;
+            text-align: center;
+            font-size: 32px;
+        }
+        .subtitle {
+            text-align: center;
+            color: #00d4ff;
+            margin-bottom: 30px;
+            font-size: 14px;
+        }
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 25px;
+        }
+        .card {
+            background: rgba(26, 31, 58, 0.8);
+            border: 1px solid #00d4ff;
+            border-radius: 4px;
+            padding: 25px;
+            text-align: center;
+        }
+        .card h3 {
+            color: #00d4ff;
+            margin-bottom: 15px;
+            font-size: 18px;
+        }
+        .inputs {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 15px;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+        .input-group {
+            display: flex;
+            flex-direction: column;
+            gap: 5px;
+        }
+        .input-group label {
+            font-size: 11px;
+            color: #00d4ff;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+        .input-group input {
+            width: 150px;
+            padding: 8px;
+            background: rgba(0, 212, 255, 0.1);
+            border: 1px solid #00d4ff;
+            color: white;
+            border-radius: 3px;
+            cursor: pointer;
+        }
+        button {
+            background: #00d4ff;
+            color: #0a0e27;
+            border: none;
+            padding: 12px 25px;
+            border-radius: 3px;
+            cursor: pointer;
+            font-weight: bold;
+            font-size: 13px;
+            transition: all 0.3s;
+            margin-top: 10px;
+        }
+        button:hover:not(:disabled) {
+            box-shadow: 0 0 20px rgba(0, 212, 255, 0.6);
+            transform: scale(1.05);
+        }
+        button:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+        }
+        .status {
+            margin-top: 15px;
+            font-size: 12px;
+            min-height: 20px;
+        }
+        .status.loading {
+            color: #ffa500;
+        }
+        .status.success {
+            color: #4ecca3;
+        }
+        .status.error {
+            color: #ff6b6b;
+        }
+        .download-btn {
+            display: none;
+            margin-top: 10px;
+            color: #00d4ff;
+            text-decoration: none;
+            border: 1px solid #00d4ff;
+            padding: 8px 15px;
+            border-radius: 2px;
+            font-size: 12px;
+            font-weight: bold;
+            background: transparent;
+            cursor: pointer;
+        }
+        .download-btn:hover {
+            background: #00d4ff;
+            color: #0a0e27;
+        }
+        canvas { display: none; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>🎬 GENERADOR DE ANIMACIONES TENSYLE</h1>
+        <p class="subtitle">Convierte tus imágenes en GIF animados</p>
+
+        <div class="grid">
+            <div class="card">
+                <h3>Carena Lateral Yamaha</h3>
+                <div class="inputs">
+                    <div class="input-group">
+                        <label>ANTES</label>
+                        <input type="file" id="img1-before" accept="image/*">
+                    </div>
+                    <div class="input-group">
+                        <label>DESPUÉS</label>
+                        <input type="file" id="img1-after" accept="image/*">
+                    </div>
+                </div>
+                <button onclick="crear(1, 'carena-lateral.gif')">Generar</button>
+                <div class="status" id="st1"></div>
+                <canvas id="cv1"></canvas>
+                <a id="dl1" class="download-btn">↓ Descargar GIF</a>
+            </div>
+
+            <div class="card">
+                <h3>Frontal Rejilla</h3>
+                <div class="inputs">
+                    <div class="input-group">
+                        <label>ANTES</label>
+                        <input type="file" id="img2-before" accept="image/*">
+                    </div>
+                    <div class="input-group">
+                        <label>DESPUÉS</label>
+                        <input type="file" id="img2-after" accept="image/*">
+                    </div>
+                </div>
+                <button onclick="crear(2, 'frontal-rejilla.gif')">Generar</button>
+                <div class="status" id="st2"></div>
+                <canvas id="cv2"></canvas>
+                <a id="dl2" class="download-btn">↓ Descargar GIF</a>
+            </div>
+
+            <div class="card">
+                <h3>Inferior Frontal</h3>
+                <div class="inputs">
+                    <div class="input-group">
+                        <label>ANTES</label>
+                        <input type="file" id="img3-before" accept="image/*">
+                    </div>
+                    <div class="input-group">
+                        <label>DESPUÉS</label>
+                        <input type="file" id="img3-after" accept="image/*">
+                    </div>
+                </div>
+                <button onclick="crear(3, 'inferior-frontal.gif')">Generar</button>
+                <div class="status" id="st3"></div>
+                <canvas id="cv3"></canvas>
+                <a id="dl3" class="download-btn">↓ Descargar GIF</a>
+            </div>
+
+            <div class="card">
+                <h3>Manija Puerta</h3>
+                <div class="inputs">
+                    <div class="input-group">
+                        <label>ANTES</label>
+                        <input type="file" id="img4-before" accept="image/*">
+                    </div>
+                    <div class="input-group">
+                        <label>DESPUÉS</label>
+                        <input type="file" id="img4-after" accept="image/*">
+                    </div>
+                </div>
+                <button onclick="crear(4, 'manija-puerta.gif')">Generar</button>
+                <div class="status" id="st4"></div>
+                <canvas id="cv4"></canvas>
+                <a id="dl4" class="download-btn">↓ Descargar GIF</a>
+            </div>
+
+            <div class="card">
+                <h3>Pieza Interna Puerta</h3>
+                <div class="inputs">
+                    <div class="input-group">
+                        <label>ANTES</label>
+                        <input type="file" id="img5-before" accept="image/*">
+                    </div>
+                    <div class="input-group">
+                        <label>DESPUÉS</label>
+                        <input type="file" id="img5-after" accept="image/*">
+                    </div>
+                </div>
+                <button onclick="crear(5, 'pieza-interna.gif')">Generar</button>
+                <div class="status" id="st5"></div>
+                <canvas id="cv5"></canvas>
+                <a id="dl5" class="download-btn">↓ Descargar GIF</a>
+            </div>
+
+            <div class="card">
+                <h3>Tapa Cubre Cadenas</h3>
+                <div class="inputs">
+                    <div class="input-group">
+                        <label>ANTES</label>
+                        <input type="file" id="img6-before" accept="image/*">
+                    </div>
+                    <div class="input-group">
+                        <label>DESPUÉS</label>
+                        <input type="file" id="img6-after" accept="image/*">
+                    </div>
+                </div>
+                <button onclick="crear(6, 'tapa-cubre.gif')">Generar</button>
+                <div class="status" id="st6"></div>
+                <canvas id="cv6"></canvas>
+                <a id="dl6" class="download-btn">↓ Descargar GIF</a>
+            </div>
+        </div>
+    </div>
+
+    <script src="gif.js"></script>
+    <script>
+        async function crear(n, nom) {
+            const stEl = document.getElementById(`st${n}`);
+            const dlEl = document.getElementById(`dl${n}`);
+            const btnEl = event.target;
+            const cvEl = document.getElementById(`cv${n}`);
+            const img1 = document.getElementById(`img${n}-before`).files[0];
+            const img2 = document.getElementById(`img${n}-after`).files[0];
+
+            if (!img1 || !img2) {
+                stEl.className = 'status error';
+                stEl.textContent = '❌ Selecciona ambas imágenes';
+                return;
+            }
+
+            btnEl.disabled = true;
+            stEl.className = 'status loading';
+            stEl.textContent = '⏳ Cargando...';
+            dlEl.style.display = 'none';
+
+            try {
+                const antes = await cargarImg(img1);
+                const despues = await cargarImg(img2);
+
+                stEl.textContent = '⏳ Generando...';
+
+                cvEl.width = 800;
+                cvEl.height = 600;
+                const ctx = cvEl.getContext('2d');
+
+                const gif = new GIF({
+                    workers: 1,
+                    quality: 10,
+                    width: 800,
+                    height: 600,
+                    workerScript: 'gif.worker.js'
+                });
+
+                // Frames ANTES (3 seg)
+                for (let i = 0; i < 90; i++) {
+                    ctx.drawImage(antes, 0, 0, 800, 600);
+                    gif.addFrame(cvEl, {delay: 33});
+                }
+
+                // Transición (1 seg)
+                for (let i = 0; i < 30; i++) {
+                    ctx.drawImage(antes, 0, 0, 800, 600);
+                    ctx.globalAlpha = i / 30;
+                    ctx.drawImage(despues, 0, 0, 800, 600);
+                    ctx.globalAlpha = 1;
+                    gif.addFrame(cvEl, {delay: 33});
+                }
+
+                // Frames DESPUÉS (3 seg)
+                for (let i = 0; i < 90; i++) {
+                    ctx.drawImage(despues, 0, 0, 800, 600);
+                    gif.addFrame(cvEl, {delay: 33});
+                }
+
+                stEl.textContent = '⏳ Codificando...';
+
+                gif.on('finished', function(blob) {
+                    const url = URL.createObjectURL(blob);
+                    dlEl.href = url;
+                    dlEl.download = nom;
+                    dlEl.style.display = 'inline-block';
+                    stEl.className = 'status success';
+                    stEl.textContent = '✓ Listo para descargar';
+                    btnEl.disabled = false;
+                });
+
+                gif.render();
+
+            } catch (e) {
+                stEl.className = 'status error';
+                stEl.textContent = '❌ ' + e.message;
+                btnEl.disabled = false;
+            }
+        }
+
+        function cargarImg(file) {
+            return new Promise((ok, err) => {
+                const r = new FileReader();
+                r.onload = (e) => {
+                    const img = new Image();
+                    img.onload = () => ok(img);
+                    img.onerror = () => err(new Error('Imagen inválida'));
+                    img.src = e.target.result;
+                };
+                r.onerror = () => err(new Error('No se pudo leer'));
+                r.readAsDataURL(file);
+            });
+        }
+    </script>
+</body>
+</html>

@@ -1,0 +1,267 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Generador de Videos Tensyle</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            font-family: Arial, sans-serif;
+            background: #0a0e27;
+            color: white;
+            padding: 40px;
+        }
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        h1 {
+            color: #00d4ff;
+            margin-bottom: 30px;
+            text-align: center;
+        }
+        .videos-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 30px;
+            margin-bottom: 40px;
+        }
+        .video-card {
+            background: #1a1f3a;
+            border: 1px solid #00d4ff;
+            border-radius: 4px;
+            padding: 20px;
+            text-align: center;
+        }
+        .video-card h3 {
+            color: #00d4ff;
+            margin-bottom: 15px;
+            font-size: 16px;
+        }
+        canvas {
+            width: 100%;
+            max-width: 400px;
+            height: auto;
+            margin: 15px 0;
+            border: 1px solid #00d4ff;
+            display: none;
+        }
+        button {
+            background: #00d4ff;
+            color: #0a0e27;
+            border: none;
+            padding: 12px 25px;
+            border-radius: 4px;
+            cursor: pointer;
+            font-weight: bold;
+            margin: 10px 5px;
+            transition: all 0.3s;
+        }
+        button:hover {
+            box-shadow: 0 0 20px rgba(0, 212, 255, 0.6);
+        }
+        button:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+        }
+        .status {
+            margin: 15px 0;
+            font-size: 12px;
+            color: #4ecca3;
+        }
+        .download-link {
+            display: inline-block;
+            margin-top: 10px;
+            color: #00d4ff;
+            text-decoration: none;
+            border: 1px solid #00d4ff;
+            padding: 8px 15px;
+            border-radius: 2px;
+            transition: all 0.3s;
+        }
+        .download-link:hover {
+            background: #00d4ff;
+            color: #0a0e27;
+        }
+        .info-box {
+            background: rgba(0, 212, 255, 0.1);
+            border: 1px solid rgba(0, 212, 255, 0.3);
+            padding: 20px;
+            border-radius: 4px;
+            margin-bottom: 30px;
+            font-size: 14px;
+            line-height: 1.6;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>🎬 Generador de Videos Tensyle</h1>
+
+        <div class="info-box">
+            <strong>¿Cómo usar?</strong><br>
+            1. Haz clic en "Generar Video" para crear el video antes/después<br>
+            2. El navegador creará el GIF animado<br>
+            3. Haz clic en "Descargar" para guardarlo en tu computadora<br>
+            4. Mueve los GIF a la carpeta <code>./videos/</code> de tu proyecto
+        </div>
+
+        <div class="videos-grid">
+            <!-- Video 1: Carena Lateral -->
+            <div class="video-card">
+                <h3>Carena Lateral Yamaha</h3>
+                <p style="font-size: 12px; color: #999; margin-bottom: 15px;">Antes/Después</p>
+                <canvas id="canvas1"></canvas>
+                <button onclick="generateVideo('lateral-moto-impresa-antes.jpg', 'lateral-moto-fin.jpg', 'canvas1', 'carena-lateral.gif')">Generar Video</button>
+                <div class="status" id="status1"></div>
+                <a id="download1" class="download-link" style="display: none;">Descargar</a>
+            </div>
+
+            <!-- Video 2: Frontal Rejilla -->
+            <div class="video-card">
+                <h3>Frontal Rejilla</h3>
+                <p style="font-size: 12px; color: #999; margin-bottom: 15px;">Antes/Después</p>
+                <canvas id="canvas2"></canvas>
+                <button onclick="generateVideo('frontal-rejilla-despues-antes.jpg', 'frontal-rejilla-despues.jpg', 'canvas2', 'frontal-rejilla.gif')">Generar Video</button>
+                <div class="status" id="status2"></div>
+                <a id="download2" class="download-link" style="display: none;">Descargar</a>
+            </div>
+
+            <!-- Video 3: Inferior Frontal -->
+            <div class="video-card">
+                <h3>Inferior Frontal</h3>
+                <p style="font-size: 12px; color: #999; margin-bottom: 15px;">Antes/Después</p>
+                <canvas id="canvas3"></canvas>
+                <button onclick="generateVideo('inferior-frontal-panal-antes.jpg', 'inferior-frontal-panal.jpg', 'canvas3', 'inferior-frontal.gif')">Generar Video</button>
+                <div class="status" id="status3"></div>
+                <a id="download3" class="download-link" style="display: none;">Descargar</a>
+            </div>
+
+            <!-- Video 4: Manija Puerta -->
+            <div class="video-card">
+                <h3>Manija Puerta Exterior</h3>
+                <p style="font-size: 12px; color: #999; margin-bottom: 15px;">Antes/Después</p>
+                <canvas id="canvas4"></canvas>
+                <button onclick="generateVideo('manija-puerta-exterior-antes.jpg', 'manija-puerta-exterior.jpg', 'canvas4', 'manija-puerta.gif')">Generar Video</button>
+                <div class="status" id="status4"></div>
+                <a id="download4" class="download-link" style="display: none;">Descargar</a>
+            </div>
+
+            <!-- Video 5: Pieza Interna -->
+            <div class="video-card">
+                <h3>Pieza Interna Puerta</h3>
+                <p style="font-size: 12px; color: #999; margin-bottom: 15px;">Antes/Después</p>
+                <canvas id="canvas5"></canvas>
+                <button onclick="generateVideo('pieza-interna-puerta-antes.jpg', 'pieza-interna-puerta.jpg', 'canvas5', 'pieza-interna.gif')">Generar Video</button>
+                <div class="status" id="status5"></div>
+                <a id="download5" class="download-link" style="display: none;">Descargar</a>
+            </div>
+
+            <!-- Video 6: Tapa Cubre -->
+            <div class="video-card">
+                <h3>Tapa Cubre Cadenas</h3>
+                <p style="font-size: 12px; color: #999; margin-bottom: 15px;">Antes/Después</p>
+                <canvas id="canvas6"></canvas>
+                <button onclick="generateVideo('tapa-cubre-cadenas-antes.jpg', 'tapa-cubre-cadenas.jpg', 'canvas6', 'tapa-cubre.gif')">Generar Video</button>
+                <div class="status" id="status6"></div>
+                <a id="download6" class="download-link" style="display: none;">Descargar</a>
+            </div>
+        </div>
+
+        <div class="info-box">
+            <strong>⚙️ Instrucciones Finales:</strong><br>
+            1. Una vez descargues todos los GIF, crea una carpeta llamada <code>videos</code> en tu proyecto<br>
+            2. Coloca los GIF dentro: <code>./videos/carena-lateral.gif</code>, etc.<br>
+            3. Los videos se mostrarán automáticamente en tu sitio web
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/gif.js@0.2.0/dist/gif.js"></script>
+    <script>
+        async function generateVideo(beforePath, afterPath, canvasId, filename) {
+            const status = document.getElementById('status' + canvasId.replace('canvas', ''));
+            const downloadLink = document.getElementById('download' + canvasId.replace('canvas', ''));
+            const button = event.target;
+
+            button.disabled = true;
+            status.textContent = 'Cargando imágenes...';
+            downloadLink.style.display = 'none';
+
+            try {
+                // Cargar imágenes
+                const beforeImg = await loadImage(beforePath);
+                const afterImg = await loadImage(afterPath);
+
+                status.textContent = 'Generando video (esto puede tomar 30 segundos)...';
+
+                // Crear GIF
+                const gif = new GIF({
+                    workers: 2,
+                    quality: 10,
+                    width: 800,
+                    height: 600,
+                    workerScript: 'https://cdn.jsdelivr.net/npm/gif.js@0.2.0/dist/gif.worker.js'
+                });
+
+                const canvas = document.getElementById(canvasId);
+                const ctx = canvas.getContext('2d');
+                canvas.width = 800;
+                canvas.height = 600;
+
+                // Agregar frames: 3 segundos antes
+                for (let i = 0; i < 90; i++) {
+                    ctx.drawImage(beforeImg, 0, 0, 800, 600);
+                    gif.addFrame(canvas, { delay: 33 });
+                }
+
+                // Transición: 1 segundo
+                for (let i = 0; i < 30; i++) {
+                    const alpha = i / 30;
+                    ctx.drawImage(beforeImg, 0, 0, 800, 600);
+                    ctx.globalAlpha = alpha;
+                    ctx.drawImage(afterImg, 0, 0, 800, 600);
+                    ctx.globalAlpha = 1;
+                    gif.addFrame(canvas, { delay: 33 });
+                }
+
+                // 3 segundos después
+                for (let i = 0; i < 90; i++) {
+                    ctx.drawImage(afterImg, 0, 0, 800, 600);
+                    gif.addFrame(canvas, { delay: 33 });
+                }
+
+                status.textContent = 'Renderizando...';
+
+                gif.on('finished', function(blob) {
+                    status.textContent = '✓ Video listo para descargar';
+
+                    const url = URL.createObjectURL(blob);
+                    downloadLink.href = url;
+                    downloadLink.download = filename;
+                    downloadLink.textContent = `↓ Descargar ${filename}`;
+                    downloadLink.style.display = 'inline-block';
+
+                    button.disabled = false;
+                    button.textContent = 'Regenerar Video';
+                });
+
+                gif.render();
+
+            } catch (error) {
+                status.textContent = '❌ Error: ' + error.message;
+                button.disabled = false;
+            }
+        }
+
+        function loadImage(src) {
+            return new Promise((resolve, reject) => {
+                const img = new Image();
+                img.onload = () => resolve(img);
+                img.onerror = () => reject(new Error(`No se pudo cargar: ${src}`));
+                img.src = src;
+            });
+        }
+    </script>
+</body>
+</html>

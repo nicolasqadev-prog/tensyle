@@ -1,0 +1,260 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tensyle | Ingeniería Aditiva & Diseño 3D | Chía</title>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;600&family=Oswald:wght@200;400;700&display=swap" rel="stylesheet">
+    <style>
+        :root { 
+            --blue: #00d4ff; 
+            --black: #050505; 
+            --gray: #121212; 
+            --white: #ffffff;
+            --transition: all 0.6s cubic-bezier(0.23, 1, 0.32, 1); /* Transición suave y profesional */
+        }
+
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+
+        body { 
+            font-family: 'Montserrat', sans-serif; 
+            background: var(--black); 
+            color: var(--white); 
+            overflow: hidden; /* Mantiene la estética de app */
+            height: 100vh;
+        }
+
+        /* --- CONTENEDOR CENTRAL DEL LOBBY --- */
+        .lobby-wrapper {
+            position: relative;
+            height: 100vh;
+            width: 100%;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+        }
+
+        /* --- CABECERA DE MARCA CENTRAL --- */
+        .brand-identity {
+            position: absolute;
+            top: 10vh; /* Centrado verticalmente un poco más arriba */
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            z-index: 100;
+            text-align: center;
+            pointer-events: none; /* No interfiere con los clics de abajo */
+        }
+
+        /* --- EL LOGO DE TENSYLE HECHO PURAMENTE CON CÓDIGO (SVG) --- */
+        .tensyle-logo-code {
+            width: 80px; /* Tamaño del logo */
+            height: auto;
+            margin-bottom: 20px;
+            filter: drop-shadow(0 0 10px rgba(0, 212, 255, 0.3)); /* Brillo sutil */
+        }
+
+        /* Estilos específicos para las formas del SVG */
+        .logo-shape {
+            fill: var(--white); /* Color principal del logo */
+            transition: var(--transition);
+        }
+
+        /* Nombre de Marca en Texto */
+        .brand-identity h1 {
+            font-family: 'Oswald';
+            font-size: clamp(2.5rem, 8vw, 5rem);
+            letter-spacing: 15px;
+            font-weight: 200;
+            text-transform: uppercase;
+            line-height: 1;
+            margin-bottom: 10px;
+            color: var(--white);
+        }
+
+        /* Eslógan de Marca */
+        .brand-identity p {
+            font-family: 'Oswald';
+            color: var(--blue);
+            letter-spacing: 5px;
+            font-size: 0.9rem;
+            text-transform: uppercase;
+        }
+
+        /* --- SELECTOR DE PANTALLA PARTIDA (SPLIT) --- */
+        .split-selector {
+            display: flex;
+            height: 100%;
+            width: 100%;
+        }
+
+        .split-door {
+            flex: 1;
+            position: relative;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: var(--transition);
+            overflow: hidden;
+            text-decoration: none;
+            cursor: pointer;
+        }
+
+        /* Efecto de expansión al pasar el mouse */
+        .split-door:hover {
+            flex: 1.6;
+        }
+
+        /* Imágenes de fondo para cada sector */
+        .split-door::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-size: cover;
+            background-position: center;
+            filter: grayscale(100%) brightness(0.2); /* Fondo oscuro y técnico */
+            transition: var(--transition);
+            z-index: 1;
+        }
+
+        /* --- IMÁGENES DE FONDO (Cámbialas por tus fotos reales) --- */
+        /* Ejemplo de imagen automotriz (puedes usar tu lateral-moto-fin.jpg) */
+        .door-automotive::before { background-image: url('lateral-moto-fin.jpg'); } 
+        /* Ejemplo de imagen de diseño/arte 3D */
+        .door-motion::before { background-image: url('https://images.unsplash.com/photo-1611162616305-c69b3fa7fbe0?q=80&w=1000&auto=format&fit=crop'); }
+
+        /* Efecto de activación al hover */
+        .split-door:hover::before {
+            filter: grayscale(0%) brightness(0.4);
+            transform: scale(1.03);
+        }
+
+        /* --- CONTENIDO DE CADA PUERTA --- */
+        .door-content {
+            position: relative;
+            z-index: 10;
+            text-align: center;
+            padding: 40px;
+            max-width: 400px;
+            opacity: 0.7; /* Ligeramente transparente por defecto */
+            transition: var(--transition);
+        }
+
+        .split-door:hover .door-content {
+            opacity: 1;
+            transform: translateY(-10px);
+        }
+
+        .door-content h2 {
+            font-family: 'Oswald';
+            font-size: clamp(1.8rem, 4vw, 3rem);
+            letter-spacing: 4px;
+            margin-bottom: 15px;
+            color: var(--white);
+            font-weight: 400;
+        }
+
+        .door-content p {
+            font-size: 0.85rem;
+            color: #bbb;
+            margin: 0 auto 30px;
+            line-height: 1.6;
+            font-weight: 300;
+        }
+
+        /* Botón de Acción Tensyle */
+        .btn-action-tensyle {
+            display: inline-block;
+            padding: 14px 35px;
+            border: 1px solid var(--blue);
+            color: var(--blue);
+            text-decoration: none;
+            font-family: 'Oswald';
+            font-size: 0.85rem;
+            letter-spacing: 2px;
+            transition: all 0.3s ease;
+            text-transform: uppercase;
+        }
+
+        .btn-action-tensyle:hover {
+            background: var(--blue);
+            color: var(--black);
+            box-shadow: 0 0 20px rgba(0, 212, 255, 0.5);
+        }
+
+        /* --- FOOTER LOBBY --- */
+        .lobby-location {
+            position: absolute;
+            bottom: 30px;
+            width: 100%;
+            text-align: center;
+            z-index: 100;
+            font-size: 0.7rem;
+            color: #666;
+            letter-spacing: 2px;
+            font-weight: 300;
+        }
+
+        /* --- AJUSTES PARA DISPOSITIVOS MÓVILES --- */
+        @media (max-width: 768px) {
+            .split-selector { flex-direction: column; }
+            .brand-identity { top: 5vh; }
+            .brand-identity h1 { font-size: 2.8rem; letter-spacing: 8px; }
+            .tensyle-logo-code { width: 60px; }
+            .split-door:hover { flex: 1; } /* No se expande en móvil */
+            .door-content { padding: 20px; }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="lobby-wrapper">
+        
+        <header class="brand-identity">
+            
+            <svg class="tensyle-logo-code" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+                <rect class="logo-shape" x="10" y="10" width="80" height="15" rx="2"/>
+                <rect class="logo-shape" x="10" y="35" width="80" height="10" rx="2" opacity="0.8"/>
+                <rect class="logo-shape" x="10" y="55" width="80" height="8" rx="2" opacity="0.6"/>
+                <rect class="logo-shape" x="10" y="73" width="80" height="6" rx="2" opacity="0.4"/>
+                
+                <polygon points="45,0 100,0 100,100 65,100" fill="var(--black)"/>
+                
+                <rect class="logo-shape" x="42" y="25" width="16" height="65" rx="2"/>
+            </svg>
+
+            <h1>TENSYLE</h1>
+            <p>PRECISIÓN EN CADA CAPA</p>
+        </header>
+
+        <div class="split-selector">
+            
+            <a href="automotive.html" class="split-door door-automotive">
+                <div class="door-content">
+                    <h2>AUTOMOTIVE</h2>
+                    <p>Reconstrucción técnica de componentes descontinuados y fabricación con polímeros de ingeniería vehicular.</p>
+                    <span class="btn-action-tensyle">Entrar al Taller</span>
+                </div>
+            </a>
+
+            <a href="motion.html" class="split-door door-motion">
+                <div class="door-content">
+                    <h2>MOTION</h2>
+                    <p>Coleccionables de alta fidelidad, prototipado creativo y figuras de acción personalizadas de precisión.</p>
+                    <span class="btn-action-tensyle">Explorar Colección</span>
+                </div>
+            </a>
+
+        </div>
+
+        <footer class="lobby-location">
+            TENSYLE SOLUTIONS © 2026 | TECNOLOGÍA ADITIVA EN CHÍA, COLOMBIA
+        </footer>
+    </div>
+
+</body>
+</html>

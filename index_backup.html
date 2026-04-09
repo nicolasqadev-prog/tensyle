@@ -1,0 +1,1567 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tensyle | Precisión en Cada Capa</title>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700&family=Oswald:wght@200;300;400;500;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary: #00d4ff;
+            --dark: #0a0e27;
+            --darker: #050507;
+            --gray: #1a1f3a;
+            --light: #ffffff;
+            --text: #e0e0e0;
+            --accent: #00f2ff;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html { scroll-behavior: smooth; }
+        body { font-family: 'Montserrat', sans-serif; background: var(--darker); color: var(--text); overflow-x: hidden; }
+
+        .bg-grid {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -2;
+            background-image:
+                linear-gradient(rgba(0, 212, 255, 0.03) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(0, 212, 255, 0.03) 1px, transparent 1px);
+            background-size: 50px 50px;
+        }
+
+        nav {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            height: 70px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0 50px;
+            background: rgba(5, 5, 7, 0.9);
+            backdrop-filter: blur(20px);
+            border-bottom: 1px solid rgba(0, 212, 255, 0.2);
+            z-index: 1000;
+        }
+
+        .nav-logo {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .nav-logo img {
+            width: 45px;
+            height: 45px;
+            object-fit: contain;
+            background: white;
+            padding: 6px;
+            border-radius: 8px;
+        }
+
+        .nav-text {
+            font-family: 'Oswald', sans-serif;
+            font-size: 18px;
+            font-weight: 700;
+            letter-spacing: 3px;
+            color: var(--primary);
+            text-transform: uppercase;
+        }
+
+        .nav-menu {
+            display: flex;
+            gap: 30px;
+            align-items: center;
+        }
+
+        .nav-menu a {
+            font-family: 'Oswald', sans-serif;
+            font-size: 11px;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            color: var(--text);
+            text-decoration: none;
+            cursor: pointer;
+            transition: color 0.3s;
+        }
+
+        .nav-menu a:hover {
+            color: var(--primary);
+        }
+
+        .contact-btn {
+            padding: 10px 25px;
+            background: var(--primary);
+            color: var(--darker);
+            border: none;
+            font-family: 'Oswald', sans-serif;
+            font-size: 10px;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            cursor: pointer;
+            transition: all 0.3s;
+            font-weight: 600;
+        }
+
+        .contact-btn:hover {
+            box-shadow: 0 0 30px rgba(0, 212, 255, 0.5);
+            transform: translateY(-2px);
+        }
+
+        .reveal {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: all 0.8s ease;
+        }
+
+        .reveal.active {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        section {
+            min-height: 100vh;
+            padding: 100px 50px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .section-content {
+            width: 100%;
+            max-width: 1400px;
+        }
+
+        .section-header {
+            text-align: center;
+            margin-bottom: 80px;
+        }
+
+        .section-tag {
+            font-family: 'Oswald', sans-serif;
+            font-size: 11px;
+            letter-spacing: 3px;
+            text-transform: uppercase;
+            color: var(--primary);
+            margin-bottom: 15px;
+            display: inline-block;
+        }
+
+        .section-title {
+            font-family: 'Oswald', sans-serif;
+            font-size: clamp(2.5rem, 8vw, 4rem);
+            font-weight: 300;
+            letter-spacing: 3px;
+            text-transform: uppercase;
+            margin-bottom: 25px;
+            color: var(--light);
+        }
+
+        .section-desc {
+            font-size: 15px;
+            color: var(--text);
+            max-width: 700px;
+            margin: 0 auto;
+            line-height: 1.8;
+        }
+
+        /* ========== HOME ========== */
+        #home {
+            height: 100vh;
+            padding-top: 70px;
+            background: linear-gradient(135deg, rgba(0, 212, 255, 0.05) 0%, rgba(0, 242, 255, 0.02) 100%);
+        }
+
+        .home-content {
+            text-align: center;
+            animation: fadeInUp 1s ease 0.3s backwards;
+        }
+
+        @keyframes fadeInUp {
+            from { opacity: 0; transform: translateY(40px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .home-logo {
+            width: 140px;
+            height: 140px;
+            object-fit: contain;
+            margin: 0 auto 30px;
+            filter: drop-shadow(0 0 25px rgba(0, 212, 255, 0.4));
+            animation: float 3s ease-in-out infinite;
+        }
+
+        #home::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background:
+                radial-gradient(circle at 20% 50%, rgba(0, 212, 255, 0.1) 0%, transparent 50%),
+                radial-gradient(circle at 80% 80%, rgba(0, 242, 255, 0.08) 0%, transparent 50%),
+                url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><defs><pattern id="dots" x="0" y="0" width="20" height="20" patternUnits="userSpaceOnUse"><circle cx="10" cy="10" r="1" fill="rgba(0,212,255,0.05)"/></pattern></defs><rect width="100" height="100" fill="url(%23dots)"/></svg>');
+            z-index: 0;
+        }
+
+        #home .section-content {
+            position: relative;
+            z-index: 1;
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(25px); }
+        }
+
+        .home-h1 {
+            font-family: 'Oswald', sans-serif;
+            font-size: clamp(3.5rem, 15vw, 6.5rem);
+            font-weight: 200;
+            letter-spacing: 8px;
+            text-transform: uppercase;
+            margin-bottom: 15px;
+            color: var(--light);
+        }
+
+        .home-tagline {
+            font-family: 'Oswald', sans-serif;
+            font-size: 16px;
+            letter-spacing: 4px;
+            text-transform: uppercase;
+            color: var(--primary);
+            margin-bottom: 30px;
+        }
+
+        .section-slogan {
+            font-family: 'Montserrat', sans-serif;
+            font-size: 18px;
+            color: var(--accent);
+            font-weight: 300;
+            letter-spacing: 2px;
+            margin-top: 15px;
+            text-transform: uppercase;
+            opacity: 0.9;
+        }
+
+        .home-desc {
+            font-size: 17px;
+            color: var(--text);
+            max-width: 800px;
+            margin: 0 auto 50px;
+            line-height: 1.9;
+        }
+
+        .home-buttons {
+            display: flex;
+            gap: 30px;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+
+        .btn-primary, .btn-secondary {
+            padding: 15px 50px;
+            font-family: 'Oswald', sans-serif;
+            font-size: 12px;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            cursor: pointer;
+            border: none;
+            transition: all 0.3s;
+            border-radius: 2px;
+        }
+
+        .btn-primary {
+            background: var(--primary);
+            color: var(--darker);
+            font-weight: 600;
+        }
+
+        .btn-primary:hover {
+            box-shadow: 0 0 40px rgba(0, 212, 255, 0.6);
+            transform: translateY(-3px);
+        }
+
+        .btn-secondary {
+            background: transparent;
+            border: 2px solid var(--primary);
+            color: var(--primary);
+        }
+
+        .btn-secondary:hover {
+            background: var(--primary);
+            color: var(--darker);
+        }
+
+        .scroll-hint {
+            position: absolute;
+            bottom: 50px;
+            left: 50%;
+            transform: translateX(-50%);
+            font-family: 'Oswald', sans-serif;
+            font-size: 11px;
+            letter-spacing: 2px;
+            color: var(--text);
+            opacity: 0.5;
+            animation: bounce 2.5s infinite;
+        }
+
+        @keyframes bounce {
+            0%, 100% { transform: translateX(-50%) translateY(0); }
+            50% { transform: translateX(-50%) translateY(15px); }
+        }
+
+        /* ========== QUIÉNES SOMOS ========== */
+        #quienes {
+            background: linear-gradient(135deg, rgba(10, 14, 39, 0.5) 0%, rgba(5, 5, 7, 0.8) 100%);
+        }
+
+        .values-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 40px;
+            margin-top: 60px;
+        }
+
+        .value-card {
+            padding: 40px 30px;
+            background: rgba(26, 31, 58, 0.5);
+            border: 1px solid rgba(0, 212, 255, 0.3);
+            border-radius: 4px;
+            text-align: center;
+            transition: all 0.4s;
+        }
+
+        .value-card:hover {
+            border-color: var(--primary);
+            background: rgba(26, 31, 58, 0.8);
+            transform: translateY(-8px);
+        }
+
+        .value-icon {
+            font-size: 45px;
+            margin-bottom: 20px;
+        }
+
+        .value-title {
+            font-family: 'Oswald', sans-serif;
+            font-size: 15px;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            color: var(--primary);
+            margin-bottom: 15px;
+        }
+
+        .value-text {
+            font-size: 14px;
+            color: var(--text);
+            line-height: 1.7;
+        }
+
+        /* ========== MATERIALES ========== */
+        #materiales {
+            background: linear-gradient(135deg, rgba(10, 14, 39, 0.7) 0%, rgba(5, 5, 7, 0.9) 100%);
+            border-top: 3px solid var(--primary);
+            border-bottom: 3px solid var(--primary);
+        }
+
+        .materials-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 40px;
+            margin-top: 60px;
+        }
+
+        .material-card {
+            background: rgba(26, 31, 58, 0.6);
+            border: 1px solid rgba(0, 212, 255, 0.3);
+            border-radius: 4px;
+            overflow: hidden;
+            transition: all 0.4s;
+        }
+
+        .material-card:hover {
+            border-color: var(--primary);
+            box-shadow: 0 0 40px rgba(0, 212, 255, 0.3);
+            transform: translateY(-8px);
+        }
+
+        .filament-visual {
+            width: 100%;
+            height: 280px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: linear-gradient(135deg, rgba(0, 212, 255, 0.1), rgba(0, 242, 255, 0.05));
+            border-bottom: 2px solid rgba(0, 212, 255, 0.3);
+            position: relative;
+        }
+
+        .filament-spool {
+            width: 120px;
+            height: 170px;
+            border-radius: 60px;
+            position: relative;
+            box-shadow:
+                inset -25px 0 60px rgba(0, 0, 0, 0.9),
+                inset 10px 0 40px rgba(255, 255, 255, 0.2),
+                inset 0 -8px 20px rgba(0, 0, 0, 0.6),
+                inset 0 8px 20px rgba(0, 0, 0, 0.4),
+                0 25px 60px rgba(0, 0, 0, 0.8);
+            border: 6px solid;
+            transform-style: preserve-3d;
+            background-attachment: fixed;
+            overflow: hidden;
+        }
+
+        .filament-shine {
+            position: absolute;
+            top: 5px;
+            left: 10px;
+            width: 40px;
+            height: 80px;
+            background: linear-gradient(115deg, rgba(255, 255, 255, 0.5) 0%, rgba(255, 255, 255, 0.15) 40%, transparent 100%);
+            border-radius: 50%;
+            filter: blur(15px);
+            z-index: 10;
+        }
+
+        .filament-spool::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            border-radius: 60px;
+            background:
+                repeating-linear-gradient(
+                    0deg,
+                    transparent 0px,
+                    transparent 1px,
+                    rgba(255, 255, 255, 0.05) 1px,
+                    rgba(255, 255, 255, 0.05) 2px,
+                    transparent 2px,
+                    transparent 4px
+                ),
+                repeating-linear-gradient(
+                    90deg,
+                    transparent 0px,
+                    transparent 2px,
+                    rgba(0, 0, 0, 0.15) 2px,
+                    rgba(0, 0, 0, 0.15) 3px
+                );
+            pointer-events: none;
+            z-index: 5;
+        }
+
+        .filament-spool::after {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            border-radius: 60px;
+            background:
+                radial-gradient(ellipse at 30% 20%, rgba(255, 255, 255, 0.3) 0%, transparent 40%),
+                radial-gradient(ellipse at 70% 80%, rgba(0, 0, 0, 0.2) 0%, transparent 40%);
+            pointer-events: none;
+            z-index: 8;
+        }
+
+        .material-info {
+            padding: 30px;
+            background: rgba(5, 5, 7, 0.5);
+        }
+
+        .material-name {
+            font-family: 'Oswald', sans-serif;
+            font-size: 18px;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            color: var(--primary);
+            margin-bottom: 12px;
+        }
+
+        .material-desc {
+            font-size: 13px;
+            color: var(--text);
+            line-height: 1.7;
+            margin-bottom: 15px;
+        }
+
+        .material-uses {
+            font-size: 12px;
+            color: var(--accent);
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        /* ========== AUTOMOTIVE ========== */
+        #automotive {
+            background: linear-gradient(135deg, rgba(20, 30, 50, 0.6) 0%, rgba(5, 5, 7, 0.9) 100%);
+            border-top: 3px solid #ff6b6b;
+        }
+
+        .products-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 40px;
+            margin-top: 60px;
+        }
+
+        .product-card {
+            background: rgba(26, 31, 58, 0.6);
+            border: 1px solid rgba(0, 212, 255, 0.2);
+            border-radius: 4px;
+            overflow: hidden;
+            transition: all 0.4s;
+        }
+
+        .product-card:hover {
+            border-color: var(--primary);
+            box-shadow: 0 0 40px rgba(0, 212, 255, 0.2);
+            transform: translateY(-8px);
+        }
+
+        .product-comparison {
+            position: relative;
+            height: 300px;
+            background: #000;
+            overflow: hidden;
+        }
+
+        .comparison-item {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
+            transition: opacity 0.6s ease-in-out;
+        }
+
+        .comparison-item:first-child {
+            opacity: 1;
+            z-index: 2;
+        }
+
+        .comparison-item:last-child {
+            opacity: 0;
+            z-index: 1;
+        }
+
+        .product-comparison:hover .comparison-item:first-child {
+            opacity: 0;
+        }
+
+        .product-comparison:hover .comparison-item:last-child {
+            opacity: 1;
+        }
+
+        .comparison-item img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .comparison-label {
+            position: absolute;
+            bottom: 10px;
+            left: 10px;
+            background: rgba(0, 0, 0, 0.8);
+            color: var(--primary);
+            padding: 6px 12px;
+            font-family: 'Oswald', sans-serif;
+            font-size: 11px;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+            border: 1px solid var(--primary);
+        }
+
+        .product-single img {
+            width: 100%;
+            height: 300px;
+            object-fit: cover;
+        }
+
+        .product-info {
+            padding: 25px;
+            background: rgba(5, 5, 7, 0.7);
+        }
+
+        .product-name {
+            font-family: 'Oswald', sans-serif;
+            font-size: 15px;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            color: var(--primary);
+            margin-bottom: 10px;
+        }
+
+        .product-desc {
+            font-size: 13px;
+            color: var(--text);
+            line-height: 1.6;
+        }
+
+        /* ========== MOTION ========== */
+        #motion {
+            background: linear-gradient(135deg, rgba(30, 20, 50, 0.6) 0%, rgba(5, 5, 7, 0.9) 100%);
+            border-top: 3px solid #00ff88;
+        }
+
+        /* ========== HOGAR ========== */
+        #hogar {
+            background: linear-gradient(135deg, rgba(50, 30, 20, 0.6) 0%, rgba(5, 5, 7, 0.9) 100%);
+            border-top: 3px solid #ffaa00;
+        }
+
+        .home-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 30px;
+            margin-top: 60px;
+        }
+
+        .home-card {
+            height: 300px;
+            background: linear-gradient(135deg, rgba(0, 212, 255, 0.1), rgba(0, 242, 255, 0.05));
+            border: 2px solid rgba(0, 212, 255, 0.3);
+            border-radius: 4px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.4s;
+            cursor: pointer;
+        }
+
+        .home-card:hover {
+            border-color: var(--primary);
+            box-shadow: 0 0 40px rgba(0, 212, 255, 0.3);
+            transform: translateY(-8px);
+        }
+
+        .home-icon {
+            font-size: 50px;
+            margin-bottom: 15px;
+        }
+
+        .home-name {
+            font-family: 'Oswald', sans-serif;
+            font-size: 14px;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            color: var(--primary);
+            text-align: center;
+        }
+
+        /* ========== FOOTER ========== */
+        footer {
+            padding: 60px 50px;
+            background: var(--dark);
+            border-top: 1px solid rgba(0, 212, 255, 0.2);
+            text-align: center;
+        }
+
+        .footer-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 40px;
+            max-width: 1400px;
+            margin: 0 auto 40px;
+            text-align: left;
+        }
+
+        .footer-col h3 {
+            font-family: 'Oswald', sans-serif;
+            font-size: 12px;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            color: var(--primary);
+            margin-bottom: 20px;
+        }
+
+        .footer-col p, .footer-col a {
+            font-size: 13px;
+            color: var(--text);
+            line-height: 1.8;
+            text-decoration: none;
+            cursor: pointer;
+            transition: color 0.3s;
+        }
+
+        .footer-col a:hover {
+            color: var(--primary);
+        }
+
+        .footer-bottom {
+            border-top: 1px solid rgba(0, 212, 255, 0.2);
+            padding-top: 30px;
+            font-size: 12px;
+            color: var(--text);
+            opacity: 0.6;
+        }
+
+        /* ========== FLOATING ========== */
+        .floating {
+            position: fixed;
+            bottom: 40px;
+            right: 40px;
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+            z-index: 999;
+        }
+
+        .float-btn {
+            width: 65px;
+            height: 65px;
+            border-radius: 50%;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.3s;
+            text-decoration: none;
+            position: relative;
+            border: none;
+            animation: floatBtn 3s ease-in-out infinite;
+        }
+
+        @keyframes floatBtn {
+            0%, 100% { transform: translateY(0px); }
+            50% { transform: translateY(-15px); }
+        }
+
+        .float-btn:hover {
+            transform: translateY(-15px) scale(1.15);
+            animation: none;
+        }
+
+        .float-btn.whatsapp {
+            background: linear-gradient(135deg, #25d366 0%, #20ba5a 100%);
+            box-shadow: 0 8px 30px rgba(37, 211, 102, 0.6);
+        }
+
+        .float-btn.whatsapp:hover {
+            box-shadow: 0 12px 50px rgba(37, 211, 102, 0.9);
+        }
+
+        .float-btn.instagram {
+            background: linear-gradient(135deg, #f09433 0%, #e6683c 25%, #dc2743 50%, #cc2366 75%, #bc1888 100%);
+            box-shadow: 0 8px 30px rgba(224, 89, 45, 0.6);
+        }
+
+        .float-btn.instagram:hover {
+            box-shadow: 0 12px 50px rgba(224, 89, 45, 0.9);
+        }
+
+        .float-btn svg {
+            width: 32px;
+            height: 32px;
+            filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.3));
+        }
+
+        .float-btn::after {
+            content: attr(data-label);
+            position: absolute;
+            right: 80px;
+            background: rgba(0, 212, 255, 0.15);
+            color: var(--primary);
+            padding: 8px 15px;
+            border-radius: 4px;
+            font-family: 'Montserrat', sans-serif;
+            font-size: 12px;
+            letter-spacing: 1px;
+            white-space: nowrap;
+            border: 1px solid rgba(0, 212, 255, 0.3);
+            opacity: 0;
+            transition: opacity 0.3s;
+            pointer-events: none;
+        }
+
+        .float-btn:hover::after {
+            opacity: 1;
+        }
+
+        /* ========== FORM MODAL ========== */
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 2000;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.8);
+            animation: fadeIn 0.3s;
+        }
+
+        .modal.show {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        .modal-content {
+            background: var(--darker);
+            border: 2px solid var(--primary);
+            border-radius: 8px;
+            padding: 50px;
+            width: 90%;
+            max-width: 600px;
+            max-height: 90vh;
+            overflow-y: auto;
+            animation: slideUp 0.3s;
+        }
+
+        @keyframes slideUp {
+            from { transform: translateY(50px); opacity: 0; }
+            to { transform: translateY(0); opacity: 1; }
+        }
+
+        .close-btn {
+            float: right;
+            font-size: 28px;
+            font-weight: bold;
+            color: var(--primary);
+            cursor: pointer;
+            transition: color 0.3s;
+        }
+
+        .close-btn:hover {
+            color: var(--accent);
+        }
+
+        .form-group {
+            margin-bottom: 25px;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 8px;
+            font-family: 'Oswald', sans-serif;
+            font-size: 12px;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+            color: var(--primary);
+        }
+
+        .form-group input,
+        .form-group textarea,
+        .form-group select {
+            width: 100%;
+            padding: 12px;
+            background: rgba(26, 31, 58, 0.8);
+            border: 1px solid rgba(0, 212, 255, 0.3);
+            color: var(--text);
+            font-family: 'Montserrat', sans-serif;
+            border-radius: 4px;
+            transition: all 0.3s;
+        }
+
+        .form-group input:focus,
+        .form-group textarea:focus,
+        .form-group select:focus {
+            outline: none;
+            border-color: var(--primary);
+            box-shadow: 0 0 15px rgba(0, 212, 255, 0.3);
+        }
+
+        .form-group textarea {
+            resize: vertical;
+            min-height: 100px;
+        }
+
+        .file-input-wrapper {
+            position: relative;
+            overflow: hidden;
+            display: inline-block;
+            width: 100%;
+        }
+
+        .file-input-wrapper input[type=file] {
+            display: none;
+        }
+
+        .file-label {
+            display: block;
+            padding: 12px;
+            background: rgba(0, 212, 255, 0.1);
+            border: 2px dashed rgba(0, 212, 255, 0.5);
+            border-radius: 4px;
+            text-align: center;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .file-label:hover {
+            background: rgba(0, 212, 255, 0.2);
+            border-color: var(--primary);
+        }
+
+        .form-submit {
+            width: 100%;
+            padding: 14px;
+            background: var(--primary);
+            color: var(--darker);
+            border: none;
+            font-family: 'Oswald', sans-serif;
+            font-size: 12px;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            cursor: pointer;
+            font-weight: 600;
+            border-radius: 4px;
+            transition: all 0.3s;
+        }
+
+        .form-submit:hover {
+            box-shadow: 0 0 30px rgba(0, 212, 255, 0.6);
+            transform: translateY(-2px);
+        }
+
+        @media (max-width: 768px) {
+            nav { padding: 0 25px; }
+            .nav-menu { gap: 15px; font-size: 9px; }
+            section { padding: 60px 25px; }
+            .home-buttons { flex-direction: column; }
+            .btn-primary, .btn-secondary { width: 100%; }
+            .products-grid, .materials-grid { grid-template-columns: 1fr; }
+            .floating { bottom: 25px; right: 25px; gap: 15px; }
+            .float-btn { width: 55px; height: 55px; font-size: 24px; }
+            .float-btn::after { display: none; }
+            .modal-content { padding: 30px; }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="bg-grid"></div>
+
+    <nav>
+        <div class="nav-logo">
+            <img src="logo-instagram.png" alt="Tensyle">
+            <div class="nav-text">Tensyle</div>
+        </div>
+        <div class="nav-menu">
+            <a onclick="scrollToSection('home')">Home</a>
+            <a onclick="scrollToSection('quienes')">Quiénes Somos</a>
+            <a onclick="scrollToSection('materiales')">Materiales</a>
+            <a onclick="scrollToSection('automotive')">Automotive</a>
+            <a onclick="scrollToSection('motion')">Motion</a>
+            <a onclick="scrollToSection('hogar')">Hogar</a>
+            <button class="contact-btn" onclick="contactWhatsApp()">CONTACTAR</button>
+        </div>
+    </nav>
+
+    <!-- HOME -->
+    <section id="home">
+        <div class="section-content">
+            <div class="home-content reveal">
+                <img src="logo-instagram.png" alt="Tensyle" class="home-logo">
+                <h1 class="home-h1">TENSYLE</h1>
+                <p class="home-tagline">Precisión en Cada Capa</p>
+                <p class="section-slogan">Soluciones 3D de Ingeniería</p>
+                <p class="home-desc">
+                    Transformamos ideas en realidad 3D con precisión industrial.
+                    Desde componentes automotrices de máxima resistencia, hasta figuras articuladas de colección,
+                    pasando por productos personalizados para tu hogar. <strong>Cada capa cuenta.</strong>
+                </p>
+                <div class="home-buttons">
+                    <button class="btn-primary" onclick="scrollToSection('quienes')">CONOCE NUESTRA HISTORIA</button>
+                    <button class="btn-secondary" onclick="openQuotationModal()">SOLICITAR COTIZACIÓN</button>
+                </div>
+            </div>
+            <div class="scroll-hint">↓ SCROLL PARA EXPLORAR ↓</div>
+        </div>
+    </section>
+
+    <!-- QUIÉNES SOMOS -->
+    <section id="quienes">
+        <div class="section-content">
+            <div class="section-header reveal">
+                <span class="section-tag">Sobre Nosotros</span>
+                <h2 class="section-title">¿Quiénes Somos?</h2>
+                <p class="section-desc">
+                    TENSYLE es una empresa especializada en fabricación aditiva de precisión industrial.
+                    Ubicados en Chía, Colombia, contamos con equipos Creality K1 Max de última generación
+                    para garantizar calidad excepcional en cada proyecto.
+                </p>
+            </div>
+
+            <div class="values-grid">
+                <div class="value-card reveal">
+                    <div class="value-icon">⚙️</div>
+                    <div class="value-title">Precisión Industrial</div>
+                    <div class="value-text">Tolerancias de micras en cada componente fabricado</div>
+                </div>
+                <div class="value-card reveal">
+                    <div class="value-icon">🔧</div>
+                    <div class="value-title">Tecnología Avanzada</div>
+                    <div class="value-text">Creality K1 Max - última generación en impresión 3D</div>
+                </div>
+                <div class="value-card reveal">
+                    <div class="value-icon">✨</div>
+                    <div class="value-title">Calidad Premium</div>
+                    <div class="value-text">Control exhaustivo en cada etapa del proceso</div>
+                </div>
+                <div class="value-card reveal">
+                    <div class="value-icon">🚀</div>
+                    <div class="value-title">Entrega Rápida</div>
+                    <div class="value-text">Prototipado rápido y producción eficiente</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- MATERIALES -->
+    <section id="materiales">
+        <div class="section-content">
+            <div class="section-header reveal">
+                <span class="section-tag">Nuestras Materias Primas</span>
+                <h2 class="section-title">Filamentos Técnicos Premium</h2>
+                <p class="section-desc">
+                    Utilizamos polímeros de ingeniería seleccionados estratégicamente para cada aplicación,
+                    garantizando durabilidad extrema, resistencia mecánica y precisión en cada proyecto.
+                </p>
+            </div>
+
+            <div class="materials-grid">
+                <!-- ABS -->
+                <div class="material-card reveal">
+                    <div class="filament-visual">
+                        <div class="filament-spool" style="background: linear-gradient(135deg, #2a2a2a 0%, #1a1a1a 50%, #0a0a0a 100%); border-color: #444;">
+                            <div class="filament-shine"></div>
+                        </div>
+                    </div>
+                    <div class="material-info">
+                        <div class="material-name">ABS</div>
+                        <div class="material-desc">
+                            Polímero resistente y duradero. Ideal para componentes automotrices que requieren resistencia al impacto y flexibilidad.
+                        </div>
+                        <div class="material-uses">→ Automotriz • Prototipado Industrial</div>
+                    </div>
+                </div>
+
+                <!-- PETG -->
+                <div class="material-card reveal">
+                    <div class="filament-visual">
+                        <div class="filament-spool" style="background: linear-gradient(135deg, #ff6b6b 0%, #ff4444 50%, #dd0000 100%); border-color: #ff9999;">
+                            <div class="filament-shine"></div>
+                        </div>
+                    </div>
+                    <div class="material-info">
+                        <div class="material-name">PETG</div>
+                        <div class="material-desc">
+                            Combinación perfecta de resistencia y facilidad de impresión. Excelente para estructuras y piezas técnicas de larga duración.
+                        </div>
+                        <div class="material-uses">→ Estructuras • Piezas Técnicas</div>
+                    </div>
+                </div>
+
+                <!-- PLA -->
+                <div class="material-card reveal">
+                    <div class="filament-visual">
+                        <div class="filament-spool" style="background: linear-gradient(135deg, #4ecca3 0%, #33dd77 50%, #00cc55 100%); border-color: #77ff99;">
+                            <div class="filament-shine"></div>
+                        </div>
+                    </div>
+                    <div class="material-info">
+                        <div class="material-name">PLA</div>
+                        <div class="material-desc">
+                            Material biodegradable con excelente detalle y acabado. Ideal para figuras articuladas de colección y decoración.
+                        </div>
+                        <div class="material-uses">→ Coleccionables • Decoración • Detalle</div>
+                    </div>
+                </div>
+
+                <!-- TPU -->
+                <div class="material-card reveal">
+                    <div class="filament-visual">
+                        <div class="filament-spool" style="background: linear-gradient(135deg, #ffa500 0%, #ff8800 50%, #ff6600 100%); border-color: #ffbb77;">
+                            <div class="filament-shine"></div>
+                        </div>
+                    </div>
+                    <div class="material-info">
+                        <div class="material-name">TPU</div>
+                        <div class="material-desc">
+                            Elastómero flexible y resistente. Para componentes que requieren elasticidad extrema, flexibilidad y durabilidad.
+                        </div>
+                        <div class="material-uses">→ Piezas Flexibles • Amortiguadores</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- AUTOMOTIVE -->
+    <section id="automotive">
+        <div class="section-content">
+            <div class="section-header reveal">
+                <span class="section-tag">01. ENGINEERING</span>
+                <h2 class="section-title">AUTOMOTIVE</h2>
+                <p class="home-tagline">Componentes Descontinuados</p>
+                <p class="section-slogan">Reconstrucción y Precisión Técnica</p>
+                <p class="section-desc">
+                    Reconstrucción de componentes descontinuados y fabricación de piezas personalizadas.
+                    Soluciones técnicas de ingeniería para el entorno automotriz más exigente.
+                </p>
+            </div>
+
+            <div class="products-grid">
+                <!-- Carena Lateral -->
+                <div class="product-card reveal">
+                    <div class="product-comparison">
+                        <div class="comparison-item">
+                            <img src="lateral-moto-impresa-antes.jpg" alt="Antes">
+                            <span class="comparison-label">ANTES</span>
+                        </div>
+                        <div class="comparison-item">
+                            <img src="lateral-moto-fin.jpg" alt="Después">
+                            <span class="comparison-label">DESPUÉS</span>
+                        </div>
+                    </div>
+                    <div class="product-info">
+                        <div class="product-name">Carena Lateral</div>
+                        <div class="product-desc">Yamaha Fazer 2.0 - Reconstrucción funcional de carena original</div>
+                    </div>
+                </div>
+
+                <!-- Frontal Rejilla -->
+                <div class="product-card reveal">
+                    <div class="product-comparison">
+                        <div class="comparison-item">
+                            <img src="frontal-rejilla-despues-antes.jpg" alt="Antes">
+                            <span class="comparison-label">ANTES</span>
+                        </div>
+                        <div class="comparison-item">
+                            <img src="frontal-rejilla-despues.jpg" alt="Después">
+                            <span class="comparison-label">DESPUÉS</span>
+                        </div>
+                    </div>
+                    <div class="product-info">
+                        <div class="product-name">Frontal Rejilla</div>
+                        <div class="product-desc">Renault Mégane 2 - PETG reforzado de máxima resistencia</div>
+                    </div>
+                </div>
+
+                <!-- Inferior Frontal -->
+                <div class="product-card reveal">
+                    <div class="product-comparison">
+                        <div class="comparison-item">
+                            <img src="inferior-frontal-panal-antes.jpg" alt="Antes">
+                            <span class="comparison-label">ANTES</span>
+                        </div>
+                        <div class="comparison-item">
+                            <img src="inferior-frontal-panal.jpg" alt="Después">
+                            <span class="comparison-label">DESPUÉS</span>
+                        </div>
+                    </div>
+                    <div class="product-info">
+                        <div class="product-name">Inferior Frontal</div>
+                        <div class="product-desc">Renault Mégane 2 - Estructura de panal optimizada</div>
+                    </div>
+                </div>
+
+                <!-- Manija Puerta -->
+                <div class="product-card reveal">
+                    <div class="product-comparison">
+                        <div class="comparison-item">
+                            <img src="manija-puerta-exterior-antes.jpg" alt="Antes">
+                            <span class="comparison-label">ANTES</span>
+                        </div>
+                        <div class="comparison-item">
+                            <img src="manija-puerta-exterior.jpg" alt="Después">
+                            <span class="comparison-label">DESPUÉS</span>
+                        </div>
+                    </div>
+                    <div class="product-info">
+                        <div class="product-name">Manija Puerta</div>
+                        <div class="product-desc">Renault Mégane 2 - Ergonomía y resistencia integradas</div>
+                    </div>
+                </div>
+
+                <!-- Pieza Interna -->
+                <div class="product-card reveal">
+                    <div class="product-comparison">
+                        <div class="comparison-item">
+                            <img src="pieza-interna-puerta-antes.jpg" alt="Antes">
+                            <span class="comparison-label">ANTES</span>
+                        </div>
+                        <div class="comparison-item">
+                            <img src="pieza-interna-puerta.jpg" alt="Después">
+                            <span class="comparison-label">DESPUÉS</span>
+                        </div>
+                    </div>
+                    <div class="product-info">
+                        <div class="product-name">Pieza Interna Puerta</div>
+                        <div class="product-desc">Renault Mégane 2 - Componente estructural optimizado</div>
+                    </div>
+                </div>
+
+                <!-- Tapa Cubre Cadenas -->
+                <div class="product-card reveal">
+                    <div class="product-comparison">
+                        <div class="comparison-item">
+                            <img src="tapa-cubre-cadenas-antes.jpg" alt="Antes">
+                            <span class="comparison-label">ANTES</span>
+                        </div>
+                        <div class="comparison-item">
+                            <img src="tapa-cubre-cadenas.jpg" alt="Después">
+                            <span class="comparison-label">DESPUÉS</span>
+                        </div>
+                    </div>
+                    <div class="product-info">
+                        <div class="product-name">Tapa Cubre Cadenas</div>
+                        <div class="product-desc">Yamaha Fazer 2.0 - Acabado técnico de precisión</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- MOTION -->
+    <section id="motion">
+        <div class="section-content">
+            <div class="section-header reveal">
+                <span class="section-tag">02. ANIMATION</span>
+                <h2 class="section-title">MOTION COLLECTION</h2>
+                <p class="home-tagline">Figuras Articuladas Premium</p>
+                <p class="section-slogan">Colecciones de Ultra Precisión</p>
+                <p class="section-desc">
+                    Figuras articuladas y coleccionables de ultra-precisión.
+                    Cada pieza es una obra maestra de ingeniería y arte combinadas.
+                </p>
+            </div>
+
+            <div class="products-grid">
+                <div class="product-card reveal"><div class="product-single"><img src="bluey.jpg" alt="Bluey"></div><div class="product-info"><div class="product-name">Bluey Articulado</div><div class="product-desc">Figura coleccionable con 18 puntos de articulación</div></div></div>
+                <div class="product-card reveal"><div class="product-single"><img src="bob-esponja.jpg" alt="Bob"></div><div class="product-info"><div class="product-name">Bob Esponja</div><div class="product-desc">Personaje icónico con detalle extremo</div></div></div>
+                <div class="product-card reveal"><div class="product-single"><img src="gravitifalls.jpg" alt="GF"></div><div class="product-info"><div class="product-name">Gravity Falls</div><div class="product-desc">Set completo de personajes articulados</div></div></div>
+                <div class="product-card reveal"><div class="product-single"><img src="octonautalimpio.jpg" alt="Octonautas"></div><div class="product-info"><div class="product-name">Octonautas</div><div class="product-desc">Equipo de exploradores marinos</div></div></div>
+                <div class="product-card reveal"><div class="product-single"><img src="pato-aventuras.jpg" alt="Pato"></div><div class="product-info"><div class="product-name">Pato Aventuras</div><div class="product-desc">Personajes animados articulados</div></div></div>
+                <div class="product-card reveal"><div class="product-single"><img src="phineas-limpio.jpg" alt="P&F"></div><div class="product-info"><div class="product-name">Phineas y Ferb</div><div class="product-desc">Dúo clásico en figura de colección</div></div></div>
+                <div class="product-card reveal"><div class="product-single"><img src="pjmask.jpg" alt="PJ"></div><div class="product-info"><div class="product-name">PJ Masks</div><div class="product-desc">Héroes nocturnos con trajes detallados</div></div></div>
+                <div class="product-card reveal"><div class="product-single"><img src="pocoyo.jpg" alt="Pocoyó"></div><div class="product-info"><div class="product-name">Pocoyó</div><div class="product-desc">Personaje infantil favorito en HD</div></div></div>
+                <div class="product-card reveal"><div class="product-single"><img src="pocoyo-sofa.jpg" alt="Pocoyó 2"></div><div class="product-info"><div class="product-name">Pocoyó Articulado</div><div class="product-desc">Versión con puntos de articulación</div></div></div>
+                <div class="product-card reveal"><div class="product-single"><img src="pokemon-2.jpg" alt="Pikachu"></div><div class="product-info"><div class="product-name">Pikachu Articulado</div><div class="product-desc">Pokémon icónico con pose dinámica</div></div></div>
+                <div class="product-card reveal"><div class="product-single"><img src="pokemon1.jpg" alt="Pokemon"></div><div class="product-info"><div class="product-name">Pokémon Colección</div><div class="product-desc">Set de Pokémon legendarios</div></div></div>
+                <div class="product-card reveal"><div class="product-single"><img src="transformers.jpg" alt="Transformers"></div><div class="product-info"><div class="product-name">Transformers Prime</div><div class="product-desc">Robots transformables articulados</div></div></div>
+            </div>
+        </div>
+    </section>
+
+    <!-- HOGAR -->
+    <section id="hogar">
+        <div class="section-content">
+            <div class="section-header reveal">
+                <span class="section-tag">03. LIFESTYLE</span>
+                <h2 class="section-title">PRODUCTOS PARA EL HOGAR</h2>
+                <p class="home-tagline">Diseño & Funcionalidad</p>
+                <p class="section-slogan">Accesorios Personalizados para tu Espacio</p>
+                <p class="section-desc">
+                    Accesorios y decorativos diseñados a medida.
+                    Funcionalidad y estética en perfecta armonía con tu espacio.
+                </p>
+            </div>
+
+            <div class="home-grid">
+                <div class="home-card reveal">
+                    <svg viewBox="0 0 200 200" style="width: 120px; height: 120px; margin-bottom: 15px;">
+                        <defs><linearGradient id="grad1" x1="0%" y1="0%" x2="100%" y2="100%"><stop offset="0%" style="stop-color:#00d4ff;stop-opacity:1" /><stop offset="100%" style="stop-color:#0088cc;stop-opacity:1" /></linearGradient></defs>
+                        <rect x="50" y="40" width="100" height="120" rx="5" fill="url(#grad1)" opacity="0.8"/>
+                        <rect x="70" y="60" width="20" height="80" fill="white" opacity="0.6"/>
+                        <rect x="110" y="60" width="20" height="80" fill="white" opacity="0.6"/>
+                        <circle cx="100" cy="50" r="15" fill="white" opacity="0.4"/>
+                    </svg>
+                    <div class="home-name">Soportes Decorativos</div>
+                </div>
+
+                <div class="home-card reveal">
+                    <svg viewBox="0 0 200 200" style="width: 120px; height: 120px; margin-bottom: 15px;">
+                        <defs><linearGradient id="grad2" x1="0%" y1="0%" x2="100%" y2="100%"><stop offset="0%" style="stop-color:#4ecca3;stop-opacity:1" /><stop offset="100%" style="stop-color:#00cc55;stop-opacity:1" /></linearGradient></defs>
+                        <rect x="40" y="50" width="120" height="100" rx="5" fill="url(#grad2)" opacity="0.8"/>
+                        <line x1="70" y1="50" x2="70" y2="150" stroke="white" stroke-width="2" opacity="0.5"/>
+                        <line x1="100" y1="50" x2="100" y2="150" stroke="white" stroke-width="2" opacity="0.5"/>
+                        <line x1="130" y1="50" x2="130" y2="150" stroke="white" stroke-width="2" opacity="0.5"/>
+                        <rect x="45" y="85" width="20" height="50" fill="rgba(255,255,255,0.3)"/>
+                        <rect x="75" y="85" width="20" height="50" fill="rgba(255,255,255,0.3)"/>
+                        <rect x="105" y="85" width="20" height="50" fill="rgba(255,255,255,0.3)"/>
+                        <rect x="135" y="85" width="20" height="50" fill="rgba(255,255,255,0.3)"/>
+                    </svg>
+                    <div class="home-name">Organizadores Personalizados</div>
+                </div>
+
+                <div class="home-card reveal">
+                    <svg viewBox="0 0 200 200" style="width: 120px; height: 120px; margin-bottom: 15px;">
+                        <defs><linearGradient id="grad3" x1="0%" y1="0%" x2="100%" y2="100%"><stop offset="0%" style="stop-color:#ffa500;stop-opacity:1" /><stop offset="100%" style="stop-color:#ff6600;stop-opacity:1" /></linearGradient></defs>
+                        <circle cx="100" cy="100" r="35" fill="url(#grad3)" opacity="0.8"/>
+                        <circle cx="100" cy="100" r="25" fill="white" opacity="0.2"/>
+                        <line x1="100" y1="70" x2="100" y2="40" stroke="#ffff00" stroke-width="3"/>
+                        <line x1="130" y1="85" x2="150" y2="70" stroke="#ffff00" stroke-width="3"/>
+                        <line x1="130" y1="115" x2="150" y2="130" stroke="#ffff00" stroke-width="3"/>
+                        <line x1="70" y1="115" x2="50" y2="130" stroke="#ffff00" stroke-width="3"/>
+                        <line x1="70" y1="85" x2="50" y2="70" stroke="#ffff00" stroke-width="3"/>
+                    </svg>
+                    <div class="home-name">Accesorios Iluminación</div>
+                </div>
+
+                <div class="home-card reveal">
+                    <svg viewBox="0 0 200 200" style="width: 120px; height: 120px; margin-bottom: 15px;">
+                        <defs><linearGradient id="grad4" x1="0%" y1="0%" x2="100%" y2="100%"><stop offset="0%" style="stop-color:#d4a373;stop-opacity:1" /><stop offset="100%" style="stop-color:#8b6f47;stop-opacity:1" /></linearGradient></defs>
+                        <path d="M 70 60 Q 70 50 80 50 L 120 50 Q 130 50 130 60 L 125 140 Q 125 150 115 150 L 85 150 Q 75 150 75 140 Z" fill="url(#grad4)" opacity="0.8" stroke="#4ecca3" stroke-width="2"/>
+                        <ellipse cx="100" cy="60" rx="25" ry="15" fill="rgba(76, 204, 163, 0.3)"/>
+                        <line x1="85" y1="80" x2="115" y2="80" stroke="#4ecca3" stroke-width="1" opacity="0.5"/>
+                        <line x1="82" y1="100" x2="118" y2="100" stroke="#4ecca3" stroke-width="1" opacity="0.5"/>
+                    </svg>
+                    <div class="home-name">Macetas Custom</div>
+                </div>
+
+                <div class="home-card reveal">
+                    <svg viewBox="0 0 200 200" style="width: 120px; height: 120px; margin-bottom: 15px;">
+                        <defs><linearGradient id="grad5" x1="0%" y1="0%" x2="100%" y2="100%"><stop offset="0%" style="stop-color:#ff6b9d;stop-opacity:1" /><stop offset="100%" style="stop-color:#ff1493;stop-opacity:1" /></linearGradient></defs>
+                        <rect x="50" y="70" width="100" height="60" rx="5" fill="url(#grad5)" opacity="0.8"/>
+                        <path d="M 80 70 Q 80 50 90 45 Q 100 40 110 45 Q 120 50 120 70" fill="#ffcc00" opacity="0.9"/>
+                        <circle cx="95" cy="52" r="8" fill="white" opacity="0.6"/>
+                        <circle cx="105" cy="52" r="8" fill="white" opacity="0.6"/>
+                    </svg>
+                    <div class="home-name">Regalos Personalizados</div>
+                </div>
+
+                <div class="home-card reveal">
+                    <svg viewBox="0 0 200 200" style="width: 120px; height: 120px; margin-bottom: 15px;">
+                        <defs><linearGradient id="grad6" x1="0%" y1="0%" x2="100%" y2="100%"><stop offset="0%" style="stop-color:#a78bfa;stop-opacity:1" /><stop offset="100%" style="stop-color:#c084fc;stop-opacity:1" /></linearGradient></defs>
+                        <rect x="45" y="45" width="110" height="110" rx="5" fill="url(#grad6)" opacity="0.8" stroke="#00d4ff" stroke-width="2"/>
+                        <rect x="55" y="55" width="90" height="90" fill="none" stroke="white" stroke-width="1.5" opacity="0.4"/>
+                        <circle cx="100" cy="100" r="30" fill="rgba(255, 255, 255, 0.2)"/>
+                    </svg>
+                    <div class="home-name">Marcos & Soportes</div>
+                </div>
+            </div>
+
+            <div style="text-align: center; margin-top: 80px; padding: 50px 40px; background: rgba(26, 31, 58, 0.5); border: 2px solid rgba(0, 212, 255, 0.3); border-radius: 4px;">
+                <h3 style="font-family: 'Oswald', sans-serif; font-size: 18px; letter-spacing: 3px; color: var(--primary); margin-bottom: 20px; text-transform: uppercase;">¿Tienes un Diseño Custom?</h3>
+                <p style="color: var(--text); margin-bottom: 30px; font-size: 15px; line-height: 1.8;">
+                    Podemos fabricar cualquier diseño personalizado para tu hogar.<br>
+                    Desde ideas simples hasta proyectos complejos de ingeniería.
+                </p>
+                <button class="btn-primary" onclick="contactWhatsApp()" style="padding: 16px 50px; font-size: 12px;">SOLICITAR DISEÑO CUSTOM</button>
+            </div>
+        </div>
+    </section>
+
+    <!-- FOOTER -->
+    <footer>
+        <div class="footer-grid">
+            <div class="footer-col">
+                <h3>Tensyle</h3>
+                <p>Fabricación aditiva de precisión industrial. Automotive, Motion y Hogar.</p>
+            </div>
+            <div class="footer-col">
+                <h3>Secciones</h3>
+                <p><a onclick="scrollToSection('automotive')">Automotive</a></p>
+                <p><a onclick="scrollToSection('motion')">Motion Collection</a></p>
+                <p><a onclick="scrollToSection('hogar')">Productos Hogar</a></p>
+            </div>
+            <div class="footer-col">
+                <h3>Contacto</h3>
+                <p><strong>WhatsApp:</strong> +57 317 168 7777</p>
+                <p><strong>Email:</strong> info@tensyle.co</p>
+                <p><strong>Ubicación:</strong> Chía, Colombia</p>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>© 2026 Tensyle Solutions. Todos los derechos reservados.</p>
+        </div>
+    </footer>
+
+    <!-- FLOATING BUTTONS -->
+    <div class="floating">
+        <a href="https://wa.me/573171687777" target="_blank" class="float-btn whatsapp" title="WhatsApp" data-label="Consulta Rápida">
+            <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" fill="white">
+                <path d="M12.031 6.172c-3.473 0-6.827 2.529-6.827 5.828 0 1.287.404 2.506 1.122 3.476H4.5c-.926 0-1.657.772-1.657 1.657v2.28c0 .886.73 1.657 1.657 1.657h3.853c1.635 1.031 3.631 1.652 5.648 1.652 3.472 0 6.826-2.531 6.826-5.828S15.504 6.172 12.031 6.172zm3.857 9.809c-.681.681-1.566 1.074-2.468 1.074-.902 0-1.787-.393-2.468-1.074-.681-.681-1.074-1.566-1.074-2.468 0-.902.393-1.787 1.074-2.468.681-.681 1.566-1.074 2.468-1.074.902 0 1.787.393 2.468 1.074.681.681 1.073 1.566 1.073 2.468 0 .902-.392 1.787-1.073 2.468zm-7.714 0c-.681.681-1.566 1.074-2.468 1.074-.902 0-1.787-.393-2.468-1.074C1.074 14.987.681 14.102.681 13.2c0-.902.393-1.787 1.074-2.468.681-.681 1.566-1.074 2.468-1.074.902 0 1.787.393 2.468 1.074.681.681 1.073 1.566 1.073 2.468 0 .902-.392 1.787-1.073 2.468z"/>
+            </svg>
+        </a>
+        <a href="https://www.instagram.com/tensyle.3d" target="_blank" class="float-btn instagram" title="Instagram" data-label="Síguenos">
+            <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" fill="white">
+                <path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.057-1.645.069-4.849.069-3.204 0-3.584-.012-4.849-.069-3.259-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162 0 3.403 2.759 6.162 6.162 6.162 3.403 0 6.162-2.759 6.162-6.162 0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4 2.209 0 4 1.791 4 4 0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44 1.437-.645 1.437-1.44-.641-1.44-1.437-1.44z"/>
+            </svg>
+        </a>
+    </div>
+
+    <!-- QUOTATION FORM MODAL -->
+    <div id="quotationModal" class="modal">
+        <div class="modal-content">
+            <span class="close-btn" onclick="closeQuotationModal()">&times;</span>
+            <h2 style="color: var(--primary); margin-bottom: 30px; font-family: 'Oswald'; font-size: 24px; letter-spacing: 2px;">SOLICITAR COTIZACIÓN</h2>
+
+            <form id="quotationForm" enctype="multipart/form-data">
+                <div class="form-group">
+                    <label>Nombre Completo *</label>
+                    <input type="text" name="fullname" required>
+                </div>
+
+                <div class="form-group">
+                    <label>Correo Electrónico *</label>
+                    <input type="email" name="email" required>
+                </div>
+
+                <div class="form-group">
+                    <label>Teléfono</label>
+                    <input type="tel" name="phone">
+                </div>
+
+                <div class="form-group">
+                    <label>Empresa</label>
+                    <input type="text" name="company">
+                </div>
+
+                <div class="form-group">
+                    <label>Tipo de Producto *</label>
+                    <select name="product_type" required>
+                        <option value="">Selecciona una opción</option>
+                        <option value="automotive">Automotive - Componentes Automotrices</option>
+                        <option value="motion">Motion - Figuras Articuladas</option>
+                        <option value="hogar">Hogar - Accesorios y Decoración</option>
+                        <option value="otro">Otro - Proyecto Personalizado</option>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label>Material Preferido</label>
+                    <select name="material">
+                        <option value="">Selecciona un material</option>
+                        <option value="abs">ABS - Resistencia y Durabilidad</option>
+                        <option value="petg">PETG - Resistencia Técnica</option>
+                        <option value="pla">PLA - Detalle y Acabado</option>
+                        <option value="tpu">TPU - Flexibilidad</option>
+                        <option value="no_definido">Aún no lo sé</option>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label>Descripción del Proyecto *</label>
+                    <textarea name="description" required placeholder="Cuéntanos detalles sobre tu proyecto, especificaciones, cantidades, etc."></textarea>
+                </div>
+
+                <div class="form-group">
+                    <label>Adjuntar Imágenes o Archivos</label>
+                    <div class="file-input-wrapper">
+                        <input type="file" name="files" id="fileInput" multiple accept="image/*,.pdf,.dwg,.step,.obj,.stl">
+                        <label for="fileInput" class="file-label">
+                            📁 Arrastra archivos aquí o haz clic para seleccionar
+                        </label>
+                    </div>
+                </div>
+
+                <button type="submit" class="form-submit">Enviar Cotización</button>
+            </form>
+        </div>
+    </div>
+
+    <script>
+        // SCROLL REVEAL
+        const reveals = document.querySelectorAll('.reveal');
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('active');
+                }
+            });
+        }, { threshold: 0.1 });
+
+        reveals.forEach(el => observer.observe(el));
+
+        // FUNCIONES
+        function scrollToSection(id) {
+            const element = document.getElementById(id);
+            if (element) {
+                element.scrollIntoView({ behavior: 'smooth' });
+            }
+        }
+
+        function contactWhatsApp() {
+            const message = encodeURIComponent("Hola Tensyle, estoy interesado en conocer más sobre sus servicios de fabricación aditiva. Quisiera solicitar una cotización.");
+            window.open(`https://wa.me/573171687777?text=${message}`, '_blank');
+        }
+
+        // QUOTATION FORM
+        function openQuotationModal() {
+            document.getElementById('quotationModal').classList.add('show');
+        }
+
+        function closeQuotationModal() {
+            document.getElementById('quotationModal').classList.remove('show');
+        }
+
+        window.onclick = function(event) {
+            const modal = document.getElementById('quotationModal');
+            if (event.target == modal) {
+                closeQuotationModal();
+            }
+        }
+
+        document.getElementById('quotationForm').addEventListener('submit', async function(e) {
+            e.preventDefault();
+
+            const formData = new FormData(this);
+
+            try {
+                const response = await fetch('/api/quotation', {
+                    method: 'POST',
+                    body: formData
+                });
+
+                if (response.ok) {
+                    alert('¡Cotización enviada! Nos pondremos en contacto pronto.');
+                    closeQuotationModal();
+                    this.reset();
+                } else {
+                    alert('Error al enviar la cotización. Intenta de nuevo.');
+                }
+            } catch (error) {
+                console.error('Error:', error);
+                alert('Error de conexión. Por favor contacta directamente a través de WhatsApp.');
+            }
+        });
+
+        // File input drag and drop
+        const fileInput = document.getElementById('fileInput');
+        const fileLabel = document.querySelector('.file-label');
+
+        fileLabel.addEventListener('dragover', (e) => {
+            e.preventDefault();
+            fileLabel.style.background = 'rgba(0, 212, 255, 0.3)';
+        });
+
+        fileLabel.addEventListener('dragleave', () => {
+            fileLabel.style.background = 'rgba(0, 212, 255, 0.1)';
+        });
+
+        fileLabel.addEventListener('drop', (e) => {
+            e.preventDefault();
+            fileLabel.style.background = 'rgba(0, 212, 255, 0.1)';
+            fileInput.files = e.dataTransfer.files;
+        });
+    </script>
+
+</body>
+</html>

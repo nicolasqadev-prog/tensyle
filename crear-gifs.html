@@ -1,0 +1,270 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Crear GIFs Tensyle</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #0a0e27 0%, #1a1f3a 100%);
+            color: white;
+            padding: 40px 20px;
+            min-height: 100vh;
+        }
+        .container { max-width: 1200px; margin: 0 auto; }
+        h1 {
+            color: #00d4ff;
+            text-align: center;
+            margin-bottom: 30px;
+            font-size: 32px;
+        }
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 20px;
+        }
+        .card {
+            background: rgba(26, 31, 58, 0.8);
+            border: 1px solid #00d4ff;
+            border-radius: 4px;
+            padding: 20px;
+            text-align: center;
+        }
+        .card h3 {
+            color: #00d4ff;
+            margin-bottom: 15px;
+        }
+        .inputs {
+            display: flex;
+            gap: 8px;
+            margin-bottom: 15px;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+        input[type="file"] {
+            padding: 8px;
+            background: rgba(0, 212, 255, 0.1);
+            border: 1px solid #00d4ff;
+            color: white;
+            border-radius: 3px;
+            cursor: pointer;
+            font-size: 11px;
+        }
+        button {
+            background: #00d4ff;
+            color: #0a0e27;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 3px;
+            cursor: pointer;
+            font-weight: bold;
+            font-size: 13px;
+            transition: all 0.3s;
+        }
+        button:hover:not(:disabled) {
+            box-shadow: 0 0 20px rgba(0, 212, 255, 0.6);
+        }
+        button:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+        }
+        .msg {
+            margin-top: 10px;
+            font-size: 12px;
+            min-height: 18px;
+        }
+        .msg.ok { color: #4ecca3; }
+        .msg.err { color: #ff6b6b; }
+        .msg.load { color: #ffa500; }
+        a {
+            display: inline-block;
+            margin-top: 10px;
+            color: #00d4ff;
+            text-decoration: none;
+            border: 1px solid #00d4ff;
+            padding: 8px 15px;
+            border-radius: 2px;
+            font-size: 12px;
+            font-weight: bold;
+            cursor: pointer;
+        }
+        a:hover {
+            background: #00d4ff;
+            color: #0a0e27;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>🎬 CREAR GIFS ANIMADOS</h1>
+        <div class="grid">
+            <div class="card">
+                <h3>Carena Lateral</h3>
+                <div class="inputs">
+                    <input type="file" id="f1b" accept="image/*" title="ANTES">
+                    <input type="file" id="f1a" accept="image/*" title="DESPUÉS">
+                </div>
+                <button onclick="gen(1,'carena-lateral.gif')">Generar</button>
+                <div class="msg" id="m1"></div>
+                <canvas id="c1"></canvas>
+            </div>
+
+            <div class="card">
+                <h3>Frontal Rejilla</h3>
+                <div class="inputs">
+                    <input type="file" id="f2b" accept="image/*" title="ANTES">
+                    <input type="file" id="f2a" accept="image/*" title="DESPUÉS">
+                </div>
+                <button onclick="gen(2,'frontal-rejilla.gif')">Generar</button>
+                <div class="msg" id="m2"></div>
+                <canvas id="c2"></canvas>
+            </div>
+
+            <div class="card">
+                <h3>Inferior Frontal</h3>
+                <div class="inputs">
+                    <input type="file" id="f3b" accept="image/*" title="ANTES">
+                    <input type="file" id="f3a" accept="image/*" title="DESPUÉS">
+                </div>
+                <button onclick="gen(3,'inferior-frontal.gif')">Generar</button>
+                <div class="msg" id="m3"></div>
+                <canvas id="c3"></canvas>
+            </div>
+
+            <div class="card">
+                <h3>Manija Puerta</h3>
+                <div class="inputs">
+                    <input type="file" id="f4b" accept="image/*" title="ANTES">
+                    <input type="file" id="f4a" accept="image/*" title="DESPUÉS">
+                </div>
+                <button onclick="gen(4,'manija-puerta.gif')">Generar</button>
+                <div class="msg" id="m4"></div>
+                <canvas id="c4"></canvas>
+            </div>
+
+            <div class="card">
+                <h3>Pieza Interna</h3>
+                <div class="inputs">
+                    <input type="file" id="f5b" accept="image/*" title="ANTES">
+                    <input type="file" id="f5a" accept="image/*" title="DESPUÉS">
+                </div>
+                <button onclick="gen(5,'pieza-interna.gif')">Generar</button>
+                <div class="msg" id="m5"></div>
+                <canvas id="c5"></canvas>
+            </div>
+
+            <div class="card">
+                <h3>Tapa Cadenas</h3>
+                <div class="inputs">
+                    <input type="file" id="f6b" accept="image/*" title="ANTES">
+                    <input type="file" id="f6a" accept="image/*" title="DESPUÉS">
+                </div>
+                <button onclick="gen(6,'tapa-cubre.gif')">Generar</button>
+                <div class="msg" id="m6"></div>
+                <canvas id="c6"></canvas>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/gif-encoder-2@1.0.5/dist/gif-encoder-2.js"></script>
+    <script>
+        async function gen(n, nm) {
+            const mb = document.getElementById(`f${n}b`).files[0];
+            const ma = document.getElementById(`f${n}a`).files[0];
+            const msg = document.getElementById(`m${n}`);
+            const cv = document.getElementById(`c${n}`);
+            const btn = event.target;
+
+            if (!mb || !ma) {
+                msg.className = 'msg err';
+                msg.textContent = '❌ Selecciona ambas';
+                return;
+            }
+
+            btn.disabled = true;
+            msg.className = 'msg load';
+            msg.textContent = '⏳ Cargando...';
+
+            try {
+                const ib = await car(mb);
+                const ia = await car(ma);
+
+                msg.textContent = '⏳ Codificando...';
+
+                cv.width = 800;
+                cv.height = 600;
+                const ctx = cv.getContext('2d');
+
+                const g = new GIFEncoder(800, 600);
+                g.setDelay(50);
+                g.start();
+
+                // 3 seg ANTES
+                for (let i = 0; i < 60; i++) {
+                    ctx.drawImage(ib, 0, 0, 800, 600);
+                    g.addFrame(ctx);
+                }
+
+                // 1 seg transición
+                for (let i = 0; i < 20; i++) {
+                    ctx.drawImage(ib, 0, 0, 800, 600);
+                    ctx.globalAlpha = i / 20;
+                    ctx.drawImage(ia, 0, 0, 800, 600);
+                    ctx.globalAlpha = 1;
+                    g.addFrame(ctx);
+                }
+
+                // 3 seg DESPUÉS
+                for (let i = 0; i < 60; i++) {
+                    ctx.drawImage(ia, 0, 0, 800, 600);
+                    g.addFrame(ctx);
+                }
+
+                g.end();
+                const bin = g.stream().getData();
+                const b = new Blob([new Uint8Array(bin)], {type: 'image/gif'});
+                const u = URL.createObjectURL(b);
+
+                const dl = document.createElement('a');
+                dl.href = u;
+                dl.download = nm;
+                dl.textContent = '↓ Descargar GIF';
+                dl.style.display = 'inline-block';
+
+                msg.innerHTML = '';
+                msg.appendChild(dl);
+                msg.className = 'msg ok';
+
+                const m2 = document.createElement('div');
+                m2.textContent = '✓ Listo';
+                m2.style.color = '#4ecca3';
+                m2.style.marginTop = '5px';
+                msg.appendChild(m2);
+
+                btn.disabled = false;
+
+            } catch (e) {
+                msg.className = 'msg err';
+                msg.textContent = '❌ ' + e.message;
+                btn.disabled = false;
+            }
+        }
+
+        function car(f) {
+            return new Promise((ok, e) => {
+                const r = new FileReader();
+                r.onload = (ev) => {
+                    const i = new Image();
+                    i.onload = () => ok(i);
+                    i.onerror = () => e(new Error('Imagen inválida'));
+                    i.src = ev.target.result;
+                };
+                r.onerror = () => e(new Error('No se pudo leer'));
+                r.readAsDataURL(f);
+            });
+        }
+    </script>
+</body>
+</html>
