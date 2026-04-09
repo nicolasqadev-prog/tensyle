@@ -545,7 +545,7 @@
         }
 
         /* PLA - Mate, pulido, reflejos suaves */
-        .material-card:nth-child(1) .filament-spool {
+        .material-card:nth-child(3) .filament-spool {
             border-color: #3d5a80;
             background: linear-gradient(135deg, #4a6fa5 0%, #2a3f5f 50%, #1a2f4f 100%);
             box-shadow:
@@ -556,7 +556,7 @@
         }
 
         /* ABS - Brillante, reflejos fuertes, más lustroso */
-        .material-card:nth-child(2) .filament-spool {
+        .material-card:nth-child(1) .filament-spool {
             border-color: #5a5a5a;
             background: linear-gradient(135deg, #e8e8e8 0%, #a8a8a8 50%, #686868 100%);
             box-shadow:
@@ -567,7 +567,7 @@
         }
 
         /* PETG - Semi-brillante, reflejos medios, equilibrado */
-        .material-card:nth-child(3) .filament-spool {
+        .material-card:nth-child(2) .filament-spool {
             border-color: #6b5d45;
             background: linear-gradient(135deg, #d4a574 0%, #a67c52 50%, #6b4c2f 100%);
             box-shadow:
@@ -595,7 +595,7 @@
             border-radius: 50%; filter: blur(18px); z-index: 10;
         }
 
-        .material-card:nth-child(2) .filament-shine {
+        .material-card:nth-child(1) .filament-shine {
             background: linear-gradient(115deg, rgba(255, 255, 255, 0.8) 0%, rgba(255, 255, 255, 0.3) 35%, transparent 100%);
             width: 50px; height: 120px; filter: blur(12px);
         }
@@ -688,6 +688,25 @@
         #proyectos-reales {
             background: linear-gradient(135deg, rgba(0, 50, 100, 0.3) 0%, rgba(5, 5, 7, 0.8) 100%);
             border-top: 3px solid var(--primary);
+        }
+
+        .gallery-search {
+            margin-bottom: 40px; display: flex; gap: 15px;
+        }
+
+        .gallery-search input {
+            flex: 1; padding: 15px 20px; background: rgba(26, 31, 58, 0.8);
+            border: 1px solid rgba(0, 212, 255, 0.3); color: var(--text);
+            font-family: 'Montserrat'; border-radius: 4px; transition: all 0.3s;
+        }
+
+        .gallery-search input:focus {
+            outline: none; border-color: var(--primary);
+            box-shadow: 0 0 15px rgba(0, 212, 255, 0.3);
+        }
+
+        .gallery-search input::placeholder {
+            color: var(--text); opacity: 0.5;
         }
 
         .projects-gallery {
@@ -785,6 +804,10 @@
             line-height: 1.6;
         }
 
+        .gallery-hidden {
+            display: none;
+        }
+
         #motion {
             background: linear-gradient(135deg, rgba(30, 20, 50, 0.6) 0%, rgba(5, 5, 7, 0.9) 100%);
             border-top: 3px solid #00ff88;
@@ -824,6 +847,119 @@
 
         .home-icon { font-size: 50px; margin-bottom: 15px; }
         .home-name { font-family: 'Oswald'; font-size: 15px; letter-spacing: 0.3px; text-transform: uppercase; color: var(--text); text-align: center; padding: 20px; background: rgba(5, 5, 7, 0.7); flex-grow: 1; display: flex; align-items: center; justify-content: center; font-weight: 500; }
+
+        /* ========== COTIZADOR ========== */
+        #cotizador {
+            background: linear-gradient(135deg, rgba(0, 50, 100, 0.3) 0%, rgba(5, 5, 7, 0.8) 100%);
+            border-top: 3px solid var(--success);
+        }
+
+        .quoter-container {
+            display: grid; grid-template-columns: 1fr 1fr; gap: 60px; margin-top: 40px; align-items: start;
+        }
+
+        .quoter-form {
+            background: rgba(26, 31, 58, 0.6); padding: 40px;
+            border: 1px solid rgba(0, 212, 255, 0.3); border-radius: 4px;
+        }
+
+        .quoter-form h3 {
+            font-family: 'Oswald'; font-size: 18px; color: var(--primary);
+            letter-spacing: 2px; margin-bottom: 30px; text-transform: uppercase;
+        }
+
+        .quoter-group {
+            margin-bottom: 25px;
+        }
+
+        .quoter-group label {
+            display: block; margin-bottom: 8px; font-family: 'Oswald';
+            font-size: 12px; letter-spacing: 1px; text-transform: uppercase;
+            color: var(--primary);
+        }
+
+        .quoter-group input, .quoter-group select, .quoter-group textarea {
+            width: 100%; padding: 12px; background: rgba(26, 31, 58, 0.8);
+            border: 1px solid rgba(0, 212, 255, 0.3); color: var(--text);
+            font-family: 'Montserrat'; border-radius: 4px; transition: all 0.3s;
+        }
+
+        .quoter-group input:focus, .quoter-group select:focus, .quoter-group textarea:focus {
+            outline: none; border-color: var(--primary);
+            box-shadow: 0 0 15px rgba(0, 212, 255, 0.3);
+        }
+
+        .quoter-price-display {
+            background: rgba(0, 212, 255, 0.1); padding: 30px;
+            border: 2px solid var(--primary); border-radius: 4px;
+            text-align: center;
+        }
+
+        .quoter-price-label {
+            font-family: 'Oswald'; font-size: 14px; color: var(--text);
+            letter-spacing: 2px; text-transform: uppercase; margin-bottom: 15px;
+        }
+
+        .quoter-price-value {
+            font-family: 'Oswald'; font-size: 48px; color: var(--primary);
+            font-weight: 700; margin-bottom: 20px;
+        }
+
+        .quoter-price-detail {
+            font-size: 12px; color: var(--text); line-height: 1.8; text-align: left;
+            background: rgba(0, 0, 0, 0.3); padding: 15px; border-radius: 4px;
+            margin-top: 20px;
+        }
+
+        .quoter-price-detail strong {
+            color: var(--accent);
+        }
+
+        .quoter-submit {
+            width: 100%; padding: 14px; background: var(--primary);
+            color: var(--darker); border: none; font-family: 'Oswald';
+            font-size: 12px; letter-spacing: 2px; text-transform: uppercase;
+            cursor: pointer; font-weight: 600; border-radius: 4px;
+            transition: all 0.3s; margin-top: 30px;
+        }
+
+        .quoter-submit:hover {
+            box-shadow: 0 0 30px rgba(0, 212, 255, 0.6);
+            transform: translateY(-2px);
+        }
+
+        /* ========== VISUALIZADOR 3D ========== */
+        .viewer-3d-container {
+            background: rgba(26, 31, 58, 0.6); padding: 30px;
+            border: 1px solid rgba(0, 212, 255, 0.3); border-radius: 4px;
+            margin-top: 40px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 20px;
+        }
+
+        .viewer-3d-btn {
+            padding: 12px 40px; background: var(--accent); color: var(--darker);
+            border: none; font-family: 'Oswald'; font-size: 12px; letter-spacing: 2px;
+            text-transform: uppercase; cursor: pointer; border-radius: 4px;
+            transition: all 0.3s; font-weight: 600;
+        }
+
+        .viewer-3d-btn:hover {
+            box-shadow: 0 0 30px rgba(0, 242, 255, 0.6);
+            transform: translateY(-2px);
+        }
+
+        #viewer3d {
+            width: 100%; height: 600px; border-radius: 4px; background: #000;
+            display: none; margin-top: 20px;
+        }
+
+        .viewer-3d-info {
+            font-size: 13px; color: var(--text); text-align: center;
+            max-width: 600px;
+        }
 
         /* ========== FOOTER ========== */
         footer {
@@ -1038,6 +1174,9 @@
             .timeline-item { padding-right: 0 !important; padding-left: 80px !important; text-align: left !important; }
             .timeline-item:nth-child(odd) { text-align: left; padding-left: 80px; padding-right: 0; }
             .timeline-dot { left: 30px; }
+            .quoter-container { grid-template-columns: 1fr; gap: 40px; }
+            .projects-gallery { grid-template-columns: 1fr; }
+            .gallery-search { flex-direction: column; }
         }
     </style>
 </head>
@@ -1048,7 +1187,7 @@
 
     <nav>
         <div class="nav-logo">
-            <img src="logo-instagram.png" alt="Tensyle">
+            <img src="logo-instagram.png" alt="Tensyle" loading="lazy">
             <div class="nav-text">Tensyle</div>
         </div>
         <div class="nav-menu">
@@ -1059,6 +1198,7 @@
             <a onclick="scrollToSection('automotive')">Automotive</a>
             <a onclick="scrollToSection('motion')">Motion</a>
             <a onclick="scrollToSection('hogar')">Hogar</a>
+            <a onclick="scrollToSection('cotizador')">Cotizar</a>
             <button class="contact-btn" onclick="openQuotationModal()">CONTACTAR</button>
         </div>
     </nav>
@@ -1067,7 +1207,7 @@
     <section id="home">
         <div class="section-content">
             <div class="home-content reveal">
-                <img src="logo-instagram.png" alt="Tensyle" class="home-logo">
+                <img src="logo-instagram.png" alt="Tensyle" class="home-logo" loading="lazy">
                 <h1 class="home-h1">TENSYLE</h1>
                 <p class="home-tagline">Precisión en Cada Capa</p>
                 <p class="section-slogan">Soluciones Aditivas de Ingeniería</p>
@@ -1078,13 +1218,12 @@
                 </p>
                 <div class="home-buttons">
                     <button class="btn-primary" onclick="scrollToSection('quienes')">CONOCE NUESTRA HISTORIA</button>
-                    <button class="btn-secondary" onclick="openQuotationModal()">SOLICITAR COTIZACIÓN</button>
+                    <button class="btn-secondary" onclick="scrollToSection('cotizador')">SOLICITAR COTIZACIÓN</button>
                 </div>
             </div>
             <div class="scroll-hint">↓ SCROLL PARA EXPLORAR ↓</div>
         </div>
     </section>
-
 
     <!-- QUIÉNES SOMOS -->
     <section id="quienes">
@@ -1138,7 +1277,7 @@
             <div class="materials-grid">
                 <div class="material-card reveal">
                     <div class="filament-visual">
-                        <img src="filamento-abs.png" alt="ABS Filament" style="width: 240px; height: 240px; object-fit: contain; filter: drop-shadow(0 10px 30px rgba(0,0,0,0.5)); animation: float 3s ease-in-out infinite; transform: perspective(1000px) rotateX(-5deg) rotateY(-5deg);">
+                        <img src="filamento-abs.png" alt="ABS Filament" loading="lazy" style="width: 240px; height: 240px; object-fit: contain; filter: drop-shadow(0 10px 30px rgba(0,0,0,0.5)); animation: float 3s ease-in-out infinite; transform: perspective(1000px) rotateX(-5deg) rotateY(-5deg);">
                     </div>
                     <div class="material-info">
                         <div class="material-name">ABS</div>
@@ -1151,7 +1290,7 @@
 
                 <div class="material-card reveal">
                     <div class="filament-visual">
-                        <img src="filamento-petg.png" alt="PETG Filament" style="width: 240px; height: 240px; object-fit: contain; filter: drop-shadow(0 10px 30px rgba(0,0,0,0.5)); animation: float 3s ease-in-out infinite 0.2s; transform: perspective(1000px) rotateX(-5deg) rotateY(-5deg);">
+                        <img src="filamento-petg.png" alt="PETG Filament" loading="lazy" style="width: 240px; height: 240px; object-fit: contain; filter: drop-shadow(0 10px 30px rgba(0,0,0,0.5)); animation: float 3s ease-in-out infinite 0.2s; transform: perspective(1000px) rotateX(-5deg) rotateY(-5deg);">
                     </div>
                     <div class="material-info">
                         <div class="material-name">PETG</div>
@@ -1164,7 +1303,7 @@
 
                 <div class="material-card reveal">
                     <div class="filament-visual">
-                        <img src="filamento-pla.png" alt="PLA Filament" style="width: 240px; height: 240px; object-fit: contain; filter: drop-shadow(0 10px 30px rgba(0,0,0,0.5)); animation: float 3s ease-in-out infinite 0.4s; transform: perspective(1000px) rotateX(-5deg) rotateY(-5deg);">
+                        <img src="filamento-pla.png" alt="PLA Filament" loading="lazy" style="width: 240px; height: 240px; object-fit: contain; filter: drop-shadow(0 10px 30px rgba(0,0,0,0.5)); animation: float 3s ease-in-out infinite 0.4s; transform: perspective(1000px) rotateX(-5deg) rotateY(-5deg);">
                     </div>
                     <div class="material-info">
                         <div class="material-name">PLA</div>
@@ -1177,7 +1316,7 @@
 
                 <div class="material-card reveal">
                     <div class="filament-visual">
-                        <img src="filamento-tpu.png" alt="TPU Filament" style="width: 240px; height: 240px; object-fit: contain; filter: drop-shadow(0 10px 30px rgba(0,0,0,0.5)); animation: float 3s ease-in-out infinite 0.6s; transform: perspective(1000px) rotateX(-5deg) rotateY(-5deg);">
+                        <img src="filamento-tpu.png" alt="TPU Filament" loading="lazy" style="width: 240px; height: 240px; object-fit: contain; filter: drop-shadow(0 10px 30px rgba(0,0,0,0.5)); animation: float 3s ease-in-out infinite 0.6s; transform: perspective(1000px) rotateX(-5deg) rotateY(-5deg);">
                     </div>
                     <div class="material-info">
                         <div class="material-name">TPU</div>
@@ -1203,16 +1342,20 @@
                 </p>
             </div>
 
-            <div class="projects-gallery">
+            <div class="gallery-search">
+                <input type="text" id="gallerySearch" placeholder="🔍 Buscar proyecto (ej: Moto, Rejilla, Manija)...">
+            </div>
+
+            <div class="projects-gallery" id="projectsGallery">
                 <!-- Carena Lateral -->
-                <div class="gallery-item reveal">
+                <div class="gallery-item reveal" data-search="carena lateral yamaha moto">
                     <div class="gallery-comparison">
                         <div class="comparison-item before">
-                            <img src="lateral-moto-impresa-antes.jpg" alt="Carena Lateral - Antes">
+                            <img src="lateral-moto-impresa-antes.jpg" alt="Carena Lateral - Antes" loading="lazy">
                             <span class="comparison-label">ANTES</span>
                         </div>
                         <div class="comparison-item after">
-                            <img src="lateral-moto-fin.jpg" alt="Carena Lateral - Después">
+                            <img src="lateral-moto-fin.jpg" alt="Carena Lateral - Después" loading="lazy">
                             <span class="comparison-label">DESPUÉS</span>
                         </div>
                     </div>
@@ -1223,14 +1366,14 @@
                 </div>
 
                 <!-- Frontal Rejilla -->
-                <div class="gallery-item reveal">
+                <div class="gallery-item reveal" data-search="frontal rejilla automotriz">
                     <div class="gallery-comparison">
                         <div class="comparison-item before">
-                            <img src="frontal-rejilla-despues-antes.jpg" alt="Frontal Rejilla - Antes">
+                            <img src="frontal-rejilla-despues-antes.jpg" alt="Frontal Rejilla - Antes" loading="lazy">
                             <span class="comparison-label">ANTES</span>
                         </div>
                         <div class="comparison-item after">
-                            <img src="frontal-rejilla-despues.jpg" alt="Frontal Rejilla - Después">
+                            <img src="frontal-rejilla-despues.jpg" alt="Frontal Rejilla - Después" loading="lazy">
                             <span class="comparison-label">DESPUÉS</span>
                         </div>
                     </div>
@@ -1241,14 +1384,14 @@
                 </div>
 
                 <!-- Inferior Frontal -->
-                <div class="gallery-item reveal">
+                <div class="gallery-item reveal" data-search="inferior frontal panal">
                     <div class="gallery-comparison">
                         <div class="comparison-item before">
-                            <img src="inferior-frontal-panal-antes.jpg" alt="Inferior Frontal - Antes">
+                            <img src="inferior-frontal-panal-antes.jpg" alt="Inferior Frontal - Antes" loading="lazy">
                             <span class="comparison-label">ANTES</span>
                         </div>
                         <div class="comparison-item after">
-                            <img src="inferior-frontal-panal.jpg" alt="Inferior Frontal - Después">
+                            <img src="inferior-frontal-panal.jpg" alt="Inferior Frontal - Después" loading="lazy">
                             <span class="comparison-label">DESPUÉS</span>
                         </div>
                     </div>
@@ -1259,14 +1402,14 @@
                 </div>
 
                 <!-- Manija Puerta -->
-                <div class="gallery-item reveal">
+                <div class="gallery-item reveal" data-search="manija puerta exterior">
                     <div class="gallery-comparison">
                         <div class="comparison-item before">
-                            <img src="manija-puerta-exterior-antes.jpg" alt="Manija Puerta - Antes">
+                            <img src="manija-puerta-exterior-antes.jpg" alt="Manija Puerta - Antes" loading="lazy">
                             <span class="comparison-label">ANTES</span>
                         </div>
                         <div class="comparison-item after">
-                            <img src="manija-puerta-exterior-despues.jpg" alt="Manija Puerta - Después">
+                            <img src="manija-puerta-exterior-despues.jpg" alt="Manija Puerta - Después" loading="lazy">
                             <span class="comparison-label">DESPUÉS</span>
                         </div>
                     </div>
@@ -1277,14 +1420,14 @@
                 </div>
 
                 <!-- Pieza Interna Puerta -->
-                <div class="gallery-item reveal">
+                <div class="gallery-item reveal" data-search="pieza interna puerta estructural">
                     <div class="gallery-comparison">
                         <div class="comparison-item before">
-                            <img src="pieza-interna-puerta-antes.jpg" alt="Pieza Interna - Antes">
+                            <img src="pieza-interna-puerta-antes.jpg" alt="Pieza Interna - Antes" loading="lazy">
                             <span class="comparison-label">ANTES</span>
                         </div>
                         <div class="comparison-item after">
-                            <img src="pieza-interna-puerta.jpg" alt="Pieza Interna - Después">
+                            <img src="pieza-interna-puerta.jpg" alt="Pieza Interna - Después" loading="lazy">
                             <span class="comparison-label">DESPUÉS</span>
                         </div>
                     </div>
@@ -1295,7 +1438,7 @@
                 </div>
 
                 <!-- Tapa Cubre Cadenas -->
-                <div class="gallery-item reveal">
+                <div class="gallery-item reveal" data-search="tapa cubre cadenas yamaha">
                     <div class="gallery-comparison">
                         <div class="comparison-item before">
                             <img src="tapa-cubre-cadenas-antes.jpg" alt="Tapa Cubre - Antes" loading="lazy">
@@ -1333,11 +1476,11 @@
                 <div class="product-card reveal">
                     <div class="product-comparison">
                         <div class="comparison-item">
-                            <img src="lateral-moto-impresa-antes.jpg" alt="ANTES">
+                            <img src="lateral-moto-impresa-antes.jpg" alt="ANTES" loading="lazy">
                             <span class="comparison-label">ANTES</span>
                         </div>
                         <div class="comparison-item">
-                            <img src="lateral-moto-fin.jpg" alt="DESPUÉS">
+                            <img src="lateral-moto-fin.jpg" alt="DESPUÉS" loading="lazy">
                             <span class="comparison-label">DESPUÉS</span>
                         </div>
                     </div>
@@ -1350,11 +1493,11 @@
                 <div class="product-card reveal">
                     <div class="product-comparison">
                         <div class="comparison-item">
-                            <img src="frontal-rejilla-despues-antes.jpg" alt="ANTES">
+                            <img src="frontal-rejilla-despues-antes.jpg" alt="ANTES" loading="lazy">
                             <span class="comparison-label">ANTES</span>
                         </div>
                         <div class="comparison-item">
-                            <img src="frontal-rejilla-despues.jpg" alt="DESPUÉS">
+                            <img src="frontal-rejilla-despues.jpg" alt="DESPUÉS" loading="lazy">
                             <span class="comparison-label">DESPUÉS</span>
                         </div>
                     </div>
@@ -1367,11 +1510,11 @@
                 <div class="product-card reveal">
                     <div class="product-comparison">
                         <div class="comparison-item">
-                            <img src="inferior-frontal-panal-antes.jpg" alt="ANTES">
+                            <img src="inferior-frontal-panal-antes.jpg" alt="ANTES" loading="lazy">
                             <span class="comparison-label">ANTES</span>
                         </div>
                         <div class="comparison-item">
-                            <img src="inferior-frontal-panal.jpg" alt="DESPUÉS">
+                            <img src="inferior-frontal-panal.jpg" alt="DESPUÉS" loading="lazy">
                             <span class="comparison-label">DESPUÉS</span>
                         </div>
                     </div>
@@ -1384,11 +1527,11 @@
                 <div class="product-card reveal">
                     <div class="product-comparison">
                         <div class="comparison-item">
-                            <img src="manija-puerta-exterior-antes.jpg" alt="ANTES">
+                            <img src="manija-puerta-exterior-antes.jpg" alt="ANTES" loading="lazy">
                             <span class="comparison-label">ANTES</span>
                         </div>
                         <div class="comparison-item">
-                            <img src="manija-puerta-exterior-despues.jpg" alt="DESPUÉS">
+                            <img src="manija-puerta-exterior-despues.jpg" alt="DESPUÉS" loading="lazy">
                             <span class="comparison-label">DESPUÉS</span>
                         </div>
                     </div>
@@ -1401,11 +1544,11 @@
                 <div class="product-card reveal">
                     <div class="product-comparison">
                         <div class="comparison-item">
-                            <img src="pieza-interna-puerta-antes.jpg" alt="ANTES">
+                            <img src="pieza-interna-puerta-antes.jpg" alt="ANTES" loading="lazy">
                             <span class="comparison-label">ANTES</span>
                         </div>
                         <div class="comparison-item">
-                            <img src="pieza-interna-puerta.jpg" alt="DESPUÉS">
+                            <img src="pieza-interna-puerta.jpg" alt="DESPUÉS" loading="lazy">
                             <span class="comparison-label">DESPUÉS</span>
                         </div>
                     </div>
@@ -1418,11 +1561,11 @@
                 <div class="product-card reveal">
                     <div class="product-comparison">
                         <div class="comparison-item">
-                            <img src="tapa-cubre-cadenas-antes.jpg" alt="ANTES">
+                            <img src="tapa-cubre-cadenas-antes.jpg" alt="ANTES" loading="lazy">
                             <span class="comparison-label">ANTES</span>
                         </div>
                         <div class="comparison-item">
-                            <img src="tapa-cubre-cadenas.jpg" alt="DESPUÉS">
+                            <img src="tapa-cubre-cadenas.jpg" alt="DESPUÉS" loading="lazy">
                             <span class="comparison-label">DESPUÉS</span>
                         </div>
                     </div>
@@ -1434,7 +1577,7 @@
 
                 <div class="product-card reveal">
                     <div class="product-single">
-                        <img src="espejo-retrovisor-moto.jpg" alt="Espejo Retrovisor">
+                        <img src="espejo-retrovisor-moto.jpg" alt="Espejo Retrovisor" loading="lazy">
                     </div>
                     <div class="product-info">
                         <div class="product-name">Espejo Retrovisor</div>
@@ -1460,29 +1603,29 @@
             </div>
 
             <div class="products-grid">
-                <div class="product-card reveal"><div class="product-single"><img src="bluey.jpg" alt="Bluey Articulado"></div><div class="product-info"><div class="product-name">Bluey Articulado</div><div class="product-desc">Figuras articuladas</div></div></div>
+                <div class="product-card reveal"><div class="product-single"><img src="bluey.jpg" alt="Bluey Articulado" loading="lazy"></div><div class="product-info"><div class="product-name">Bluey Articulado</div><div class="product-desc">Figuras articuladas</div></div></div>
 
-                <div class="product-card reveal"><div class="product-single"><img src="bob-esponja.jpg" alt="Bob Esponja"></div><div class="product-info"><div class="product-name">Bob Esponja</div><div class="product-desc">Set Bob Esponja articulado</div></div></div>
+                <div class="product-card reveal"><div class="product-single"><img src="bob-esponja.jpg" alt="Bob Esponja" loading="lazy"></div><div class="product-info"><div class="product-name">Bob Esponja</div><div class="product-desc">Set Bob Esponja articulado</div></div></div>
 
-                <div class="product-card reveal"><div class="product-single"><img src="gravitifalls.jpg" alt="Gravity Falls"></div><div class="product-info"><div class="product-name">Gravity Falls</div><div class="product-desc">Set completo de personajes articulados</div></div></div>
+                <div class="product-card reveal"><div class="product-single"><img src="gravitifalls.jpg" alt="Gravity Falls" loading="lazy"></div><div class="product-info"><div class="product-name">Gravity Falls</div><div class="product-desc">Set completo de personajes articulados</div></div></div>
 
-                <div class="product-card reveal"><div class="product-single"><img src="octonautalimpio.jpg" alt="Octonautas"></div><div class="product-info"><div class="product-name">Octonautas</div><div class="product-desc">Equipo de exploradores marinos</div></div></div>
+                <div class="product-card reveal"><div class="product-single"><img src="octonautalimpio.jpg" alt="Octonautas" loading="lazy"></div><div class="product-info"><div class="product-name">Octonautas</div><div class="product-desc">Equipo de exploradores marinos</div></div></div>
 
-                <div class="product-card reveal"><div class="product-single"><img src="pato-aventuras.jpg" alt="Pato Aventuras"></div><div class="product-info"><div class="product-name">Pato Aventuras</div><div class="product-desc">Personajes animados articulados</div></div></div>
+                <div class="product-card reveal"><div class="product-single"><img src="pato-aventuras.jpg" alt="Pato Aventuras" loading="lazy"></div><div class="product-info"><div class="product-name">Pato Aventuras</div><div class="product-desc">Personajes animados articulados</div></div></div>
 
-                <div class="product-card reveal"><div class="product-single"><img src="phineas-limpio.jpg" alt="Phineas y Ferb"></div><div class="product-info"><div class="product-name">Phineas y Ferb</div><div class="product-desc">Set de personajes Phineas y Ferb</div></div></div>
+                <div class="product-card reveal"><div class="product-single"><img src="phineas-limpio.jpg" alt="Phineas y Ferb" loading="lazy"></div><div class="product-info"><div class="product-name">Phineas y Ferb</div><div class="product-desc">Set de personajes Phineas y Ferb</div></div></div>
 
-                <div class="product-card reveal"><div class="product-single"><img src="pjmask.jpg" alt="PJ Masks"></div><div class="product-info"><div class="product-name">PJ Masks</div><div class="product-desc">Héroes de PJ Masks</div></div></div>
+                <div class="product-card reveal"><div class="product-single"><img src="pjmask.jpg" alt="PJ Masks" loading="lazy"></div><div class="product-info"><div class="product-name">PJ Masks</div><div class="product-desc">Héroes de PJ Masks</div></div></div>
 
-                <div class="product-card reveal"><div class="product-single"><img src="pocoyo.jpg" alt="Pocoyó"></div><div class="product-info"><div class="product-name">Pocoyó</div><div class="product-desc">Personaje infantil favorito en HD</div></div></div>
+                <div class="product-card reveal"><div class="product-single"><img src="pocoyo.jpg" alt="Pocoyó" loading="lazy"></div><div class="product-info"><div class="product-name">Pocoyó</div><div class="product-desc">Personaje infantil favorito en HD</div></div></div>
 
-                <div class="product-card reveal"><div class="product-single"><img src="pocoyo-sofa.jpg" alt="Pocoyó Articulado"></div><div class="product-info"><div class="product-name">Pocoyó Articulado</div><div class="product-desc">Versión con puntos de articulación</div></div></div>
+                <div class="product-card reveal"><div class="product-single"><img src="pocoyo-sofa.jpg" alt="Pocoyó Articulado" loading="lazy"></div><div class="product-info"><div class="product-name">Pocoyó Articulado</div><div class="product-desc">Versión con puntos de articulación</div></div></div>
 
-                <div class="product-card reveal"><div class="product-single"><img src="pokemon1.jpg" alt="Pikachu Articulado"></div><div class="product-info"><div class="product-name">Pikachu Articulado</div><div class="product-desc">Pokémon icónico con pose dinámica</div></div></div>
+                <div class="product-card reveal"><div class="product-single"><img src="pokemon1.jpg" alt="Pikachu Articulado" loading="lazy"></div><div class="product-info"><div class="product-name">Pikachu Articulado</div><div class="product-desc">Pokémon icónico con pose dinámica</div></div></div>
 
-                <div class="product-card reveal"><div class="product-single"><img src="pokemon-2.jpg" alt="Pokémon Colección"></div><div class="product-info"><div class="product-name">Pokémon Colección</div><div class="product-desc">Colección completa de Pokémon articulados</div></div></div>
+                <div class="product-card reveal"><div class="product-single"><img src="pokemon-2.jpg" alt="Pokémon Colección" loading="lazy"></div><div class="product-info"><div class="product-name">Pokémon Colección</div><div class="product-desc">Colección completa de Pokémon articulados</div></div></div>
 
-                <div class="product-card reveal"><div class="product-single"><img src="transformers.jpg" alt="Transformers Prime"></div><div class="product-info"><div class="product-name">Transformers Prime</div><div class="product-desc">Transformers articulados</div></div></div>
+                <div class="product-card reveal"><div class="product-single"><img src="transformers.jpg" alt="Transformers Prime" loading="lazy"></div><div class="product-info"><div class="product-name">Transformers Prime</div><div class="product-desc">Transformers articulados</div></div></div>
             </div>
         </div>
     </section>
@@ -1503,32 +1646,32 @@
 
             <div class="home-grid">
                 <div class="home-card reveal">
-                    <img src="cuadro-hogar.jpg" alt="Soportes Decorativos"  onclick="openImageModal(this.src)">
+                    <img src="cuadro-hogar.jpg" alt="Soportes Decorativos" loading="lazy" onclick="openImageModal(this.src)">
                     <div class="home-name">Soportes Decorativos</div>
                 </div>
 
                 <div class="home-card reveal">
-                    <img src="kuromy-hogar.jpg" alt="Organizadores Personalizados"  onclick="openImageModal(this.src)">
+                    <img src="kuromy-hogar.jpg" alt="Organizadores Personalizados" loading="lazy" onclick="openImageModal(this.src)">
                     <div class="home-name">Organizadores Personalizados</div>
                 </div>
 
                 <div class="home-card reveal">
-                    <img src="humidificador-hogar.jpg" alt="Accesorios de Aire"  onclick="openImageModal(this.src)">
+                    <img src="humidificador-hogar.jpg" alt="Accesorios de Aire" loading="lazy" onclick="openImageModal(this.src)">
                     <div class="home-name">Accesorios de Aire</div>
                 </div>
 
                 <div class="home-card reveal">
-                    <img src="maceta-hogar.jpg" alt="Macetas Custom"  onclick="openImageModal(this.src)">
+                    <img src="maceta-hogar.jpg" alt="Macetas Custom" loading="lazy" onclick="openImageModal(this.src)">
                     <div class="home-name">Macetas Custom</div>
                 </div>
 
                 <div class="home-card reveal">
-                    <img src="jarron-hogar.jpg" alt="Jarrones Decorativos"  onclick="openImageModal(this.src)">
+                    <img src="jarron-hogar.jpg" alt="Jarrones Decorativos" loading="lazy" onclick="openImageModal(this.src)">
                     <div class="home-name">Jarrones Decorativos</div>
                 </div>
 
                 <div class="home-card reveal">
-                    <img src="recibidor-hogar.jpg" alt="Regalos Personalizados"  onclick="openImageModal(this.src)">
+                    <img src="recibidor-hogar.jpg" alt="Regalos Personalizados" loading="lazy" onclick="openImageModal(this.src)">
                     <div class="home-name">Regalos Personalizados</div>
                 </div>
             </div>
@@ -1544,10 +1687,165 @@
         </div>
     </section>
 
+    <!-- COTIZADOR -->
+    <section id="cotizador">
+        <div class="section-content">
+            <div class="section-header reveal">
+                <span class="section-tag">Presupuesto</span>
+                <h2 class="section-title">Cotizador Interactivo</h2>
+                <p class="section-desc">
+                    Calcula el precio estimado mínimo de tu proyecto en tiempo real.
+                    Precios actualizados para Colombia 2026.
+                </p>
+                <div style="background: rgba(255, 170, 0, 0.15); padding: 20px; border-left: 4px solid var(--warning); border-radius: 4px; margin-top: 30px; max-width: 800px; margin-left: auto; margin-right: auto;">
+                    <p style="font-size: 13px; color: var(--text); line-height: 1.7;">
+                        <strong style="color: var(--warning);">⚠️ POLÍTICA DE PRECIOS TRANSPARENTE:</strong><br>
+                        Los valores mostrados son <strong>precios estimados DESDE</strong> basados en parámetros básicos. El precio final se ajustará según:<br>
+                        ✓ Complejidad y tolerancias de la pieza<br>
+                        ✓ Acabados y post-procesamiento especiales<br>
+                        ✓ Tiempos de producción y urgencia<br>
+                        ✓ Cantidad de unidades a producir<br>
+                        <br>
+                        <strong>Te enviaremos un presupuesto detallado y personalizado</strong> después de revisar los detalles completos de tu proyecto.
+                    </p>
+                </div>
+            </div>
+
+            <div class="quoter-container">
+                <div class="quoter-form">
+                    <h3>Configurar tu proyecto</h3>
+
+                    <!-- LÍNEA DE PRODUCTO -->
+                    <div class="quoter-group">
+                        <label>Línea de Producto *</label>
+                        <select id="productLine" onchange="calculatePrice()">
+                            <option value="">Selecciona una línea</option>
+                            <option value="automotive">🚗 Automotive — Componentes automotrices ($25,000 base)</option>
+                            <option value="motion">🎭 Motion Collection — Figuras articuladas ($15,000 base)</option>
+                            <option value="hogar">🏠 Hogar — Accesorios y decoración ($20,000 base)</option>
+                        </select>
+                    </div>
+
+                    <!-- MATERIAL -->
+                    <div class="quoter-group">
+                        <label>Material *</label>
+                        <select id="material" onchange="calculatePrice()">
+                            <option value="">Selecciona un material</option>
+                            <option value="pla">PLA — $280/g · Detalle y coleccionables</option>
+                            <option value="petg">PETG — $380/g · Resistencia técnica</option>
+                            <option value="abs">ABS — $480/g · Alta resistencia</option>
+                            <option value="tpu">TPU — $650/g · Flexibilidad extrema</option>
+                        </select>
+                    </div>
+
+                    <!-- ENTRADA DUAL: ARCHIVO STL O PESO MANUAL -->
+                    <div class="quoter-group">
+                        <label>Fuente de datos del modelo</label>
+                        <div style="display:flex; gap:12px; margin-bottom:12px;">
+                            <button type="button" onclick="setInputMode('file')" id="btnFile"
+                                style="flex:1; padding:10px; font-family:'Oswald'; font-size:11px; letter-spacing:1px; text-transform:uppercase; border:2px solid var(--primary); background:var(--primary); color:var(--darker); border-radius:4px; cursor:pointer; transition:all 0.3s;">
+                                📁 Cargar archivo .STL
+                            </button>
+                            <button type="button" onclick="setInputMode('manual')" id="btnManual"
+                                style="flex:1; padding:10px; font-family:'Oswald'; font-size:11px; letter-spacing:1px; text-transform:uppercase; border:2px solid rgba(0,212,255,0.4); background:transparent; color:var(--text); border-radius:4px; cursor:pointer; transition:all 0.3s;">
+                                ✏️ Ingresar peso manual
+                            </button>
+                        </div>
+
+                        <!-- Input STL -->
+                        <div id="inputSTL">
+                            <div class="file-input-wrapper">
+                                <input type="file" id="stlFileInput" accept=".stl" onchange="handleSTLUpload(this)">
+                                <label for="stlFileInput" class="file-label">📦 Arrastra tu archivo .STL aquí o haz clic para seleccionar</label>
+                            </div>
+                            <p id="stlWeightResult" style="font-size:12px; color:var(--accent); margin-top:8px; display:none;"></p>
+                        </div>
+
+                        <!-- Input Manual -->
+                        <div id="inputManual" style="display:none;">
+                            <input type="number" id="weight" min="0" placeholder="Peso estimado en gramos (ej: 100)" oninput="calculatePrice()" style="width:100%; padding:12px; background:rgba(26,31,58,0.8); border:1px solid rgba(0,212,255,0.3); color:var(--text); font-family:'Montserrat'; border-radius:4px;">
+                        </div>
+                    </div>
+
+                    <!-- ESCANEO 3D -->
+                    <div class="quoter-group">
+                        <label>Requiere Escaneo 3D de pieza física</label>
+                        <select id="scanning" onchange="calculatePrice()">
+                            <option value="no">No requiere escaneo</option>
+                            <option value="si">Sí, requiero escaneo 3D (+$25,000)</option>
+                        </select>
+                    </div>
+
+                    <!-- DESCRIPCIÓN -->
+                    <div class="quoter-group">
+                        <label>Descripción del Proyecto</label>
+                        <textarea id="quoterDescription" placeholder="Cuéntanos sobre tu proyecto: dimensiones, acabados, cantidad de unidades, urgencia..." style="min-height: 120px; width:100%; padding:12px; background:rgba(26,31,58,0.8); border:1px solid rgba(0,212,255,0.3); color:var(--text); font-family:'Montserrat'; border-radius:4px; resize:vertical;"></textarea>
+                    </div>
+
+                    <button class="quoter-submit" onclick="submitQuoter()">📩 Enviar Cotización por Correo</button>
+                </div>
+
+                <div>
+                    <!-- DISPLAY DE PRECIO -->
+                    <div class="quoter-price-display">
+                        <div class="quoter-price-label">Precio Estimado</div>
+                        <div style="font-family:'Oswald'; font-size:22px; color:var(--text); letter-spacing:1px; margin-bottom:6px; text-transform:uppercase;">DESDE:</div>
+                        <div class="quoter-price-value">$<span id="totalPrice">30,000</span></div>
+                        <div style="font-size:11px; color:var(--accent); letter-spacing:1px; margin-bottom:20px; text-transform:uppercase;">COP · Colombia 2026</div>
+
+                        <div class="quoter-price-detail">
+                            <strong style="color:var(--primary);">📊 Desglose:</strong><br><br>
+                            Inversión de Arranque y Preparación:
+                            <strong style="color:var(--light);">$<span id="baseCost">0</span></strong>
+                            <span style="font-size:11px; color:var(--text); opacity:0.7;">(incluida en el total)</span><br>
+                            Material (<span id="materialLabel">—</span>):
+                            <strong style="color:var(--light);">$<span id="materialCost">0</span></strong><br>
+                            Escaneo 3D:
+                            <strong style="color:var(--light);">$<span id="scanCost">0</span></strong><br>
+                            <div style="border-top:1px solid rgba(0,212,255,0.3); margin:12px 0;"></div>
+                            <strong style="color:var(--accent);">Precio Estimado desde: $<span id="finalTotal">30,000</span></strong><br><br>
+                            <span style="font-size:11px; opacity:0.7; line-height:1.6;">
+                                ⚠️ El precio final puede ajustarse según complejidad, tolerancias, acabados especiales y post-procesamiento. Recibirás un presupuesto detallado por correo.
+                            </span>
+                        </div>
+                    </div>
+
+                    <!-- VISUALIZADOR 3D -->
+                    <div class="viewer-3d-container" style="margin-top:20px;">
+                        <p class="viewer-3d-info">📦 Previsualiza tu archivo .STL en 3D</p>
+                        <button class="viewer-3d-btn" onclick="load3dViewer()" id="btn3dViewer">Activar Visualizador 3D</button>
+                        <p style="font-size:11px; color:var(--text); opacity:0.6; text-align:center; margin-top:8px;">Three.js se carga únicamente cuando lo activas — sin impacto en velocidad de carga.</p>
+                        <div id="viewer3d"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- MODAL ÉXITO COTIZACIÓN -->
+    <div id="successModal" class="modal">
+        <div class="modal-content" style="text-align:center; max-width:500px;">
+            <div style="font-size:60px; margin-bottom:20px;">✅</div>
+            <h2 style="color:var(--primary); font-family:'Oswald'; font-size:24px; letter-spacing:2px; margin-bottom:15px;">¡COTIZACIÓN ENVIADA!</h2>
+            <p style="color:var(--text); font-size:15px; line-height:1.8; margin-bottom:25px;">
+                Revisa tu correo electrónico — te responderemos con un presupuesto detallado y personalizado.<br><br>
+                Mientras tanto, síguenos en Instagram para ver nuestro proceso en tiempo real:
+            </p>
+            <a href="https://www.instagram.com/tensyle.3d" target="_blank"
+               style="display:inline-block; padding:14px 40px; background:linear-gradient(135deg,#f09433,#dc2743,#bc1888); color:#fff; font-family:'Oswald'; font-size:12px; letter-spacing:2px; text-transform:uppercase; border-radius:4px; text-decoration:none; margin-bottom:20px;">
+                📸 @tensyle.3d en Instagram
+            </a>
+            <br>
+            <button onclick="document.getElementById('successModal').classList.remove('show')" class="btn-secondary" style="margin-top:10px; padding:10px 30px; font-size:11px;">
+                CERRAR
+            </button>
+        </div>
+    </div>
+
     <!-- FULLSCREEN IMAGE MODAL -->
     <div id="imageModal">
         <span class="close-fullscreen" onclick="closeImageModal()">&times;</span>
-        <img id="modalImage" src=" alt="Imagen ampliada">
+        <img id="modalImage" src="" alt="Imagen ampliada" loading="lazy">
     </div>
 
     <!-- FOOTER -->
@@ -1577,11 +1875,11 @@
 
     <!-- FLOATING BUTTONS -->
     <div class="floating">
-        <a href="https://wa.me/573171687777" target="_blank" class="float-btn whatsapp" title="WhatsApp" data-label="Consulta Rápida">
-            <img src="whatsapp-icon-new.svg" alt="WhatsApp" style="width: 100%; height: 100%; object-fit: contain;">
+        <a id="whatsappFloatBtn" href="https://wa.me/573171687777" target="_blank" class="float-btn whatsapp" title="WhatsApp" data-label="Consulta Rápida">
+            <img src="whatsapp-icon-new.svg" alt="WhatsApp" loading="lazy" style="width: 100%; height: 100%; object-fit: contain;">
         </a>
         <a href="https://www.instagram.com/tensyle.3d" target="_blank" class="float-btn instagram" title="Instagram" data-label="Síguenos">
-            <img src="instagram-icon-new.png" alt="Instagram" style="width: 100%; height: 100%; object-fit: contain;">
+            <img src="instagram-icon-new.png" alt="Instagram" loading="lazy" style="width: 100%; height: 100%; object-fit: contain;">
         </a>
     </div>
 
@@ -1591,122 +1889,132 @@
             <span class="close-btn" onclick="closeQuotationModal()">&times;</span>
             <h2 style="color: var(--primary); margin-bottom: 30px; font-family: 'Oswald'; font-size: 24px; letter-spacing: 2px;">SOLICITAR COTIZACIÓN</h2>
 
-            <form id="quotationForm" enctype="multipart/form-data">
+            <form id="quotationForm">
+                <div style="background: rgba(0, 212, 255, 0.15); padding: 15px; border-left: 3px solid var(--primary); border-radius: 4px; margin-bottom: 25px;">
+                    <p style="font-size: 12px; color: var(--text); line-height: 1.6;">
+                        <strong style="color: var(--primary);">⚠️ ACLARACIÓN IMPORTANTE:</strong> Los precios estimados desde el cotizador son valores mínimos de referencia. El precio final se ajustará según complejidad, acabados especiales y post-procesamiento. Te contactaremos con un presupuesto detallado.
+                    </p>
+                </div>
+
                 <div class="form-group">
                     <label>Nombre Completo *</label>
-                    <input type="text" name="fullname" required>
+                    <input type="text" name="nombre" required>
                 </div>
 
                 <div class="form-group">
                     <label>Correo Electrónico *</label>
-                    <input type="email" name="email" required>
+                    <input type="email" name="correo" required>
                 </div>
 
                 <div class="form-group">
                     <label>Teléfono</label>
-                    <input type="tel" name="phone">
+                    <input type="tel" name="telefono">
                 </div>
 
                 <div class="form-group">
                     <label>Empresa</label>
-                    <input type="text" name="company">
+                    <input type="text" name="empresa">
                 </div>
 
                 <div class="form-group">
-                    <label>Tipo de Producto *</label>
-                    <select name="product_type" required>
-                        <option value="">Selecciona una opción</option>
-                        <option value="automotive">Automotive - Componentes Automotrices</option>
-                        <option value="motion">Motion - Figuras Articuladas</option>
-                        <option value="hogar">Hogar - Accesorios y Decoración</option>
-                        <option value="otro">Otro - Proyecto Personalizado</option>
+                    <label>Línea de Producto *</label>
+                    <select name="linea_producto" required>
+                        <option value="">Selecciona una línea</option>
+                        <option value="automotive">Automotive — Componentes Automotrices</option>
+                        <option value="motion">Motion Collection — Figuras Articuladas</option>
+                        <option value="hogar">Hogar — Accesorios y Decoración</option>
+                        <option value="otro">Otro — Proyecto Personalizado</option>
                     </select>
                 </div>
 
                 <div class="form-group">
                     <label>Material Preferido</label>
-                    <select name="material">
+                    <select name="material_preferido">
                         <option value="">Selecciona un material</option>
-                        <option value="abs">ABS - Resistencia y Durabilidad</option>
-                        <option value="petg">PETG - Resistencia Técnica</option>
-                        <option value="pla">PLA - Detalle y Acabado</option>
-                        <option value="tpu">TPU - Flexibilidad</option>
+                        <option value="pla">PLA — Detalle y Acabado</option>
+                        <option value="petg">PETG — Resistencia Técnica</option>
+                        <option value="abs">ABS — Resistencia y Durabilidad</option>
+                        <option value="tpu">TPU — Flexibilidad</option>
                         <option value="no_definido">Aún no lo sé</option>
                     </select>
                 </div>
 
                 <div class="form-group">
-                    <label>Descripción del Proyecto *</label>
-                    <textarea name="description" required placeholder="Cuéntanos detalles sobre tu proyecto, especificaciones, cantidades, etc."></textarea>
+                    <label>Requiere Escaneo 3D</label>
+                    <select name="escaneo_3d">
+                        <option value="no">No</option>
+                        <option value="si">Sí (+$25,000)</option>
+                    </select>
                 </div>
 
                 <div class="form-group">
-                    <label>Adjuntar Imágenes o Archivos</label>
-                    <div class="file-input-wrapper">
-                        <input type="file" name="files" id="fileInput" multiple accept="image/*,.pdf,.dwg,.step,.obj,.stl">
-                        <label for="fileInput" class="file-label">
-                            📁 Arrastra archivos aquí o haz clic para seleccionar
-                        </label>
-                    </div>
+                    <label>Precio Estimado desde el Cotizador</label>
+                    <input type="text" name="precio_estimado" id="modalPriceField" placeholder="Usa el cotizador para obtener un estimado" readonly style="background:rgba(0,212,255,0.05); color:var(--accent);">
                 </div>
 
-                <button type="submit" class="form-submit">Enviar Cotización</button>
+                <div class="form-group">
+                    <label>Descripción del Proyecto *</label>
+                    <textarea name="descripcion" required placeholder="Cuéntanos detalles sobre tu proyecto, especificaciones, cantidades, etc."></textarea>
+                </div>
+
+                <button type="button" onclick="submitQuotationForm()" class="form-submit" id="formSubmitBtn">
+                    📩 Enviar Cotización por Correo
+                </button>
             </form>
         </div>
     </div>
 
     <script>
-        // SCROLL REVEAL
+        // ===== SCROLL REVEAL =====
         const reveals = document.querySelectorAll('.reveal');
-        const observer = new IntersectionObserver((entries) => {
+        const revealObserver = new IntersectionObserver((entries) => {
             entries.forEach(entry => {
-                if (entry.isIntersecting) {
-                    entry.target.classList.add('active');
-                }
+                if (entry.isIntersecting) entry.target.classList.add('active');
             });
         }, { threshold: 0.1 });
+        reveals.forEach(el => revealObserver.observe(el));
 
-        reveals.forEach(el => observer.observe(el));
-
-        // FUNCIONES SCROLL
+        // ===== SCROLL TO SECTION =====
         function scrollToSection(id) {
-            const element = document.getElementById(id);
-            if (element) {
-                element.scrollIntoView({ behavior: 'smooth' });
-            }
+            const el = document.getElementById(id);
+            if (el) el.scrollIntoView({ behavior: 'smooth' });
         }
 
-        // CAROUSEL PROYECTOS
-        let currentProjectIndex = 0;
-        const projectSlides = document.querySelectorAll('.project-slide');
-        const projectDots = document.querySelectorAll('.carousel-dot');
+        // ===== WHATSAPP DINÁMICO POR SECCIÓN =====
+        const waMessages = {
+            automotive: '¡Hola Tensyle! 🚗 Me interesa cotizar un componente *Automotive* (pieza automotriz, repuesto descontinuado). ¿Pueden ayudarme?',
+            motion:     '¡Hola Tensyle! 🎭 Me interesa cotizar una figura de la línea *Motion Collection* (articulada/coleccionable). ¿Tienen disponibilidad?',
+            hogar:      '¡Hola Tensyle! 🏠 Me interesa cotizar un producto para *Hogar* (accesorio o decorativo personalizado). ¿Qué necesitan para empezar?',
+            default:    '¡Hola Tensyle! Me gustaría obtener una cotización para un proyecto de impresión 3D. ¿Pueden orientarme?'
+        };
+        let activeSection = 'default';
 
-        function showProject(index) {
-            projectSlides.forEach((slide, i) => {
-                slide.classList.remove('active');
-                projectDots[i].classList.remove('active');
+        const sectionObserver = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    const id = entry.target.id;
+                    if (waMessages[id]) activeSection = id;
+                    else activeSection = 'default';
+                    const msg = waMessages[activeSection];
+                    document.getElementById('whatsappFloatBtn').href =
+                        'https://wa.me/573171687777?text=' + encodeURIComponent(msg);
+                }
             });
-            projectSlides[index].classList.add('active');
-            projectDots[index].classList.add('active');
-        }
+        }, { threshold: 0.4 });
 
-        function nextProject() {
-            currentProjectIndex = (currentProjectIndex + 1) % projectSlides.length;
-            showProject(currentProjectIndex);
-        }
+        ['automotive', 'motion', 'hogar', 'cotizador', 'proyectos-reales', 'materiales', 'quienes', 'home'].forEach(id => {
+            const el = document.getElementById(id);
+            if (el) sectionObserver.observe(el);
+        });
 
-        function prevProject() {
-            currentProjectIndex = (currentProjectIndex - 1 + projectSlides.length) % projectSlides.length;
-            showProject(currentProjectIndex);
-        }
-
-        function goToProject(index) {
-            currentProjectIndex = index;
-            showProject(currentProjectIndex);
-        }
-
-        // FORMULARIO COTIZACIÓN
+        // ===== MODAL COTIZACIÓN =====
         function openQuotationModal() {
+            // Pre-popular precio estimado si hay uno calculado
+            const precio = document.getElementById('finalTotal');
+            const field  = document.getElementById('modalPriceField');
+            if (precio && field && precio.textContent !== '30,000') {
+                field.value = 'Precio Estimado desde: $' + precio.textContent + ' COP';
+            }
             document.getElementById('quotationModal').classList.add('show');
         }
 
@@ -1714,111 +2022,353 @@
             document.getElementById('quotationModal').classList.remove('show');
         }
 
-        window.onclick = function(event) {
-            const modal = document.getElementById('quotationModal');
-            if (event.target == modal) {
-                closeQuotationModal();
-            }
-        }
+        window.addEventListener('click', function(e) {
+            if (e.target.id === 'quotationModal') closeQuotationModal();
+            if (e.target.id === 'successModal') e.target.classList.remove('show');
+        });
 
-        document.getElementById('quotationForm').addEventListener('submit', async function(e) {
-            e.preventDefault();
-            const formData = new FormData(this);
+        // ===== FORMSPREE VÍA FETCH — SIN REDIRECCIÓN =====
+        async function submitQuotationForm() {
+            const form = document.getElementById('quotationForm');
+            const btn  = document.getElementById('formSubmitBtn');
+
+            if (!form.checkValidity()) {
+                form.reportValidity();
+                return;
+            }
+
+            btn.disabled = true;
+            btn.textContent = 'Enviando…';
+
+            const data = new FormData(form);
 
             try {
-                const response = await fetch('/api/quotation', {
+                const res = await fetch('https://formspree.io/f/nicolas.qa.dev@gmail.com', {
                     method: 'POST',
-                    body: formData
+                    body: data,
+                    headers: { 'Accept': 'application/json' }
                 });
 
-                if (response.ok) {
-                    alert('¡Cotización enviada! Nos pondremos en contacto pronto.');
+                if (res.ok) {
                     closeQuotationModal();
-                    this.reset();
+                    form.reset();
+                    document.getElementById('successModal').classList.add('show');
                 } else {
-                    alert('Error al enviar. Por favor usa WhatsApp.');
+                    throw new Error('Respuesta no OK');
                 }
-            } catch (error) {
-                alert('Contacta directamente: +57 317 168 7777');
+            } catch {
+                // Fallback: abrir correo directo
+                alert('Hubo un problema con el envío automático. Por favor escríbenos directamente a info@tensyle.co o por WhatsApp al +57 317 168 7777.');
+            } finally {
+                btn.disabled = false;
+                btn.textContent = '📩 Enviar Cotización por Correo';
             }
+        }
+
+        // ===== BUSCADOR GALERÍA =====
+        document.getElementById('gallerySearch').addEventListener('keyup', function() {
+            const term = this.value.toLowerCase().trim();
+            document.querySelectorAll('.gallery-item').forEach(item => {
+                const txt = item.getAttribute('data-search') || '';
+                item.classList.toggle('gallery-hidden', term !== '' && !txt.includes(term));
+            });
         });
 
-        // Drag and drop para archivos
-        const fileInput = document.getElementById('fileInput');
-        const fileLabel = document.querySelector('.file-label');
+        // ===== COTIZADOR UNIVERSAL (3 LÍNEAS) =====
+        const MATERIAL_PRICES = { pla: 280, petg: 380, abs: 480, tpu: 650 };
+        const LINE_BASES      = { automotive: 25000, motion: 15000, hogar: 20000 };
+        const MATERIAL_LABELS = { pla: 'PLA $280/g', petg: 'PETG $380/g', abs: 'ABS $480/g', tpu: 'TPU $650/g' };
 
-        if(fileLabel) {
-            fileLabel.addEventListener('dragover', (e) => {
-                e.preventDefault();
-                fileLabel.style.background = 'rgba(0, 212, 255, 0.3)';
-            });
+        let quoterWeight = 0; // gramos — puede venir del STL o del input manual
 
-            fileLabel.addEventListener('dragleave', () => {
-                fileLabel.style.background = 'rgba(0, 212, 255, 0.1)';
-            });
+        function calculatePrice() {
+            const line     = document.getElementById('productLine').value;
+            const mat      = document.getElementById('material').value;
+            const scanning = document.getElementById('scanning').value;
 
-            fileLabel.addEventListener('drop', (e) => {
-                e.preventDefault();
-                fileLabel.style.background = 'rgba(0, 212, 255, 0.1)';
-                fileInput.files = e.dataTransfer.files;
+            const baseCost     = LINE_BASES[line] || 0;
+            const materialCost = (mat && quoterWeight > 0) ? MATERIAL_PRICES[mat] * quoterWeight : 0;
+            const scanCost     = scanning === 'si' ? 25000 : 0;
+            const raw          = baseCost + materialCost + scanCost;
+            const total        = Math.max(30000, raw);
+
+            document.getElementById('baseCost').textContent     = baseCost.toLocaleString('es-CO');
+            document.getElementById('materialCost').textContent = materialCost.toLocaleString('es-CO');
+            document.getElementById('scanCost').textContent     = scanCost.toLocaleString('es-CO');
+            document.getElementById('materialLabel').textContent = mat ? MATERIAL_LABELS[mat] : '—';
+            document.getElementById('totalPrice').textContent   = total.toLocaleString('es-CO');
+            document.getElementById('finalTotal').textContent   = total.toLocaleString('es-CO');
+        }
+
+        // ===== MODO ENTRADA DUAL (STL / MANUAL) =====
+        function setInputMode(mode) {
+            const stlDiv    = document.getElementById('inputSTL');
+            const manualDiv = document.getElementById('inputManual');
+            const btnFile   = document.getElementById('btnFile');
+            const btnManual = document.getElementById('btnManual');
+            const activeStyle   = 'flex:1;padding:10px;font-family:Oswald,sans-serif;font-size:11px;letter-spacing:1px;text-transform:uppercase;border:2px solid var(--primary);background:var(--primary);color:var(--darker);border-radius:4px;cursor:pointer;transition:all 0.3s;';
+            const inactiveStyle = 'flex:1;padding:10px;font-family:Oswald,sans-serif;font-size:11px;letter-spacing:1px;text-transform:uppercase;border:2px solid rgba(0,212,255,0.4);background:transparent;color:var(--text);border-radius:4px;cursor:pointer;transition:all 0.3s;';
+
+            if (mode === 'file') {
+                stlDiv.style.display    = 'block';
+                manualDiv.style.display = 'none';
+                btnFile.style.cssText   = activeStyle;
+                btnManual.style.cssText = inactiveStyle;
+            } else {
+                stlDiv.style.display    = 'none';
+                manualDiv.style.display = 'block';
+                btnManual.style.cssText = activeStyle;
+                btnFile.style.cssText   = inactiveStyle;
+                // peso desde input manual
+                const w = document.getElementById('weight');
+                if (w) { quoterWeight = parseFloat(w.value) || 0; calculatePrice(); }
+            }
+        }
+
+        // Sincronizar peso manual con la variable global
+        document.addEventListener('DOMContentLoaded', () => {
+            const w = document.getElementById('weight');
+            if (w) w.addEventListener('input', () => { quoterWeight = parseFloat(w.value) || 0; calculatePrice(); });
+        });
+
+        // ===== STL UPLOAD Y ESTIMACIÓN DE PESO =====
+        // Densidades aproximadas g/cm³
+        const STL_DENSITY = { pla: 1.24, petg: 1.27, abs: 1.05, tpu: 1.20, '': 1.24 };
+
+        function handleSTLUpload(input) {
+            const file = input.files[0];
+            if (!file) return;
+
+            const label  = document.querySelector('label[for="stlFileInput"]');
+            const result = document.getElementById('stlWeightResult');
+            label.textContent = '⏳ Procesando ' + file.name + '…';
+
+            const reader = new FileReader();
+            reader.onload = function(e) {
+                const buffer = e.target.result;
+                const volume = calcSTLVolume(buffer); // cm³
+                const mat    = document.getElementById('material').value;
+                const density = STL_DENSITY[mat] || 1.24;
+                const weight  = Math.ceil(volume * density);
+                quoterWeight  = weight;
+
+                label.textContent = '✅ ' + file.name + ' cargado';
+                result.style.display = 'block';
+                result.textContent   = '📐 Volumen estimado: ' + volume.toFixed(2) + ' cm³ · Peso (~' + density + 'g/cm³): ' + weight + 'g';
+
+                // Activar visualizador STL si Three.js ya está listo
+                if (typeof THREE !== 'undefined' && window._stlScene) {
+                    renderSTL(buffer);
+                } else if (typeof THREE !== 'undefined') {
+                    initThreeJS(buffer);
+                }
+
+                calculatePrice();
+            };
+            reader.readAsArrayBuffer(file);
+        }
+
+        function calcSTLVolume(buffer) {
+            const view   = new DataView(buffer);
+            const isBin  = !(new TextDecoder().decode(new Uint8Array(buffer, 0, 5)) === 'solid');
+            let volume   = 0;
+
+            if (isBin || view.getUint32(80, true) > 0) {
+                // Binario
+                const nTriangles = view.getUint32(80, true);
+                let offset = 84;
+                for (let i = 0; i < nTriangles; i++) {
+                    const ax = view.getFloat32(offset + 12,  true), ay = view.getFloat32(offset + 16, true), az = view.getFloat32(offset + 20, true);
+                    const bx = view.getFloat32(offset + 24,  true), by = view.getFloat32(offset + 28, true), bz = view.getFloat32(offset + 32, true);
+                    const cx = view.getFloat32(offset + 36,  true), cy = view.getFloat32(offset + 40, true), cz = view.getFloat32(offset + 44, true);
+                    volume += (ax * (by * cz - bz * cy) - ay * (bx * cz - bz * cx) + az * (bx * cy - by * cx)) / 6;
+                    offset += 50;
+                }
+            } else {
+                // ASCII — estimación simple por conteo de triángulos
+                const text   = new TextDecoder().decode(buffer);
+                const count  = (text.match(/facet normal/g) || []).length;
+                volume = count * 0.5; // heurística conservadora
+            }
+
+            return Math.abs(volume) / 1000; // mm³ → cm³
+        }
+
+        // ===== COTIZADOR → EMAIL (abre modal) =====
+        function submitQuoter() {
+            const line    = document.getElementById('productLine').value;
+            const mat     = document.getElementById('material').value;
+            const scan    = document.getElementById('scanning').value;
+            const desc    = document.getElementById('quoterDescription').value;
+            const total   = document.getElementById('finalTotal').textContent;
+
+            if (!line || !mat) {
+                alert('Por favor selecciona la Línea de Producto y el Material.');
+                return;
+            }
+            if (quoterWeight === 0) {
+                alert('Ingresa el peso manualmente o carga un archivo .STL.');
+                return;
+            }
+
+            // Pre-popular el modal con los datos del cotizador
+            const field = document.getElementById('modalPriceField');
+            if (field) field.value = 'Precio Estimado desde: $' + total + ' COP';
+
+            const lineaSelect = document.getElementById('quotationForm').querySelector('[name="linea_producto"]');
+            if (lineaSelect) lineaSelect.value = line;
+
+            const matSelect = document.getElementById('quotationForm').querySelector('[name="material_preferido"]');
+            if (matSelect) matSelect.value = mat;
+
+            const scanSelect = document.getElementById('quotationForm').querySelector('[name="escaneo_3d"]');
+            if (scanSelect) scanSelect.value = scan;
+
+            const descTA = document.getElementById('quotationForm').querySelector('[name="descripcion"]');
+            if (descTA && desc) descTA.value = desc;
+
+            openQuotationModal();
+        }
+
+        // ===== VISUALIZADOR 3D ON-DEMAND CON STL LOADER =====
+        let viewer3dLoaded = false;
+        window._stlScene   = null;
+
+        function load3dViewer() {
+            const viewer = document.getElementById('viewer3d');
+            if (viewer3dLoaded) {
+                viewer.style.display = viewer.style.display === 'none' ? 'block' : 'none';
+                return;
+            }
+            document.getElementById('btn3dViewer').textContent = '⏳ Cargando Three.js…';
+
+            const s1 = document.createElement('script');
+            s1.src = 'https://cdn.jsdelivr.net/npm/three@0.128.0/build/three.min.js';
+            s1.onload = () => {
+                const s2 = document.createElement('script');
+                s2.src = 'https://cdn.jsdelivr.net/npm/three@0.128.0/examples/js/loaders/STLLoader.js';
+                s2.onload = () => {
+                    const s3 = document.createElement('script');
+                    s3.src = 'https://cdn.jsdelivr.net/npm/three@0.128.0/examples/js/controls/OrbitControls.js';
+                    s3.onload = () => { initThreeJS(null); viewer3dLoaded = true; };
+                    document.head.appendChild(s3);
+                };
+                document.head.appendChild(s2);
+            };
+            document.head.appendChild(s1);
+        }
+
+        function initThreeJS(stlBuffer) {
+            const viewer = document.getElementById('viewer3d');
+            viewer.style.display = 'block';
+            document.getElementById('btn3dViewer').textContent = 'Ocultar Visualizador 3D';
+
+            const scene    = new THREE.Scene();
+            scene.background = new THREE.Color(0x0d1020);
+            window._stlScene = scene;
+
+            const w = viewer.clientWidth || 500, h = 420;
+            viewer.style.height = h + 'px';
+
+            const camera   = new THREE.PerspectiveCamera(60, w / h, 0.01, 2000);
+            camera.position.set(0, 0, 5);
+
+            const renderer = new THREE.WebGLRenderer({ antialias: true });
+            renderer.setSize(w, h);
+            renderer.setPixelRatio(window.devicePixelRatio);
+            renderer.shadowMap.enabled = true;
+            viewer.innerHTML = '';
+            viewer.appendChild(renderer.domElement);
+
+            // Iluminación
+            scene.add(new THREE.AmbientLight(0xffffff, 0.6));
+            const dir = new THREE.DirectionalLight(0x00d4ff, 0.8);
+            dir.position.set(5, 10, 7);
+            scene.add(dir);
+            const dir2 = new THREE.DirectionalLight(0xffffff, 0.4);
+            dir2.position.set(-5, -5, -5);
+            scene.add(dir2);
+
+            // Controles de órbita
+            const controls = new THREE.OrbitControls(camera, renderer.domElement);
+            controls.enableDamping = true;
+
+            if (stlBuffer) {
+                renderSTL(stlBuffer, scene, camera, controls);
+            } else {
+                // Cubo de demostración si no hay STL
+                const geom = new THREE.BoxGeometry(1.5, 1.5, 1.5);
+                const mat  = new THREE.MeshPhongMaterial({ color: 0x00d4ff, wireframe: false, shininess: 80 });
+                const cube = new THREE.Mesh(geom, mat);
+                scene.add(cube);
+
+                const grid = new THREE.GridHelper(6, 10, 0x00d4ff, 0x1a2040);
+                grid.position.y = -1;
+                scene.add(grid);
+
+                (function tick() {
+                    requestAnimationFrame(tick);
+                    cube.rotation.y += 0.008;
+                    controls.update();
+                    renderer.render(scene, camera);
+                })();
+            }
+
+            window.addEventListener('resize', () => {
+                const nw = viewer.clientWidth;
+                camera.aspect = nw / h;
+                camera.updateProjectionMatrix();
+                renderer.setSize(nw, h);
             });
         }
 
-        // Play videos al hacer click
-        document.querySelectorAll('.video-card').forEach(card => {
-            card.addEventListener('click', function() {
-                const video = this.querySelector('video');
-                if(video) {
-                    if(video.paused) {
-                        video.play();
-                    } else {
-                        video.pause();
-                    }
-                }
-            });
-        });
-    </script>
+        function renderSTL(buffer, scene, camera, controls) {
+            scene = scene || window._stlScene;
+            if (!scene) return;
 
-    <!-- IMAGE MODAL FUNCTIONS -->
-    <script>
-        function openImageModal(imageSrc) {
-            const modal = document.getElementById('imageModal');
-            const modalImage = document.getElementById('modalImage');
-            modalImage.src = imageSrc;
-            modal.classList.add('show');
+            // Limpiar meshes anteriores
+            scene.children.filter(c => c.isMesh).forEach(m => scene.remove(m));
+
+            const loader   = new THREE.STLLoader();
+            const geometry = loader.parse(buffer);
+            geometry.computeBoundingBox();
+            geometry.center();
+
+            const mat  = new THREE.MeshPhongMaterial({ color: 0x00d4ff, specular: 0x004466, shininess: 60 });
+            const mesh = new THREE.Mesh(geometry, mat);
+
+            // Escalar a tamaño visual cómodo
+            const box  = new THREE.Box3().setFromObject(mesh);
+            const size = box.getSize(new THREE.Vector3()).length();
+            mesh.scale.setScalar(3 / size);
+            scene.add(mesh);
+
+            if (camera) camera.position.set(0, 0, 4);
+            if (controls) controls.reset();
+        }
+
+        // ===== IMAGE MODAL =====
+        function openImageModal(src) {
+            document.getElementById('modalImage').src = src;
+            document.getElementById('imageModal').classList.add('show');
             document.body.style.overflow = 'hidden';
         }
 
         function closeImageModal() {
-            const modal = document.getElementById('imageModal');
-            modal.classList.remove('show');
+            document.getElementById('imageModal').classList.remove('show');
             document.body.style.overflow = 'auto';
         }
 
-        document.getElementById('imageModal').addEventListener('click', function(e) {
-            if (e.target.id === 'imageModal') {
-                closeImageModal();
-            }
+        document.getElementById('imageModal').addEventListener('click', e => {
+            if (e.target.id === 'imageModal') closeImageModal();
         });
 
-        document.addEventListener('keydown', function(e) {
-            if (e.key === 'Escape') {
-                closeImageModal();
-            }
+        document.addEventListener('keydown', e => {
+            if (e.key === 'Escape') { closeImageModal(); closeQuotationModal(); }
         });
 
-        // Agregar onclick a todas las imágenes de comparación
-        document.querySelectorAll('.comparison-item img').forEach(img => {
-            img.addEventListener('click', function() {
-                openImageModal(this.src);
-            });
-        });
-
-        // Agregar onclick a todas las imágenes de producto (Motion, Hogar)
-        document.querySelectorAll('.product-single img').forEach(img => {
-            img.addEventListener('click', function() {
-                openImageModal(this.src);
-            });
+        document.querySelectorAll('.comparison-item img, .product-single img').forEach(img => {
+            img.addEventListener('click', function() { openImageModal(this.src); });
         });
     </script>
 
@@ -1839,7 +2389,7 @@
                 this.x = Math.random() * canvas.width;
                 this.y = Math.random() * canvas.height;
                 this.vx = (Math.random() - 0.5) * 2;
-                this.vy = Math.random() * 1.5 + 0.5; // Gravedad - cae hacia abajo
+                this.vy = Math.random() * 1.5 + 0.5;
                 this.width = Math.random() * 8 + 4;
                 this.height = Math.random() * 3 + 1.5;
                 this.opacity = Math.random() * 0.6 + 0.3;
@@ -1854,25 +2404,19 @@
                 const dy = mouseY - this.y;
                 const distance = Math.sqrt(dx * dx + dy * dy);
 
-                // Atracción suave del cursor (hacia arriba)
                 if (distance < 400) {
                     const force = (400 - distance) / 400 * 0.4;
                     this.vx += (dx / (distance + 1)) * force * 0.3;
                     this.vy += (dy / (distance + 1)) * force * 0.3;
                 }
 
-                // Gravedad constante (cae hacia abajo)
                 this.vy += 0.15;
-
-                // Fricción/amortiguamiento
                 this.vx *= 0.98;
                 this.vy *= 0.98;
 
-                // Actualizar posición
                 this.x += this.vx;
                 this.y += this.vy;
 
-                // Rebote en bordes
                 if (this.x < -this.width || this.x > canvas.width + this.width) {
                     this.x = this.x < 0 ? canvas.width + this.width : -this.width;
                 }
@@ -1894,7 +2438,6 @@
             }
         }
 
-        // Crear partículas distribuidas uniformemente
         for (let i = 0; i < 120; i++) {
             particles.push(new Particle());
         }
