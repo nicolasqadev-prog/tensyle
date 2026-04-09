@@ -11,7 +11,8 @@
     <meta property="og:description" content="Laboratorio de Manufactura de Precisión. Piezas automotrices, figuras articuladas y accesorios técnicos fabricados en Chía.">
     <meta property="og:type" content="website">
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700&family=Oswald:wght@200;300;400;500;700&display=swap" rel="stylesheet">
-    <!-- EmailJS via REST API directo (sin SDK) -->
+    <script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@3/dist/email.min.js"></script>
+    <script>(function(){ emailjs.init('aBZf6Xmi-B_CO08Nm'); })();</script>
     <style>
         :root {
             --primary: #00d4ff;
@@ -2460,26 +2461,17 @@
 
                 if (!res.ok) throw new Error('HTTP ' + res.status);
 
-                // ── 4. EmailJS REST API → correo de confirmación al CLIENTE ──
+                // ── 4. EmailJS SDK v3 → correo de confirmación al CLIENTE ──
                 if (clientEmail) {
-                    fetch('https://api.emailjs.com/api/v1.0/email/send', {
-                        method: 'POST',
-                        headers: { 'Content-Type': 'application/json' },
-                        body: JSON.stringify({
-                            service_id:  'service_rcj4dse',
-                            template_id: 'template_kw6wqi7',
-                            user_id:     'aBZf6Xmi-B_CO08Nm',
-                            template_params: {
-                                client_email: clientEmail,
-                                nombre:       nombre || 'Cliente',
-                                linea:        linea,
-                                material:     material,
-                                precio:       precio
-                            }
-                        })
-                    }).then(r => {
-                        if (!r.ok) r.text().then(t => console.warn('EmailJS error:', r.status, t));
-                    }).catch(err => console.warn('EmailJS fetch error:', err));
+                    emailjs.send('service_rcj4dse', 'template_kw6wqi7', {
+                        client_email: clientEmail,
+                        nombre:       nombre || 'Cliente',
+                        linea:        linea,
+                        material:     material,
+                        precio:       precio
+                    })
+                    .then(r  => console.log('EmailJS OK:', r.status, r.text))
+                    .catch(e => console.warn('EmailJS error:', JSON.stringify(e)));
                 }
 
                 // ── 5. Éxito: limpiar y mostrar modal ──
