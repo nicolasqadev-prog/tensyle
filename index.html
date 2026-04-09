@@ -12,7 +12,6 @@
     <meta property="og:type" content="website">
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700&family=Oswald:wght@200;300;400;500;700&display=swap" rel="stylesheet">
     <script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
-    <script>emailjs.init('aBZf6Xmi-B_CO08Nm');</script>
     <style>
         :root {
             --primary: #00d4ff;
@@ -2463,13 +2462,18 @@
 
                 // ── 4. EmailJS → correo de confirmación al CLIENTE ──
                 if (clientEmail) {
-                    emailjs.send('service_rcj4dse', 'dpbzr39', {
-                        client_email: clientEmail,
-                        nombre:       nombre || 'Cliente',
-                        linea:        linea,
-                        material:     material,
-                        precio:       precio
-                    }).catch(err => console.warn('EmailJS:', err));
+                    emailjs.send(
+                        'service_rcj4dse',
+                        'dpbzr39',
+                        {
+                            client_email: clientEmail,
+                            nombre:       nombre || 'Cliente',
+                            linea:        linea,
+                            material:     material,
+                            precio:       precio
+                        },
+                        { publicKey: 'aBZf6Xmi-B_CO08Nm' }
+                    ).catch(err => console.warn('EmailJS:', err));
                 }
 
                 // ── 5. Éxito: limpiar y mostrar modal ──
