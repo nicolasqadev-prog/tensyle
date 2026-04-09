@@ -1932,10 +1932,14 @@
                style="display:inline-block; padding:14px 40px; background:linear-gradient(135deg,#f09433,#dc2743,#bc1888); color:#fff; font-family:'Oswald'; font-size:12px; letter-spacing:2px; text-transform:uppercase; border-radius:4px; text-decoration:none; margin-bottom:20px;">
                 📸 @tensyle.3d en Instagram
             </a>
-            <div style="background:rgba(37,211,102,0.15); border:1px solid rgba(37,211,102,0.4); border-radius:6px; padding:14px; margin-top:10px;">
-                <p style="color:#25d366; font-family:'Oswald'; font-size:13px; letter-spacing:1px; margin:0;">
-                    📲 En 3 segundos te abrimos WhatsApp para coordinar los detalles finales con Nicolás...
+            <div style="background:rgba(37,211,102,0.15); border:1px solid rgba(37,211,102,0.4); border-radius:6px; padding:16px; margin-top:10px;">
+                <p style="color:#25d366; font-family:'Oswald'; font-size:12px; letter-spacing:1px; margin:0 0 12px;">
+                    📲 Abriendo WhatsApp en 2.5 seg para coordinar detalles con Nicolás...
                 </p>
+                <a id="waModalLink" href="https://wa.me/573171687777" target="_blank"
+                   style="display:inline-block; padding:11px 28px; background:#25d366; color:#fff; font-family:'Oswald'; font-size:11px; letter-spacing:2px; text-transform:uppercase; border-radius:4px; text-decoration:none;">
+                    💬 Ir a WhatsApp ahora
+                </a>
             </div>
             <br>
             <button onclick="document.getElementById('successModal').classList.remove('show')" class="btn-secondary" style="margin-top:6px; padding:10px 30px; font-size:11px;">
@@ -2066,7 +2070,7 @@
                     <textarea name="descripcion" required placeholder="Cuéntanos detalles sobre tu proyecto, especificaciones, cantidades, etc."></textarea>
                 </div>
 
-                <button type="button" onclick="submitQuotationForm()" class="form-submit" id="formSubmitBtn">
+                <button type="submit" class="form-submit" id="formSubmitBtn">
                     📩 Enviar Cotización por Correo
                 </button>
             </form>
@@ -2136,56 +2140,61 @@
             if (e.target.id === 'successModal') e.target.classList.remove('show');
         });
 
-        // ===== FORMSUBMIT + AUTORESPUESTA + WHATSAPP REDIRECT =====
-        async function submitQuotationForm() {
-            const form = document.getElementById('quotationForm');
+        // ===== FORMSUBMIT AJAX + AUTORESPUESTA + WHATSAPP =====
+        document.getElementById('quotationForm').addEventListener('submit', async function(e) {
+            e.preventDefault(); // Bloquear envío nativo — todo por fetch
+
+            const form = this;
             const btn  = document.getElementById('formSubmitBtn');
 
-            if (!form.checkValidity()) {
-                form.reportValidity();
-                return;
-            }
+            // ── 1. Capturar datos ANTES del reset ──
+            const nombre = (document.getElementById('fieldNombre')?.value || '').trim();
+            const linea  = (form.querySelector('[name="linea_producto"]')?.value || 'proyecto');
+            const precio = document.getElementById('finalTotal')?.textContent || '30,000';
 
-            // Capturar datos ANTES de hacer reset, para el mensaje de WhatsApp
-            const nombre  = (document.getElementById('fieldNombre')?.value  || '').trim();
-            const linea   = (form.querySelector('[name="linea_producto"]')?.value || 'proyecto').replace('_', ' ');
-            const precio  = document.getElementById('finalTotal')?.textContent || '30,000';
+            const waMsg = `¡Hola Nicolás! Soy ${nombre || 'un cliente'}. Acabo de cotizar un proyecto de *${linea}* en Tensyle. El sistema me dio un precio estimado desde *$${precio} COP*. Te escribo para coordinar los detalles finales. 🚀`;
+            const waUrl = 'https://wa.me/573171687777?text=' + encodeURIComponent(waMsg);
 
-            btn.disabled = true;
-            btn.textContent = '⏳ Enviando…';
+            // ── 2. Abrir ventana YA (contexto de clic = no se bloquea como popup) ──
+            const waWin = window.open('about:blank', '_blank');
 
-            const data = new FormData(form);
+            // ── 3. Feedback visual ──
+            btn.disabled    = true;
+            btn.textContent = '⏳ Enviando...';
 
             try {
                 const res = await fetch('https://formsubmit.co/ajax/nicolas.qa.dev@gmail.com', {
                     method: 'POST',
-                    body: data,
+                    body: new FormData(form),
                     headers: { 'Accept': 'application/json' }
                 });
 
-                if (res.ok) {
-                    closeQuotationModal();
-                    form.reset();
+                if (!res.ok) throw new Error('HTTP ' + res.status);
 
-                    // 1 — Mostrar modal de éxito
-                    document.getElementById('successModal').classList.add('show');
+                // ── 4. Éxito: limpiar y mostrar modal ──
+                closeQuotationModal();
+                form.reset();
+                document.getElementById('waModalLink').href = waUrl;
+                document.getElementById('successModal').classList.add('show');
 
-                    // 2 — Después de 2.5 s redirigir a WhatsApp con datos del cliente
-                    const waMsg = `¡Hola Nicolás! Soy ${nombre || 'un cliente'}. Acabo de cotizar un proyecto de *${linea}* en Tensyle. El sistema me dio un precio estimado desde *$${precio} COP*. Te escribo para coordinar los detalles finales. 🚀`;
-                    setTimeout(() => {
-                        window.open('https://wa.me/573171687777?text=' + encodeURIComponent(waMsg), '_blank');
-                    }, 2500);
+                // ── 5. Navegar la ventana ya abierta → WhatsApp (2.5 s) ──
+                setTimeout(() => {
+                    if (waWin && !waWin.closed) {
+                        waWin.location.href = waUrl;
+                    } else {
+                        // Si fue bloqueada, el botón del modal sirve de fallback
+                        document.getElementById('waModalLink').style.animation = 'pulse 0.6s ease 3';
+                    }
+                }, 2500);
 
-                } else {
-                    throw new Error('Respuesta no OK');
-                }
-            } catch {
-                alert('Hubo un problema con el envío. Por favor contáctanos directamente:\n📧 info@tensyle.co\n📱 +57 317 168 7777');
+            } catch (err) {
+                if (waWin) waWin.close(); // Cerrar la pestaña vacía si falló
+                alert('Hubo un problema con el envío.\n📧 info@tensyle.co\n📱 +57 317 168 7777');
             } finally {
-                btn.disabled = false;
+                btn.disabled    = false;
                 btn.textContent = '📩 Enviar Cotización por Correo';
             }
-        }
+        });
 
         // ===== BUSCADOR GALERÍA =====
         document.getElementById('gallerySearch').addEventListener('keyup', function() {
