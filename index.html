@@ -11,6 +11,8 @@
     <meta property="og:description" content="Laboratorio de Manufactura de Precisión. Piezas automotrices, figuras articuladas y accesorios técnicos fabricados en Chía.">
     <meta property="og:type" content="website">
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700&family=Oswald:wght@200;300;400;500;700&display=swap" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
+    <script>emailjs.init('aBZf6Xmi-B_CO08Nm');</script>
     <style>
         :root {
             --primary: #00d4ff;
@@ -2457,7 +2459,20 @@
 
                 if (!res.ok) throw new Error('HTTP ' + res.status);
 
-                // ── 4. Éxito: limpiar y mostrar modal ──
+                // ── 4. EmailJS → correo de confirmación al CLIENTE ──
+                const clientEmail = (document.getElementById('fieldEmail')?.value || '').trim();
+                const material    = (form.querySelector('[name="material_preferido"]')?.value || 'PLA');
+                if (clientEmail) {
+                    emailjs.send('service_rcj4dse', 'template_dpbzr39', {
+                        client_email: clientEmail,
+                        nombre:       nombre || 'Cliente',
+                        linea:        linea,
+                        material:     material.toUpperCase(),
+                        precio:       precio
+                    }).catch(() => {}); // silencioso si falla — el flujo principal ya completó
+                }
+
+                // ── 5. Éxito: limpiar y mostrar modal ──
                 closeQuotationModal();
                 form.reset();
                 document.getElementById('waModalLink').href = waUrl;
