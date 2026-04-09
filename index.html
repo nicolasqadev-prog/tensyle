@@ -2436,9 +2436,11 @@
             const btn  = document.getElementById('formSubmitBtn');
 
             // ── 1. Capturar datos ANTES del reset ──
-            const nombre = (document.getElementById('fieldNombre')?.value || '').trim();
-            const linea  = (form.querySelector('[name="linea_producto"]')?.value || 'proyecto');
-            const precio = document.getElementById('finalTotal')?.textContent || '30,000';
+            const nombre      = (document.getElementById('fieldNombre')?.value || '').trim();
+            const clientEmail = (document.getElementById('fieldEmail')?.value || '').trim();
+            const linea       = (form.querySelector('[name="linea_producto"]')?.value || 'proyecto');
+            const material    = (form.querySelector('[name="material_preferido"]')?.value || 'PLA').toUpperCase();
+            const precio      = document.getElementById('finalTotal')?.textContent || '30,000';
 
             const waMsg = `¡Hola Nicolás! Soy ${nombre || 'un cliente'}. Acabo de cotizar un proyecto de *${linea}* en Tensyle. El sistema me dio un precio estimado desde *$${precio} COP*. Te escribo para coordinar los detalles finales. 🚀`;
             const waUrl = 'https://wa.me/573171687777?text=' + encodeURIComponent(waMsg);
@@ -2460,16 +2462,14 @@
                 if (!res.ok) throw new Error('HTTP ' + res.status);
 
                 // ── 4. EmailJS → correo de confirmación al CLIENTE ──
-                const clientEmail = (document.getElementById('fieldEmail')?.value || '').trim();
-                const material    = (form.querySelector('[name="material_preferido"]')?.value || 'PLA');
                 if (clientEmail) {
                     emailjs.send('service_rcj4dse', 'dpbzr39', {
                         client_email: clientEmail,
                         nombre:       nombre || 'Cliente',
                         linea:        linea,
-                        material:     material.toUpperCase(),
+                        material:     material,
                         precio:       precio
-                    }).catch(() => {}); // silencioso si falla — el flujo principal ya completó
+                    }).catch(err => console.warn('EmailJS:', err));
                 }
 
                 // ── 5. Éxito: limpiar y mostrar modal ──
