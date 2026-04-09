@@ -1157,6 +1157,55 @@
             transform: translateY(-2px);
         }
 
+        /* ========== SELECTOR DE REFERENCIA VISUAL ========== */
+        .ref-grid {
+            display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-top: 12px;
+        }
+
+        .ref-card {
+            border: 2px solid rgba(0, 212, 255, 0.25); border-radius: 8px;
+            padding: 16px 12px; text-align: center; cursor: pointer;
+            background: rgba(26, 31, 58, 0.5); transition: all 0.25s ease;
+            position: relative;
+        }
+
+        .ref-card:hover {
+            border-color: var(--primary); background: rgba(0, 212, 255, 0.08);
+            transform: translateY(-3px); box-shadow: 0 6px 24px rgba(0,212,255,0.15);
+        }
+
+        .ref-card.selected {
+            border-color: var(--primary); background: rgba(0, 212, 255, 0.15);
+            box-shadow: 0 0 20px rgba(0,212,255,0.3);
+        }
+
+        .ref-card.selected::after {
+            content: "✓"; position: absolute; top: 6px; right: 10px;
+            color: var(--primary); font-weight: 700; font-size: 14px;
+        }
+
+        .ref-icon  { font-size: 32px; margin-bottom: 8px; display: block; }
+        .ref-size  { font-family: 'Oswald'; font-size: 13px; color: var(--light);
+                     letter-spacing: 1px; text-transform: uppercase; margin-bottom: 4px; }
+        .ref-desc  { font-size: 11px; color: var(--text); opacity: 0.75; line-height: 1.4; }
+        .ref-weight{ font-family: 'Oswald'; font-size: 15px; color: var(--primary);
+                     margin-top: 8px; letter-spacing: 1px; }
+
+        .ref-adjust {
+            margin-top: 14px; display: flex; align-items: center; gap: 10px;
+        }
+
+        .ref-adjust label { font-family: 'Oswald'; font-size: 11px; color: var(--text);
+                            letter-spacing: 1px; text-transform: uppercase; white-space: nowrap; }
+        .ref-adjust input { flex: 1; padding: 10px 12px; background: rgba(26,31,58,0.8);
+                            border: 1px solid rgba(0,212,255,0.4); color: var(--light);
+                            font-family: 'Montserrat'; border-radius: 4px; font-size: 14px;
+                            font-weight: 600; }
+        .ref-adjust input:focus { outline: none; border-color: var(--primary);
+                                  box-shadow: 0 0 12px rgba(0,212,255,0.3); }
+        .ref-adjust span { font-family: 'Oswald'; font-size: 12px; color: var(--text);
+                           opacity: 0.6; }
+
         /* ========== RESPONSIVO ========== */
         @media (max-width: 768px) {
             nav { padding: 0 25px; }
@@ -1738,21 +1787,27 @@
                         </select>
                     </div>
 
-                    <!-- ENTRADA DUAL: ARCHIVO STL O PESO MANUAL -->
+                    <!-- ENTRADA TRIPLE: STL · REFERENCIA VISUAL · MANUAL -->
                     <div class="quoter-group">
-                        <label>Fuente de datos del modelo</label>
-                        <div style="display:flex; gap:12px; margin-bottom:12px;">
+                        <label>¿Cómo quieres indicar el tamaño de tu pieza?</label>
+
+                        <!-- Tres botones de modo -->
+                        <div style="display:grid; grid-template-columns:1fr 1fr 1fr; gap:8px; margin-bottom:14px;">
                             <button type="button" onclick="setInputMode('file')" id="btnFile"
-                                style="flex:1; padding:10px; font-family:'Oswald'; font-size:11px; letter-spacing:1px; text-transform:uppercase; border:2px solid var(--primary); background:var(--primary); color:var(--darker); border-radius:4px; cursor:pointer; transition:all 0.3s;">
-                                📁 Cargar archivo .STL
+                                style="padding:10px 6px; font-family:'Oswald'; font-size:10px; letter-spacing:1px; text-transform:uppercase; border:2px solid var(--primary); background:var(--primary); color:var(--darker); border-radius:4px; cursor:pointer; transition:all 0.3s; line-height:1.4;">
+                                📁 Tengo<br>archivo .STL
+                            </button>
+                            <button type="button" onclick="setInputMode('visual')" id="btnVisual"
+                                style="padding:10px 6px; font-family:'Oswald'; font-size:10px; letter-spacing:1px; text-transform:uppercase; border:2px solid rgba(0,212,255,0.4); background:transparent; color:var(--text); border-radius:4px; cursor:pointer; transition:all 0.3s; line-height:1.4;">
+                                📸 Tengo foto<br>/ Sin STL
                             </button>
                             <button type="button" onclick="setInputMode('manual')" id="btnManual"
-                                style="flex:1; padding:10px; font-family:'Oswald'; font-size:11px; letter-spacing:1px; text-transform:uppercase; border:2px solid rgba(0,212,255,0.4); background:transparent; color:var(--text); border-radius:4px; cursor:pointer; transition:all 0.3s;">
-                                ✏️ Ingresar peso manual
+                                style="padding:10px 6px; font-family:'Oswald'; font-size:10px; letter-spacing:1px; text-transform:uppercase; border:2px solid rgba(0,212,255,0.4); background:transparent; color:var(--text); border-radius:4px; cursor:pointer; transition:all 0.3s; line-height:1.4;">
+                                ✏️ Sé el peso<br>en gramos
                             </button>
                         </div>
 
-                        <!-- Input STL -->
+                        <!-- MODO A: Input STL -->
                         <div id="inputSTL">
                             <div class="file-input-wrapper">
                                 <input type="file" id="stlFileInput" accept=".stl" onchange="handleSTLUpload(this)">
@@ -1761,9 +1816,51 @@
                             <p id="stlWeightResult" style="font-size:12px; color:var(--accent); margin-top:8px; display:none;"></p>
                         </div>
 
-                        <!-- Input Manual -->
+                        <!-- MODO B: Referencia Visual -->
+                        <div id="inputVisual" style="display:none;">
+                            <p style="font-size:12px; color:var(--text); opacity:0.8; margin-bottom:10px; line-height:1.6;">
+                                Selecciona el tamaño más parecido a tu pieza. Puedes ajustar el peso después si lo necesitas.
+                            </p>
+                            <div class="ref-grid">
+                                <div class="ref-card" onclick="selectRefWeight(10, this)">
+                                    <span class="ref-icon">🔩</span>
+                                    <div class="ref-size">Pequeño</div>
+                                    <div class="ref-desc">Tapa de botella · Clip · Llavero · Botón</div>
+                                    <div class="ref-weight">~10 g</div>
+                                </div>
+                                <div class="ref-card" onclick="selectRefWeight(45, this)">
+                                    <span class="ref-icon">🚪</span>
+                                    <div class="ref-size">Mediano</div>
+                                    <div class="ref-desc">Manija de carro · Figura 10 cm · Soporte celular</div>
+                                    <div class="ref-weight">~45 g</div>
+                                </div>
+                                <div class="ref-card" onclick="selectRefWeight(120, this)">
+                                    <span class="ref-icon">🏺</span>
+                                    <div class="ref-size">Grande</div>
+                                    <div class="ref-desc">Jarrón mediano · Soporte técnico · Carena pequeña</div>
+                                    <div class="ref-weight">~120 g</div>
+                                </div>
+                                <div class="ref-card" onclick="selectRefWeight(250, this)">
+                                    <span class="ref-icon">⛑️</span>
+                                    <div class="ref-size">Extra Grande</div>
+                                    <div class="ref-desc">Casco escala · Pieza robusta · Figura 25+ cm</div>
+                                    <div class="ref-weight">~250 g</div>
+                                </div>
+                            </div>
+                            <div class="ref-adjust">
+                                <label>Ajustar peso:</label>
+                                <input type="number" id="refWeightInput" min="1" placeholder="0"
+                                       oninput="quoterWeight=parseFloat(this.value)||0; calculatePrice();">
+                                <span>gramos</span>
+                            </div>
+                        </div>
+
+                        <!-- MODO C: Manual -->
                         <div id="inputManual" style="display:none;">
-                            <input type="number" id="weight" min="0" placeholder="Peso estimado en gramos (ej: 100)" oninput="calculatePrice()" style="width:100%; padding:12px; background:rgba(26,31,58,0.8); border:1px solid rgba(0,212,255,0.3); color:var(--text); font-family:'Montserrat'; border-radius:4px;">
+                            <input type="number" id="weight" min="0"
+                                   placeholder="Peso estimado en gramos (ej: 100)"
+                                   oninput="quoterWeight=parseFloat(this.value)||0; calculatePrice();"
+                                   style="width:100%; padding:12px; background:rgba(26,31,58,0.8); border:1px solid rgba(0,212,255,0.3); color:var(--text); font-family:'Montserrat'; border-radius:4px;">
                         </div>
                     </div>
 
@@ -2100,36 +2197,47 @@
             document.getElementById('finalTotal').textContent   = total.toLocaleString('es-CO');
         }
 
-        // ===== MODO ENTRADA DUAL (STL / MANUAL) =====
+        // ===== MODO ENTRADA TRIPLE (STL · VISUAL · MANUAL) =====
         function setInputMode(mode) {
-            const stlDiv    = document.getElementById('inputSTL');
-            const manualDiv = document.getElementById('inputManual');
-            const btnFile   = document.getElementById('btnFile');
-            const btnManual = document.getElementById('btnManual');
-            const activeStyle   = 'flex:1;padding:10px;font-family:Oswald,sans-serif;font-size:11px;letter-spacing:1px;text-transform:uppercase;border:2px solid var(--primary);background:var(--primary);color:var(--darker);border-radius:4px;cursor:pointer;transition:all 0.3s;';
-            const inactiveStyle = 'flex:1;padding:10px;font-family:Oswald,sans-serif;font-size:11px;letter-spacing:1px;text-transform:uppercase;border:2px solid rgba(0,212,255,0.4);background:transparent;color:var(--text);border-radius:4px;cursor:pointer;transition:all 0.3s;';
+            const panels = { file: 'inputSTL', visual: 'inputVisual', manual: 'inputManual' };
+            const btns   = { file: 'btnFile',  visual: 'btnVisual',   manual: 'btnManual'   };
 
-            if (mode === 'file') {
-                stlDiv.style.display    = 'block';
-                manualDiv.style.display = 'none';
-                btnFile.style.cssText   = activeStyle;
-                btnManual.style.cssText = inactiveStyle;
-            } else {
-                stlDiv.style.display    = 'none';
-                manualDiv.style.display = 'block';
-                btnManual.style.cssText = activeStyle;
-                btnFile.style.cssText   = inactiveStyle;
-                // peso desde input manual
+            const activeCSS   = 'padding:10px 6px;font-family:Oswald,sans-serif;font-size:10px;letter-spacing:1px;text-transform:uppercase;border:2px solid var(--primary);background:var(--primary);color:var(--darker);border-radius:4px;cursor:pointer;transition:all 0.3s;line-height:1.4;';
+            const inactiveCSS = 'padding:10px 6px;font-family:Oswald,sans-serif;font-size:10px;letter-spacing:1px;text-transform:uppercase;border:2px solid rgba(0,212,255,0.4);background:transparent;color:var(--text);border-radius:4px;cursor:pointer;transition:all 0.3s;line-height:1.4;';
+
+            // Mostrar solo el panel activo
+            Object.entries(panels).forEach(([k, id]) => {
+                document.getElementById(id).style.display = (k === mode) ? 'block' : 'none';
+            });
+            // Estilo de botones
+            Object.entries(btns).forEach(([k, id]) => {
+                document.getElementById(id).style.cssText = (k === mode) ? activeCSS : inactiveCSS;
+            });
+
+            // Sincronizar peso al cambiar de modo
+            if (mode === 'manual') {
                 const w = document.getElementById('weight');
-                if (w) { quoterWeight = parseFloat(w.value) || 0; calculatePrice(); }
+                quoterWeight = parseFloat(w && w.value) || 0;
             }
+            if (mode === 'visual') {
+                const r = document.getElementById('refWeightInput');
+                quoterWeight = parseFloat(r && r.value) || 0;
+            }
+            calculatePrice();
         }
 
-        // Sincronizar peso manual con la variable global
-        document.addEventListener('DOMContentLoaded', () => {
-            const w = document.getElementById('weight');
-            if (w) w.addEventListener('input', () => { quoterWeight = parseFloat(w.value) || 0; calculatePrice(); });
-        });
+        // Selección de tarjeta de referencia visual
+        function selectRefWeight(grams, card) {
+            // Quitar selección anterior
+            document.querySelectorAll('.ref-card').forEach(c => c.classList.remove('selected'));
+            card.classList.add('selected');
+
+            // Asignar peso al input ajustable
+            const input = document.getElementById('refWeightInput');
+            input.value  = grams;
+            quoterWeight = grams;
+            calculatePrice();
+        }
 
         // ===== STL UPLOAD Y ESTIMACIÓN DE PESO =====
         // Densidades aproximadas g/cm³
