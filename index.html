@@ -2484,7 +2484,7 @@
             const material    = (form.querySelector('[name="material_preferido"]')?.value || 'PLA').toUpperCase();
             const precio      = document.getElementById('finalTotal')?.textContent || '30,000';
 
-            const waMsg = `¡Hola Nicolás! Soy ${nombre || 'un cliente'}. Acabo de cotizar un proyecto de *${linea}* en Tensyle. El sistema me dio un precio estimado desde *$${precio} COP*. Te escribo para coordinar los detalles finales. 🚀`;
+            const waMsg = `¡Hola Tensyle! Soy ${nombre || 'un cliente'}. Acabo de cotizar un proyecto de *${linea}* en Tensyle. El sistema me dio un precio estimado desde *$${precio} COP*. Me gustaría coordinar los detalles finales. 🚀`;
             const waUrl = 'https://wa.me/573171687777?text=' + encodeURIComponent(waMsg);
 
             // ── 2. Abrir ventana YA (contexto de clic = no se bloquea como popup) ──
