@@ -2007,6 +2007,48 @@
                 </div>
 
             </div>
+
+            <!-- FORMULARIO PARA DEJAR TESTIMONIO -->
+            <div class="testi-form-wrap reveal" style="margin-top: 60px; max-width: 700px; margin-left: auto; margin-right: auto;">
+                <h3 style="font-family: 'Oswald'; font-size: 1.4rem; color: var(--primary); letter-spacing: 2px; text-transform: uppercase; margin-bottom: 25px; text-align: center;">¿Ya trabajaste con nosotros? Déjanos tu opinión</h3>
+                <form id="testiForm" style="background: var(--gray); padding: 30px; border-radius: 8px; border: 1px solid rgba(0,212,255,0.15);">
+                    <div class="form-group">
+                        <label style="font-size: 0.85rem; color: var(--primary); letter-spacing: 1px; text-transform: uppercase; display: block; margin-bottom: 8px;">Tu nombre *</label>
+                        <input type="text" id="testiNombre" required style="width:100%; padding: 12px 15px; background: var(--darker); border: 1px solid rgba(0,212,255,0.3); color: var(--text); border-radius: 4px; font-family: 'Montserrat'; font-size: 0.95rem;">
+                    </div>
+                    <div class="form-group" style="margin-top: 18px;">
+                        <label style="font-size: 0.85rem; color: var(--primary); letter-spacing: 1px; text-transform: uppercase; display: block; margin-bottom: 8px;">¿Qué línea pediste? *</label>
+                        <select id="testiLinea" style="width:100%; padding: 12px 15px; background: var(--darker); border: 1px solid rgba(0,212,255,0.3); color: var(--text); border-radius: 4px; font-family: 'Montserrat'; font-size: 0.95rem;">
+                            <option value="Automotive">🚗 Automotive</option>
+                            <option value="Motion Collection">🎭 Motion Collection</option>
+                            <option value="Hogar">🏠 Hogar</option>
+                            <option value="Otro">Otro</option>
+                        </select>
+                    </div>
+                    <div class="form-group" style="margin-top: 18px;">
+                        <label style="font-size: 0.85rem; color: var(--primary); letter-spacing: 1px; text-transform: uppercase; display: block; margin-bottom: 10px;">Calificación *</label>
+                        <div id="starRating" style="display: flex; gap: 10px; font-size: 2rem; cursor: pointer;">
+                            <span class="star-btn" data-val="1" style="opacity:0.3; transition: opacity 0.2s;">★</span>
+                            <span class="star-btn" data-val="2" style="opacity:0.3; transition: opacity 0.2s;">★</span>
+                            <span class="star-btn" data-val="3" style="opacity:0.3; transition: opacity 0.2s;">★</span>
+                            <span class="star-btn" data-val="4" style="opacity:0.3; transition: opacity 0.2s;">★</span>
+                            <span class="star-btn" data-val="5" style="opacity:0.3; transition: opacity 0.2s;">★</span>
+                        </div>
+                        <input type="hidden" id="testiStars" value="">
+                    </div>
+                    <div class="form-group" style="margin-top: 18px;">
+                        <label style="font-size: 0.85rem; color: var(--primary); letter-spacing: 1px; text-transform: uppercase; display: block; margin-bottom: 8px;">Tu comentario *</label>
+                        <textarea id="testiComentario" required rows="4" placeholder="Cuéntanos tu experiencia con Tensyle..." style="width:100%; padding: 12px 15px; background: var(--darker); border: 1px solid rgba(0,212,255,0.3); color: var(--text); border-radius: 4px; font-family: 'Montserrat'; font-size: 0.95rem; resize: vertical;"></textarea>
+                    </div>
+                    <button type="submit" style="margin-top: 22px; width: 100%; padding: 15px; background: var(--primary); color: var(--darker); border: none; font-family: 'Oswald'; font-size: 1rem; letter-spacing: 2px; text-transform: uppercase; font-weight: 700; border-radius: 4px; cursor: pointer; transition: all 0.3s;">
+                        ⭐ ENVIAR MI OPINIÓN
+                    </button>
+                    <div id="testiSuccess" style="display:none; margin-top: 18px; text-align: center; color: var(--success); font-weight: 600;">
+                        ✅ ¡Gracias por tu opinión! Nicolás la revisará pronto.
+                    </div>
+                </form>
+            </div>
+
         </div>
     </section>
 
@@ -2810,6 +2852,64 @@
 
         document.addEventListener('keydown', e => {
             if (e.key === 'Escape') { closeImageModal(); closeQuotationModal(); }
+        });
+
+        /* ── FORMULARIO DE TESTIMONIO: ESTRELLAS + ENVÍO ────────────────── */
+        let testiRating = 0;
+        document.querySelectorAll('.star-btn').forEach(star => {
+            star.addEventListener('mouseover', function() {
+                const val = parseInt(this.dataset.val);
+                document.querySelectorAll('.star-btn').forEach((s, i) => {
+                    s.style.opacity = i < val ? '1' : '0.3';
+                    s.style.color   = i < val ? 'var(--warning)' : '';
+                });
+            });
+            star.addEventListener('mouseout', function() {
+                document.querySelectorAll('.star-btn').forEach((s, i) => {
+                    s.style.opacity = i < testiRating ? '1' : '0.3';
+                    s.style.color   = i < testiRating ? 'var(--warning)' : '';
+                });
+            });
+            star.addEventListener('click', function() {
+                testiRating = parseInt(this.dataset.val);
+                document.getElementById('testiStars').value = testiRating;
+            });
+        });
+
+        document.getElementById('testiForm').addEventListener('submit', async function(e) {
+            e.preventDefault();
+            const nombre     = document.getElementById('testiNombre').value.trim();
+            const linea      = document.getElementById('testiLinea').value;
+            const comentario = document.getElementById('testiComentario').value.trim();
+            const stars      = testiRating;
+            const btn        = this.querySelector('button[type="submit"]');
+
+            if (!nombre || !comentario) return alert('Por favor completa tu nombre y comentario.');
+            if (!stars) return alert('Por favor selecciona una calificación.');
+            if (containsBanned(comentario)) return alert('Por favor usa un lenguaje apropiado en tu comentario.');
+
+            btn.disabled = true;
+            btn.textContent = '⏳ Enviando...';
+
+            try {
+                await fetch('https://formsubmit.co/ajax/nicolas.qa.dev@gmail.com', {
+                    method: 'POST',
+                    headers: { 'Accept': 'application/json', 'Content-Type': 'application/json' },
+                    body: JSON.stringify({
+                        _subject: '⭐ Nuevo Testimonio Tensyle',
+                        nombre, linea, calificacion: stars + '/5', comentario
+                    })
+                });
+                document.getElementById('testiSuccess').style.display = 'block';
+                this.reset();
+                testiRating = 0;
+                document.querySelectorAll('.star-btn').forEach(s => { s.style.opacity = '0.3'; s.style.color = ''; });
+            } catch(err) {
+                alert('Hubo un problema. Intenta de nuevo o escríbenos por WhatsApp.');
+            } finally {
+                btn.disabled = false;
+                btn.textContent = '⭐ ENVIAR MI OPINIÓN';
+            }
         });
 
         /* ── TESTIMONIOS: FILTRO + BÚSQUEDA ─────────────────────────────── */
